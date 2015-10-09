@@ -178,7 +178,7 @@ function allDeal(){
 				$('#deal-list').append(deal);
 
 				total_amount=total_amount+data[i].amount;
-				console.log(data[i].from_date+'----'+data[i].to_date+'-----'+getDuration(data[i].from_date,data[i].to_date));
+			//	console.log(data[i].from_date+'----'+data[i].to_date+'-----'+getDuration(data[i].from_date,data[i].to_date));
 
 			}
 			var deal = '<tr>'
@@ -316,18 +316,3 @@ $("#search").keyup(function () {
         });
     });
 });
-
-function getDuration(startDate, endDate) {
-  var start = moment(startDate);
-  var end = moment(endDate);
-  var units = ['years', 'months', 'days'];
-  var parts = [];
-  units.forEach(function(unit, i) {
-    var diff = Math.floor(end.diff(start, unit, true));
-    if (diff > 0 || i == units.length - 1) {
-      end.subtract(unit, diff);
-      parts.push(diff + ' ' + unit);
-    }
-  })
-  return parts.join(', ');
-}

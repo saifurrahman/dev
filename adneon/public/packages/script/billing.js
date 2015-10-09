@@ -58,7 +58,7 @@ function search() {
 	var from_date = $('#from_date').val();
 	var to_date = $('#to_date').val();
 //	$('#sBtn').attr('disabled', true).html('Searching...');
-	$('#schedule-list').html('<tr><td colspan="6" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+	$('#schedule-list').html('<tr><td colspan="8" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 	$.ajax({
 		url : '/billing/search',
 		type : 'POST',
@@ -72,21 +72,20 @@ function search() {
 		success : function(data) {
 			$('#schedule-list,#total-sec').empty();
 		//	$('#sBtn').attr('disabled', false).html('Search');
-			console.log(data);
 			$('#deal-list,#tax-part').empty();
-			total_duration = 0;
 			for ( var i in data) {
-
+			var days =	calculateDuration(moment(data[i].from_date),moment(data[i].to_date),moment(from_date),moment(to_date));
+			if(days>0){
 				var deal = '<tr>'
 										+'<td class="id hidden">'+data[i].id+'</td>'
 										+'<td class="deal_id">D'+pad(data[i].id, 4)+'</a></td>'
-										+'<td class="duration">Duration '+data[i].duration+'</td>'
+										+'<td class="duration">'+moment(data[i].from_date).format('DD-MMM-YY')+' to '+moment(data[i].to_date).format('DD-MMM-YY')+'</td>'
 										+'<td class="name">'+data[i].name+'</td>'
+											+'<td class="name">'+days+'</td>'
 										+'<td class="amount">'+data[i].amount+'</td>'
-										+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
 										+'</tr>';
 					$('#deal-list').append(deal);
-
+				}
 			}
 if(data.length!=0){
 	var tax = '<tr>'
@@ -118,51 +117,26 @@ if(data.length!=0){
 	});
 
 }
+function calculateDuration(dealStartDate,dealEndDate,billFromDate,billToDate){
+	var from_date;
+	var to_date;
+	if(billFromDate>=dealStartDate){
+		from_date=moment(billFromDate,"YYYY-MM-DD");
+	}else{
+		from_date=moment(dealStartDate,"YYYY-MM-DD");
+	}
+	if(billToDate<=dealEndDate){
+		  to_date =moment(billToDate,"YYYY-MM-DD");
+	}else{
+		to_date =moment(dealEndDate,"YYYY-MM-DD");
+	}
 
-function showBillDetails(){
-	var deal_id = $('#deal_id').val();
-	var from_date = $('#from_date').val();
-	var to_date = $('#to_date').val();
-	var spot = count;
-	var total_sec = total_duration;
-	$('#billBtn').attr('disabled', true).html('Please Wait..');
-	$.ajax({
-		url : '/billing/dealdetails',
-		type : 'POST',
-		dataType : 'JSON',
-		data : {'deal_id' : deal_id,},
-		success:function(data){
-			$('#billBtn').attr('disabled', false).html('Generate Bill');
-			$('#schedulebill-div').hide('200');
-			$('#bill-row').show('200');
-			for(var i in data){
-				var dealInfo = 	'<h5><strong>Client Name:</strong> &nbsp;'+data[i].client_name+'</h5>'
-								+'<h5><strong>Agency Name:</strong> &nbsp;'+data[i].agency_name+'</h5>'
-								+'<h5><strong>Duration (in secs.):</strong> &nbsp;'+data[i].duration+'</h5>'
-								+'<h5><strong>RO Number:</strong> &nbsp;'+data[i].ro_number+'</h5>'
-								+'<h5><strong>Time Slots:</strong> &nbsp;'+data[i].time_slot+'</h5>'
-								+'<h5><strong>Date:</strong> &nbsp;'+moment(data[i].from_date).format('ll')+'&nbsp;-&nbsp;'+moment(data[i].to_date).format('ll')+'</h5>';
+	var ms = moment(to_date,"YYYY-MM-DD").diff(moment(from_date,"YYYY-MM-DD"));
+	var d = moment.duration(ms);
 
-				$('#deal-info').html(dealInfo);
-			}
-			$('#deal_id').val(deal_id);
-			$('#date_from').val(from_date);
-			$('#date_to').val(to_date);
-			$('#spot').val(spot);
-			//alert(total_sec);
-			$('#total_duration').val(total_sec);
-			$('#rate').val(spot);
-			$('#net_amount').val(spot);
-			$('#service_tax').val(spot);
-			$('#edu_cess').val(spot);
-			$('#billed_amount').val(spot);
-
-		}
-
-	});
-
+	console.log(moment(from_date).format("YYYY-MM-DD") +'--'+moment(to_date).format("YYYY-MM-DD")+' : '+d.asDays());
+	return d.asDays();
 }
-
 
 $("#deal-list").on("click", ".del", function() {
 	var $del = $(this);
@@ -170,3 +144,17 @@ $("#deal-list").on("click", ".del", function() {
 	$del.closest("tr").remove();
 	alertify.error("Deal removed");
 });
+function getDuration(startDate, endDate) {
+  var start = moment(startDate);
+  var end = moment(endDate);
+  var units = ['years', 'months', 'days'];
+  var parts = [];
+  units.forEach(function(unit, i) {
+    var diff = Math.floor(end.diff(start, unit, true));
+    if (diff > 0 || i == units.length - 1) {
+      end.subtract(unit, diff);
+      parts.push(diff + ' ' + unit);
+    }
+  })
+  return parts.join(', ');
+}

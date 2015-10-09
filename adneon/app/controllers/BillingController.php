@@ -18,8 +18,8 @@ class BillingController extends Controller
                         ->join('item_master', 'deal_master.item_id', '=',
                         'item_master.id')
 
-                       ->where('deal_master.from_date','<=', $from_date)
-                        ->where('deal_master.to_date','>=', $to_date)
+                       //->where('deal_master.from_date','<=', $from_date)
+                      //  ->where('deal_master.to_date','>=', $to_date)
                         ->where('deal_master.agency_id', $agency_id)
                         ->select('deal_master.id','deal_master.duration','item_master.name','deal_master.amount','deal_master.from_date','deal_master.to_date')
                         ->get();
@@ -31,7 +31,7 @@ class BillingController extends Controller
                       ->join('item_master', 'deal_master.item_id', '=',
                       'item_master.id')
                     //  ->where('deal_master.from_date','<=', $from_date)
-                      ->where('deal_master.to_date','>=', $to_date)
+                    //  ->where('deal_master.to_date','>=', $to_date)
                       ->where('deal_master.agency_id', $agency_id)
                       ->where('deal_master.client_id', $client_id)
                       ->select('deal_master.id','deal_master.duration','item_master.name','deal_master.amount','deal_master.from_date','deal_master.to_date')

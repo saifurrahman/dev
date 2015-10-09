@@ -12,15 +12,11 @@
 		<section class="panel panel-default">
 			<header class="panel-heading"> Search Schedule </header>
 			<div class="row wrapper">
-
-
 					<div class="col-sm-3">
 						<select class="form-control"
 							id="agency_id" name="agency_id" ></select>
 
 					</div>
-
-
 					<div class="col-sm-3">
 						<select class="form-control"
 							id="client_id" name="client_id"></select>
@@ -45,8 +41,8 @@
 						<th>Deal ID</th>
 						<th>Property</th>
 						<th>Details</th>
+						<th>Duration(Days)</th>
 						<th>Amount</th>
-						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody id="deal-list"></tbody>
