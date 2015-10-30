@@ -198,6 +198,8 @@ function allDeal(){
 
 			$('#total_deal').empty().append('INR '+total_amount.toFixed(2));
 			$('#deal-list').append(deal);
+
+			
 		}
 	});
 }

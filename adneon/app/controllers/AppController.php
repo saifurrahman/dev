@@ -127,6 +127,13 @@ class AppController extends BaseController
     		return Redirect::to ( '/' );
     	}
     }
+    public function getDailyreport(){
+      if (Auth::check () ) {
+    		    $this->layout->content = View::make ( 'addneon.reports.daily' );
+    	}else {
+    		return Redirect::to ( '/' );
+    	}
+    }
     // settings
     public function getUsers ()
     {

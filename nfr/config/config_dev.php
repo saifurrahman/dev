@@ -8,14 +8,14 @@ if(!empty($_SERVER['HTTPS'])) {
 else{
 	define('protocol', 'http');
 }
-define('URL', protocol.'://localhost/development/nfr/');
+define('URL', protocol.'://localhost:8888/dev/nfr/');
 define('LIBS', 'libs/');
 //database connection
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'nfr');
+define('DB_HOST', 'localhost:8889');
+define('DB_NAME', 'nfr_new');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'root');
 // The sitewide hashkey, do not change this because its used for passwords!
 // This is for other hash keys... Not sure yet
 define('HASH_GENERAL_KEY', 'GlomindzSoftwarePrivateLimited');

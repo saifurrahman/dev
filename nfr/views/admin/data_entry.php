@@ -15,7 +15,7 @@
 			<div class="col-md-1 col-md-offset-8 ">
 				<button type="button" title="click to download as a excel" class="btn btn-default cmn_btn"
 					onclick="show();">
-					<i class="fa fa-download"></i>
+					<i class="fa fa-download text-primary-dk"></i>
 				</button>
 			</div>
 		</div>

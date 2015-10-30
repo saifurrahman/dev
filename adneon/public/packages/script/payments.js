@@ -90,6 +90,7 @@ function alltransaction() {
 		datatype : 'JSON',
 		success : function(data) {
 			$('#transcation-list').empty();
+			var total_amount=0;
 			for ( var i in data) {
 				var row = '<tr>'
 					// +'<td class="hidden">'+data[i].id+'</td>'
@@ -103,7 +104,9 @@ function alltransaction() {
 				+ '<td>' + data[i].remarks + '</td>'
 				+ '</td>' + '</tr>';
 				$('#transcation-list').append(row);
+				total_amount=total_amount+data[i].amount;
 			}
+			$('#total_payments').empty().append('INR '+total_amount.toFixed(2));
 		}
 	});
 }

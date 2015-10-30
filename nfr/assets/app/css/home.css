@@ -1,0 +1,82 @@
+body {
+  background-color: #eee;
+  background-image: url('../../img/firebase.png');
+}
+#footer{
+  background: transparent;
+  width: 100%;
+  position: fixed;
+}
+#footerP{
+  text-align: center;
+  margin-top: 5px;
+  color: #fff;
+}
+#devdesby{
+  color: #99cc33;
+}
+h1,h3,h5{
+  color: #fff;
+}
+.panel {
+  border-radius: 0;
+}
+.panel-heading{
+ border-top-right-radius: 0;
+ border-top-left-radius: 0;
+}
+form label{
+  color: #000;
+  font-weight: normal;
+}
+.panel-title{
+  font-size: 18px;
+}
+.btn{
+  border-radius: 0;
+}
+#forgot_password{
+ line-height: 2.5;  
+}
+#login_fail{
+  display: none;
+  color: #fff;
+  background-color: #FF4141;
+}
+.text-late-latif{
+	color: #FF2D2D;
+}
+/*** modifyed bootstrap***/
+
+@media only screen and (min-width : 320px) {
+  #logo{
+    margin-left: 25%;
+  }  
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  #logo{
+    margin-left: 15%;
+  }  
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  #logo{
+    margin-left: 27%;
+  }
+  #footer{
+    bottom: 0;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  #logo{
+    margin-left: 27%;
+  }
+  #footer{
+    bottom: 0;
+  }
+}

@@ -183,6 +183,11 @@
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Telecast Reports</span>
     										</a>
 										</li>
+										<li id="telecast_time_reports"class="auto">
+    										<a href="{{URL::to('addneon/dailyreport')}}">
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily Reports</span>
+    										</a>
+										</li>
 
 										@endif
 									</ul>

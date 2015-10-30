@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <section class="row m-b-md">
 	<div class="col-sm-6">
-		<h3 class="m-b-xs text-black">Payments</h3>
+		<h3 class="m-b-xs text-black">Payments <span class="m-b-xs text-danger pull-right" id="total_payments"></span></h3>
 	</div>
 	<div class="col-sm-6 text-right text-left-xs m-t-md">
 		<div class="btn-group">
@@ -38,7 +38,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4">Bill No</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" name="bill_id"
+							<input type="text" class="form-control" name="bill_id"
 								id="bill_id" placeholder="bill_id" >
 						</div>
 					</div>
