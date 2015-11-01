@@ -33,6 +33,7 @@
 {{HTML::script('packages/js/Chart.js');}}
 
 </head>
+
 <body>
 	<section class="vbox">
 		<header
@@ -108,18 +109,18 @@
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
 										<li id="client">
-												<a href="{{URL::to('app/overdue')}}">
-													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold text-danger-dk">Overdue Report</span>
+												<a href="{{URL::to('app/overduereport')}}">
+													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Report</span>
 												</a>
 										</li>
 										<li id="deals">
-												<a href="{{URL::to('#')}}">
+												<a href="{{URL::to('app/staionwisereport')}}">
 													<i class="fa fa-home text-success-dk"> </i> <span class="font-bold">Station Wise Report</span>
 												</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('#')}}">
+    										<a href="{{URL::to('app/gearwisereport')}}">
     										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Report</span>
     										</a>
 
@@ -131,32 +132,32 @@
 										@if (Session::get('Deals') != 0)
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master Data</div>
 										<li id="deals">
-    										<a href="{{URL::to('#')}}">
+    										<a href="{{URL::to('app/stations')}}">
     										  <i class="fa fa-home text-primary-dk"> </i> <span class="font-bold">Station Master</span>
     										</a>
 
 										</li>
 
 										<li id="deals">
-    										<a href="{{URL::to('#')}}">
+    										<a href="{{URL::to('app/schedulecode')}}">
     										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">Schedule Code Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('#')}}">
+    										<a href="{{URL::to('app/geartype')}}">
     										  <i class="fa fa-gears text-primary-dk"> </i> <span class="font-bold">Gear Type Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('#')}}">
+    										<a href="{{URL::to('app/stationgear')}}">
     										  <i class="fa fa-industry text-primary-dk"> </i> <span class="font-bold">Station Gear Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-												<a href="{{URL::to('#')}}">
+												<a href="{{URL::to('app/users')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">User Master</span>
 												</a>
 

@@ -32,12 +32,69 @@ class AppController extends BaseController
     	}
     }
 
-    // settings
+
+    //Reports
+    public function getOverduereport ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.overdue_report');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getStaionwisereport ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.station_report');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getGearwisereport ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.gear_wise_report');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    //Masters
+    public function getStations ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.station_master');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getSchedulecode ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.schedule_code_master');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getGeartype ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.gear_type_master');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getStationgear ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.station_gear_master');
+        } else {
+            return Redirect::to('/');
+        }
+    }
     public function getUsers ()
     {
         if (Auth::check()) {
-            $this->layout->content = View::make(
-                    'app.settings.users');
+            $this->layout->content = View::make('app.master.user_master');
         } else {
             return Redirect::to('/');
         }

@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h2>Gear Maintainace</h2>
+		<h3>Gear Maintainace</h3>
 	</div>
 </div>
 {{Form::open(array('','id'=>'schedule-form','class'=>'form-horizontal'))}}
@@ -12,7 +12,7 @@
 			</div>
 			<div class="col-md-1 col-md-offset-8">
 				<button type="button" title="click to download as a excel" class="btn btn-default cmn_btn"
-					onclick="download();">
+					id="excel">
 					<i class="fa fa-download text-danger-dk"></i>
 				</button>
 			</div>

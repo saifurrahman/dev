@@ -135,7 +135,7 @@ function loadStationGears(station_id,gear_code){
 					+'<td>'+data[i].gear_no+'</td>'
 					+'<td>'+data[i].schedule_code+'</td>'
 					+'<td>'+data[i].role+'</td>'
-					+'<td>'+data[i].next_maintenance_date+'</td>'
+					+'<td>'+moment(data[i].next_maintenance_date).format('ll')+'</td>'
 					+'<td>'+data[i].discontinuation_status+'</td>'
 					+'<td>'+data[i].maintenance_by+'</td>'
 					+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
@@ -168,3 +168,10 @@ function delete_data(id){
 		}
 	});
 }
+$("#excel").click(function() {
+	//alert(1);
+	$("#data-list").table2excel({
+		exclude : ".noExl",
+		name : "Coommercial Schedule"
+	});
+});

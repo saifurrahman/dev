@@ -2,16 +2,11 @@
 
 <div class="row">
 			<div class="page-header">
-				<h2>Joint Point and Crossing Inspection
-				<button type="button" title="click to download as a excel" class="btn btn-default cmn_btn"
-					onclick="download();">
-					<i class="fa fa-download text-danger-dk"></i>
-				</button>
-			</h2>
+				<h3>Joint Point and Crossing Inspection	</h3>
 			</div>
 </div>
-
-<div class="row" id="maintainance_form">
+{{Form::open(array('','id'=>'crossing-form','class'=>'form-horizontal'))}}
+<div class="row" id="crossing-form">
 				<div class="col-md-3">
 					<label class="small">Station</label>
 						<div class="form-group">
@@ -30,12 +25,36 @@
 
 					<div class="col-md-3">
 						<label class="small">Inspection Date</label>
-						<input type="text" class="form-control" name="maintenance_by" id="maintenance_by">
+						<input type="text" class="form-control" name="inspection_date" id="inspection_date">
 					</div>
 					<div class="col-md-1">
 						<label></label>
 						<button type="button" onclick="saveData();" id="saveBtn" class="btn btn-success btn-block">save</button>
 					</div>
-
+					<div class="col-md-2">
+						<label></label>
+						<button type="button" onclick="overdueStation();" id="saveBtn" class="btn btn-danger btn-block">overdue station</button>
+					</div>
+{{ Form::close()}}
 </div>
-{{HTML::script('packages/script/agency.js');}} @stop
+<div class="row">
+			<div class="col-md-12">
+				<label>Inspection ledger</label>
+				<div class="table-responsive">
+					<table id="data-entry-table" class="table table-hover table-bordered table-striped table-condensed">
+						<thead>
+							<tr>
+								<th>Station Code</th>
+								<th>Role</th>
+								<th>Last Inspection Date</th>
+								<th>Next Inspection Date Due</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody id="data-list"></tbody>
+					</table>
+				</div>
+			</div>
+</div>
+
+{{HTML::script('packages/script/crossing.js');}} @stop
