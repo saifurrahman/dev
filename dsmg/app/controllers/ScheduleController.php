@@ -31,16 +31,18 @@ class ScheduleController extends Controller
       $data = DB::select(DB::raw($query));
       return Response::json($data);
     }
-    public function getOverduecrossinginspection(){
-      $query="SELECT t1.*,t2.code FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id order by t1.created_at desc";
-      $data = DB::select(DB::raw($query));
-      return Response::json($data);
-    }
+
     public function postDeletecrossinginspection() {
       $id = $_POST ['id'];
       $data= DB::table('nfr_jp_crossing_inspection_ledger')->where('id', '=', $id)->delete();
       return Response::json(1);
     }
+    public function getOverduecrossinginspection(){
+      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id GROUP BY t1.station_id,t1.role order by t1.station_id";
+      $data = DB::select(DB::raw($query));
+      return Response::json($data);
+    }
+
     public function postSavedata(){
         $user_id = Session::get("user_id");
   		  $periodicity_level_1 = Input::get('periodicity_level_1');

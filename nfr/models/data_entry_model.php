@@ -8,7 +8,7 @@ class Data_Entry_Model extends Model {
 	function searchScheduleCodeByStation() {
 		$station_id = $_POST ['station_id'];
 		$gear_code = $_POST ['gear_code'];
-		
+
 		// get gear_no
 		$sql = "SELECT * FROM " . TABLE_STATION_GEAR_MASTER . " WHERE station_id = $station_id AND gear_type_id = $gear_code";
 		$sth = $this->db->prepare ( $sql );
@@ -16,7 +16,7 @@ class Data_Entry_Model extends Model {
 		$sth->execute ();
 		$data = $sth->fetchAll ();
 		$datanew ['gear_no'] = $data;
-		
+
 		// get schedule code
 		$sql = "SELECT * FROM " . TABLE_SCHEDULE_CODE_MASTER . " WHERE  gear_type_id = $gear_code";
 		$sth = $this->db->prepare ( $sql );
@@ -24,7 +24,7 @@ class Data_Entry_Model extends Model {
 		$sth->execute ();
 		$data = $sth->fetchAll ();
 		$datanew ['sch_code'] = $data;
-		
+
 		// show in json
 		$this->closeConnection ();
 		echo json_encode ( $datanew );
@@ -54,7 +54,7 @@ class Data_Entry_Model extends Model {
 		// $this->closeConnection();
 		echo $id;
 	}
-	
+
 	// delete data
 	function deleteData() {
 		$station_id = $_POST ['station_id'];
@@ -70,7 +70,6 @@ class Data_Entry_Model extends Model {
 		$sth->setFetchMode ( PDO::FETCH_ASSOC );
 		$sth->execute ();
 		$data = $sth->fetchAll ();
-		$this->closeConnection ();
 		echo json_encode ( $data );
 	}
 	function getStationJointCrossingSchedule() {
@@ -79,7 +78,14 @@ class Data_Entry_Model extends Model {
 		$sth->setFetchMode ( PDO::FETCH_ASSOC );
 		$sth->execute ();
 		$data = $sth->fetchAll ();
-		$this->closeConnection ();
 		echo json_encode ( $data );
 	}
+	function getOverdueStationJointCrossing() {
+		$query ="SELECT * FROM `nfr_jp_crossing_inspection_ledger` GROUP BY station_id,role";$sth = $this->db->prepare ( $query );
+		$sth->setFetchMode ( PDO::FETCH_ASSOC );
+		$sth->execute ();
+		$data = $sth->fetchAll ();
+		echo json_encode ( $data );
+	}
+
 }

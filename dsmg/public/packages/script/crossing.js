@@ -38,10 +38,35 @@ function loadCrossingPointInspectionLedger(){
 						+'<td>'+data[i].code+'</td>'
 						+'<td>'+data[i].role+'</td>'
 						+'<td>'+moment(data[i].date_of_inspection).format('ll')+'</td>'
-						+'<td>'+moment(data[i].date_of_inspection_due).format('ll')+'</td>'
+						+'<td>'+moment(data[i].due_date_of_inspection).format('ll')+'</td>'
 						+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
 						+'</tr>';
 				$('#data-list').append(row);
+			}
+		}
+	});
+
+}
+function overdueStation(){
+	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
+
+	$.ajax({
+		url: '../schedule/overduecrossinginspection/',
+		type: 'GET',
+		dataTtype: 'JSON',
+		success: function(data){
+			$('#data-list').empty();
+			 for (var i in data){
+				var row = '<tr>'
+						+'<td class="hidden id">'+data[i].id+'</td>'
+						+'<td>'+data[i].code+'</td>'
+						+'<td>'+data[i].role+'</td>'
+						+'<td>'+moment(data[i].date_of_inspection).format('ll')+'</td>'
+						+'<td>'+moment(data[i].due_date_of_inspection).format('ll')+'</td>'
+						+'</tr>';
+				if(moment(data[i].due_date_of_inspection)<= new Date()){
+				$('#data-list').append(row);
+			 }
 			}
 		}
 	});
