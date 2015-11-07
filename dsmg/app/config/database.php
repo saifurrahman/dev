@@ -46,8 +46,6 @@ return array(
 
 	'connections' => array(
 
-
-
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost:8889',
@@ -58,7 +56,6 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-
 	),
 
 	/*

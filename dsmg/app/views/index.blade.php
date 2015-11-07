@@ -9,17 +9,15 @@
 <!-- css -->
 {{HTML::style('packages/css/bootstrap.css')}}
 {{HTML::style('packages/css/animate.css')}}
-{{HTML::style('packages/css/font-awesome.min.css')}}
+{{HTML::style('packages/css/font-awesome.css')}}
 {{HTML::style('packages/css/icon.css')}}
 {{HTML::style('packages/css/font.css')}}
 {{HTML::style('packages/css/app.css')}}
 
 
-<!-- script js -->
-{{HTML::script('packages/js/jquery.min.js');}}
+
 {{HTML::script('packages/js/bootstrap.js');}}
 {{HTML::script('packages/js/app.js');}}
-{{HTML::script('packages/js/jquery.slimscroll.min.js');}}
 {{HTML::script('packages/js/app.plugin.js');}}
 
 </head>

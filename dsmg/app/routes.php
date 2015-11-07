@@ -19,6 +19,7 @@ Route::get('/', function()
 Route::controller('users', 'UserController');
 
 //after login
-Route::controller('app', 'AppController');
+Route::controller('dsmg', 'AppController');
 Route::controller('schedule', 'ScheduleController');
 Route::controller('common', 'CommonController');
+Route::controller('report', 'ReportController');

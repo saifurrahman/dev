@@ -89,4 +89,4 @@
     </div>
   </div>
 </div>
-{{HTML::script('packages/script/user.js');}} @stop
+{{HTML::script('packages/script/master/user.js');}} @stop

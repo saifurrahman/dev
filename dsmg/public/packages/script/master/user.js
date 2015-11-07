@@ -25,36 +25,40 @@ function saveUser() {
 				}
 			}
 		});
-	
+
 }
 function allUser() {
 	$('#user-list')
 			.html('<tr><td colspan="4" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-2x"></i></td></tr>');
 		$.ajax({
-				url : '/settings/alluser',
+				url : '/common/alluser',
 				type : 'GET',
 				datatype : 'JSON',
 				success : function(data) {
 					var count = 0;
 					var  permission, action;
-					$('#user-list').empty();
+					$('#railway_users_list').empty();
 					for ( var i in data) {
-						
+
 						//permission = '<button class="permission   btn btn-default btn-xs">set</button>';
 						if (data[i].status == 1) {
 							action = '<button class="disable btn   btn-success btn-xs">Enabled</button>';
 						} else {
 							action = '<button class="enable btn  btn-default btn-xs">Disabled</button>';
 						}
-						var permission = '<td style="text-align:center;"><button class="permission btn btn-info btn-xs">permission</button></td>';
-						var row = '<tr>' 
+						var permission = '<button class="permission btn btn-info btn-xs">permission</button>';
+						var row = '<tr>'
 									+ '<td class="id hidden">'+ data[i].id + '</td>'
 									+ '<td class="name">'+ data[i].name + '</td>'
-									+ '<td class="mobile">' + data[i].mobile+ '</td>' 
+									+ '<td class="mobile">' + data[i].mobile+ '</td>'
 									+ '<td class="email">'+ data[i].email + '</td>'
-									+'<td>'+action+'&nbsp;'+permission+'</td>'
+									+ '<td class="email">'+ data[i].designation + '</td>'
+									+ '<td class="email">'+ data[i].role + '</td>'
+									+ '<td class="email">'+ permission + '</td>'
+									+ '<td class="email">'+ action + '</td>'
+									+ '<td class="email"><button class="permission btn btn-info btn-xs">Edit</button></td>'
 									+'</tr>';
-						$('#user-list').append(row);
+						$('#railway_users_list').append(row);
 					}
 				}
 			});
@@ -63,11 +67,11 @@ function allUser() {
 //disable user
 var $disable = 0;
 $("#user-list").on("click", ".disable", function(){
-	$disable = $(this); 
+	$disable = $(this);
 	var status = 0;
 	var id = $disable.closest("tr").find(".id").text();
 	disableUser(id, status, $disable);
-			
+
 });
 
 function disableUser(id, status, $disable){
@@ -80,13 +84,13 @@ function disableUser(id, status, $disable){
 		success: function(data){
 			$disable.closest('td').html('<button class="enable btn btn-default  btn-xs">Disabled</button>');
 		}
-		
+
 	});
 }
 // enable user
 var $enable = 0;
 $("#user-list").on("click", ".enable", function(){
-	$enable = $(this); 
+	$enable = $(this);
 	var status = 1;
 	var id = $enable.closest("tr").find(".id").text();
 	enableUser(id, status, $enable);
@@ -101,7 +105,7 @@ function enableUser(id, status, $enable){
 		success: function(data){
 			$enable.closest('td').html('<button class="disable btn btn-success  btn-xs">Enabled</button>');
 		}
-		
+
 	});
 }
 
@@ -111,7 +115,7 @@ var $set = 0;
 $("#user-list").on("click", ".permission", function() {
 	$set = $(this);
 	var user_id = $set.closest("tr").find(".id").text();
-	var name = $set.closest('tr').find('.name').text();	
+	var name = $set.closest('tr').find('.name').text();
 	$('#myModalLabel').text(name);
 	$('#permissionModal').modal('show');
 	setPermission($set,user_id,name);
@@ -130,13 +134,13 @@ function setPermission($set,user_id,name){
 	    	var action;
 	    	for (var i in data){
 	    		if(data[i].permission == 1){
-	    			action = '<div class="btn-group btn-toggle">' 
+	    			action = '<div class="btn-group btn-toggle">'
 	    			    +'<button class="btn btn-xs btn-success active">ON</button>'
 	    			    +'<button class="off btn btn-xs btn-default ">OFF</button>'
 	    			    +'</div>';
 	    		}
 	    		else{
-	    			action = '<div class="btn-group btn-toggle">' 
+	    			action = '<div class="btn-group btn-toggle">'
 	    			    	+'<button class="on btn btn-xs btn-default">ON</button>'
 	    			    	+'<button class="btn btn-xs btn-danger active">OFF</button>'
 	    			    	+'</div>';
@@ -145,7 +149,7 @@ function setPermission($set,user_id,name){
 					    +'<td class="user_id hidden">'+user_id+'</td>'
 					    +'<td class="permission_id hidden">'+data[i].id+'</td>'
 					    +'<td class="permission_name">'+data[i].name+'</td>'
-					    +'<td>'+action+'</td>'				    
+					    +'<td>'+action+'</td>'
 			    	$('#permission-list').append(row);
 	    	}
 	    }
@@ -183,6 +187,5 @@ $("#permission-list").on("click", ".off", function() {
 	    	$off.closest("tr").html('<td class="user_id hidden">'+user_id+'</td><td class="permission_id hidden">'+permission_id+'</td><td class="permission_name">'+permission_name+'</td><td><div class="btn-group btn-toggle"><button class="on btn btn-xs btn-default" >ON</button><button class="btn btn-xs btn-danger btn-active">OFF</button></div></td>');
 		}
 	});
-	
-});
 
+});

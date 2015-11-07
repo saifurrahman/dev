@@ -33,23 +33,17 @@
 					</div>
 					<div class="col-md-2">
 						<label></label>
-						<button type="button" onclick="overdueStation();" id="saveBtn" class="btn btn-danger btn-block">overdue station</button>
+						<button type="button" onclick="overdueStation();" id="overdueBtn" class="btn btn-danger btn-block">overdue station</button>
 					</div>
 {{ Form::close()}}
 </div>
 <div class="row">
 			<div class="col-md-12">
-				<label>Inspection ledger</label>
+				<label id="table_level">Inspection ledger</label>
 				<div class="table-responsive">
 					<table id="data-entry-table" class="table table-hover table-bordered table-striped table-condensed">
-						<thead>
-							<tr>
-								<th>Station Code</th>
-								<th>Role</th>
-								<th>Last Inspection Date</th>
-								<th>Next Inspection Date Due</th>
-								<th>Delete</th>
-							</tr>
+						<thead id="table_header">
+
 						</thead>
 						<tbody id="data-list"></tbody>
 					</table>

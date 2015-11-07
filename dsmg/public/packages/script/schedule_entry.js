@@ -23,7 +23,7 @@ $('#maintenance_date').change(function(){
 });
 function allStation(){
 	$.ajax({
-		url: '../common/allstations/',
+		url: '/common/allstations/',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
@@ -37,7 +37,7 @@ function allStation(){
 
 function gearCode(){
 	$.ajax({
-		url: '../common/allgearcode',
+		url: '/common/allgearcode',
 		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
@@ -67,7 +67,7 @@ $("#station_id").on("change", function () {
 
 function loadStationGears(station_id,gear_code){
 	$.ajax({
-		url: '../common/stationgear/',
+		url: '/common/stationgear/',
 		type: 'POST',
 		data: {'station_id':station_id, 'gear_code':gear_code,'_token':token},
 		dataTtype: 'JSON',
@@ -97,7 +97,7 @@ function loadStationGears(station_id,gear_code){
 	$('#saveBtn').attr('disabled',true).html('<i class="fa fa-spinner fa-spin"></i>');
 
 		 $.ajax({
-			url:'../schedule/savedata/',
+			url:'/schedule/savedata/',
 			type: 'POST',
 			dataTtype: 'JSON',
 			data: formData,
@@ -121,7 +121,7 @@ function loadStationGears(station_id,gear_code){
  function getMaintanaceLedgerOn(maintenance_date){
 	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
  	$.ajax({
- 	 url:'../schedule/maintanaceledger/',
+ 	 url:'/schedule/maintanaceledger/',
  	 type: 'POST',
 	 data: {'maintenance_date':maintenance_date,'_token':token},
  	 dataTtype: 'JSON',
@@ -156,7 +156,7 @@ $("#data-list").on("click", ".del", function(){
 });
 function delete_data(id){
 	$.ajax({
-	url: '../schedule/deletedata/',
+	url: '/schedule/deletedata/',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {'id':id,'_token':token},

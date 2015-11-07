@@ -92,7 +92,7 @@
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintainance</div>
 
 										<li id="schedule_entry">
-    										<a href="{{URL::to('app/scheduleentry')}}">
+    										<a href="{{URL::to('dsmg/scheduleentry')}}">
     										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintainace</span>
     										</a>
 										</li>
@@ -100,7 +100,7 @@
 
 										@if (Session::get('Brand Master') != 0)
 										<li id="brand">
-    										<a href="{{URL::to('app/crossing')}}">
+    										<a href="{{URL::to('dsmg/crossing')}}">
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint/Crossing</span>
     										</a>
 										</li>
@@ -109,19 +109,19 @@
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
 										<li id="client">
-												<a href="{{URL::to('app/overduereport')}}">
-													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Report</span>
+												<a href="{{URL::to('dsmg/overduereport')}}">
+													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Gear</span>
 												</a>
 										</li>
 										<li id="deals">
-												<a href="{{URL::to('app/staionwisereport')}}">
-													<i class="fa fa-home text-success-dk"> </i> <span class="font-bold">Station Wise Report</span>
+												<a href="{{URL::to('dsmg/staionwisereport')}}">
+													<i class="fa fa-home text-success-dk"> </i> <span class="font-bold">Station Wise Maintainance</span>
 												</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('app/gearwisereport')}}">
-    										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Report</span>
+    										<a href="{{URL::to('dsmg/gearwisereport')}}">
+    										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Maintainance</span>
     										</a>
 
 										</li>
@@ -132,32 +132,32 @@
 										@if (Session::get('Deals') != 0)
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master Data</div>
 										<li id="deals">
-    										<a href="{{URL::to('app/stations')}}">
+    										<a href="{{URL::to('dsmg/stations')}}">
     										  <i class="fa fa-home text-primary-dk"> </i> <span class="font-bold">Station Master</span>
     										</a>
 
 										</li>
 
 										<li id="deals">
-    										<a href="{{URL::to('app/schedulecode')}}">
+    										<a href="{{URL::to('dsmg/schedulecode')}}">
     										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">Schedule Code Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('app/geartype')}}">
+    										<a href="{{URL::to('dsmg/geartype')}}">
     										  <i class="fa fa-gears text-primary-dk"> </i> <span class="font-bold">Gear Type Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-    										<a href="{{URL::to('app/stationgear')}}">
+    										<a href="{{URL::to('dsmg/stationgear')}}">
     										  <i class="fa fa-industry text-primary-dk"> </i> <span class="font-bold">Station Gear Master</span>
     										</a>
 
 										</li>
 										<li id="deals">
-												<a href="{{URL::to('app/users')}}">
+												<a href="{{URL::to('dsmg/users')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">User Master</span>
 												</a>
 

@@ -24,9 +24,9 @@ class UserController extends BaseController {
 			 Session::put($row->name, $row->permission);
 			}
 			if(Auth::user ()->role=='admin'){
-				return Redirect::to ( 'app/scheduleentry' );
+				return Redirect::to ( 'dsmg/scheduleentry' );
 			}else{
-				return Redirect::to ( 'app/scheduleentry' );
+				return Redirect::to ( 'dsmg/scheduleentry' );
 			}
 			// var_dump(Session::all());
 		} else {

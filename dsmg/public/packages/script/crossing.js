@@ -10,7 +10,7 @@ window.onload = function(){
 var token =  $("input[name=_token]").val();
 function allStation(){
 	$.ajax({
-		url: '../common/allstations/',
+		url: '/common/allstations/',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
@@ -24,10 +24,14 @@ function allStation(){
 
 
 function loadCrossingPointInspectionLedger(){
+	$('#overdueBtn').attr('onclick','overdueStation()').attr('class','btn btn-danger btn-block').html('overdue station');
+
+	$('#table_level').empty().html('<h4><span class="label label-success">Joint Point & Crossing Inspection Ledger</span></h4>');
+	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th><th>Delete</th></tr>');
 	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
-		url: '../schedule/allcrossinginspectionledger/',
+		url: '/schedule/allcrossinginspectionledger/',
 		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
@@ -48,10 +52,15 @@ function loadCrossingPointInspectionLedger(){
 
 }
 function overdueStation(){
-	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
+	$('#overdueBtn').attr('onclick','loadCrossingPointInspectionLedger()').attr('class','btn btn-success btn-block').html('Ledger');
+	$('#table_level').empty().html('<h4><span class="label label-danger">Joint Point & Crossing Inspection Overdue Station</span></h4>');
+
+	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th></tr>');
+
+	$('#data-list').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
-		url: '../schedule/overduecrossinginspection/',
+		url: '/schedule/overduecrossinginspection/',
 		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
@@ -83,7 +92,7 @@ function overdueStation(){
 	$('#saveBtn').attr('disabled',true).html('<i class="fa fa-spinner fa-spin"></i>');
 
 		 $.ajax({
-			url:'../schedule/savecrossingdata/',
+			url:'/schedule/savecrossingdata/',
 			type: 'POST',
 			dataTtype: 'JSON',
 			data: formData,
@@ -112,7 +121,7 @@ $("#data-list").on("click", ".del", function(){
 });
 function delete_data(id){
 	$.ajax({
-		url: '../schedule/deletecrossinginspection/',
+		url: '/schedule/deletecrossinginspection/',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {'id':id,'_token':token},

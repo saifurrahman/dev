@@ -34,4 +34,4 @@
 			</span>
 
 		</div>
-{{HTML::script('packages/script/crossing.js');}} @stop
+{{HTML::script('packages/script/master/station_gears.js');}} @stop
