@@ -5,7 +5,7 @@
 				<h3>Station Wise Maintainance Report</h3>
 			</div>
 </div>
-{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal'))}}
+{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row">
 <div class="col-md-3">
 						 <select id="select_station_id" name="station_id[]" multiple class="form-control" placeholder="Select Station"></select>

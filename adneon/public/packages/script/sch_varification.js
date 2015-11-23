@@ -2,6 +2,7 @@ var schedule_date;
 
 window.onload = function() {
 	$('#varification').addClass('active');
+	$('#processed_row').hide();
 	schedule_date = $('#schedule_date').val();
 	scheduleByDate(schedule_date);
 	tcbydate(schedule_date);
@@ -23,7 +24,7 @@ $('#schedule_date').change(function() {
 $("#schedule_date").datepicker("setDate", currentDate);
 
 var token = $("input[name=_token]").val();
-
+var tc_schedule_details = [];
 function scheduleByDate(schedule_date) {
 
 	$('#schecdule_table')
@@ -47,13 +48,21 @@ function scheduleByDate(schedule_date) {
 						var time_slot;
 						var telecast_time = '';
 						var confirm, reject, deal, remark;
-
+						tc_schedule_details=[];
 						for ( var i in data) {
 							if (data[i].telecast_time != '00:00:00') {
 								telecast_time = data[i].telecast_time;
 							} else {
 								telecast_time = '';
 							}
+							var sch = [];
+							sch[0] = data[i].caption;
+							sch[1] = data[i].ad_id;
+							sch[2] =data[i].time_slot
+							sch[3] =data[i].id;
+							tc_schedule_details.push(sch);
+
+
 							deal = '<tr class="success">'
 									+ '<td class="hidden asm_id">'
 									+ data[i].id
@@ -96,6 +105,7 @@ function scheduleByDate(schedule_date) {
 			});
 
 }
+var tc_details = [];
 function tcbydate(schedule_date) {
 
 	$('#tc_time_table')
@@ -114,8 +124,13 @@ function tcbydate(schedule_date) {
 
 					$('#tc_time_table').empty();
 					if (data.length != 0) {
+						tc_details = [];
 
 						for ( var i in data) {
+							var sch = [];
+							sch[0] = data[i].tc_time;
+							sch[1] = data[i].ad_id;
+							tc_details.push(sch);
 
 							var adlog = '<tr class="danger">'
 									+ '<td class="ad_id">AT'
@@ -157,6 +172,7 @@ function updateTelecastTime(sch_table_asmid, tc_time) {
 	});
 
 }
+
 
 function excelUpload() {
 
@@ -218,6 +234,74 @@ function doSearch(searchText) {
 			targetTable.rows.item(rowIndex).style.display = 'table-row';
 		}
 	}
+}
+function processVarification(){
+var schecdule_table = document.getElementById('schecdule_table');
+var tc_time_table = document.getElementById('tc_time_table');
+
+var final=[];
+var new_array=[];
+//tc_details
+for(var i=0;i<tc_schedule_details.length;i++){
+	for(var j=0;j<tc_details.length;j++){
+		if(tc_schedule_details[i][1]===tc_details[j][1]){
+			tc_details.splice(j, 1);
+			var sch = [];
+			sch[0] = tc_schedule_details[i][1]; //ad_id
+			sch[1] = tc_details[j][0];          //tc time
+			sch[2] = tc_schedule_details[i][0];  //caption
+			sch[3] = tc_schedule_details[i][2];  //time slot
+			sch[4] = tc_schedule_details[i][3];  //asm_id
+			final.push(sch);
+			var a=[];
+			a[0]=tc_schedule_details[i][3];
+			a[1]=tc_details[j][0];
+			new_array.push(a);
+			break;
+		}
+	}
+
+}
+$('#processed_table').empty();
+for(var i=0;i<final.length;i++){
+	var deal = '<tr><td class="hidden">'
+					+ final[i][4]
+					+ '</td><td>'
+					+ final[i][2]
+					+ '</td>'
+					+ '<td>AT'
+					+ pad(final[i][0], 4)
+					+ '</td>'
+					+ '<td>'
+					+ final[i][3]
+					+ '</td>'
+						+ '<td>'
+					+ final[i][1]
+					+ '</td>' + '</tr>';
+
+	$('#processed_table').append(deal);
+}
+$('#varification_row').hide();
+$('#processed_row').show();
+validateTelecastTime(new_array);
+}
+function validateTelecastTime(final_data) {
+token = $("input[name=_token]").val();
+	$.ajax({
+		url : '/adlog/validatetelecasttime',
+		type : 'POST',
+		datatype : 'JSON',
+		data : {
+			'tcdata' : final_data,
+			'_token' : token
+		},
+		success : function(data) {
+
+			alertify.success('telecast time saved');
+
+		}
+	});
+
 }
 function resetTable() {
 	var targetTable = document.getElementById('schecdule_table');

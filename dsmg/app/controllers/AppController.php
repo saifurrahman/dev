@@ -4,7 +4,11 @@ class AppController extends BaseController
 {
 
     protected $layout = "layouts.app";
-
+    public function __construct() {
+      $this->beforeFilter ( 'csrf', array (
+          'on' => 'post'
+      ) );
+    }
     // program manager
     public function getScheduleentry ()
     {
@@ -59,7 +63,7 @@ class AppController extends BaseController
         }
     }
     //Masters
-    public function getStations ()
+    public function getStationmaster ()
     {
         if (Auth::check()) {
             $this->layout->content = View::make('app.master.station_master');

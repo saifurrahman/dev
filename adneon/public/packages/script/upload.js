@@ -200,6 +200,7 @@ function process_wb(wb) {
 }
 
 var xlf = document.getElementById('xlf');
+
 function handleFile(e) {
 	var files = e.target.files;
 	var f = files[0];

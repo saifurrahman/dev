@@ -5,6 +5,8 @@
 				<h3>Gear Type Master</h3>
 			</div>
 </div>
+{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+
 <div class="row">
     			<div class="col-md-3 col-xs-12">
     				<input type="text" class="form-control" id="code" placeholder="Gear Type Code">
@@ -35,4 +37,5 @@
         		</div>
         	</div>
         </div>
+				{{ Form::close()}}
 {{HTML::script('packages/script/master/gear_type_master.js');}} @stop

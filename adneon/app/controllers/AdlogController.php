@@ -55,10 +55,10 @@ class AdlogController extends Controller {
 		$telecast->save ();
 		return Response::json ( $telecast );
 	}
-	
+
 	public function postScheduledadvarfication() {
 		$schedule_date = Input::get ( 'schedule_date' );
-		$alladd = DB::select ( DB::raw ( "select asm.id, asm.ad_id,asm.schedule_date,asm.status,asm.schedule_date,asm.telecast_time, asm.remark,  am.caption,am.duration,bm.name as break_name,tm.id as timeslot_id,tm.time_slot from ad_schedule_master asm,ad_master am,adbreak_master bm,timeslot_master tm where  asm.schedule_date = '$schedule_date' and asm.ad_id=am.id and asm.break_id=bm.id and asm.timeslot_id=tm.id ORDER BY asm.ad_id,tm.id" ) );
+		$alladd = DB::select ( DB::raw ( "select asm.id, asm.ad_id,asm.schedule_date,asm.status,asm.schedule_date,asm.telecast_time, asm.remark,  am.caption,am.duration,bm.name as break_name,tm.id as timeslot_id,tm.time_slot,asm.deal_id from ad_schedule_master asm,ad_master am,adbreak_master bm,timeslot_master tm where  asm.schedule_date = '$schedule_date' and asm.ad_id=am.id and asm.break_id=bm.id and asm.timeslot_id=tm.id ORDER BY asm.ad_id,tm.id" ) );
 
 		return Response::json ( $alladd );
 	}
@@ -95,6 +95,9 @@ class AdlogController extends Controller {
 		$query = "Select * from telecasttime_log where tc_date='$schedule_date'ORDER BY ad_id,tc_time";
 		$tc_time = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $tc_time );
+	}
+	public function postValidatetelecasttime(){
+		return Response::json ( Input::get ( 'tcdata' ) );
 	}
 
 }

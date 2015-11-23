@@ -4,6 +4,8 @@
       	<h1>Schedule Master</h1>
 
     </div>
+    {{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+	{{ Form::close()}}
     <div class="row">
 
     		<div class="col-md-8 col-xs-12">
@@ -14,7 +16,7 @@
     		</div>
     	</div>
 			<br/>
-        <div class="row">
+      <div class="row">
 			<div class="col-md-12">
 				<div class="box box-danger">
 					<div class="table-responsive">

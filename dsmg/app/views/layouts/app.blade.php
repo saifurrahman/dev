@@ -88,7 +88,6 @@
 								</div>
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav nav-main">
-										@if (Session::get('Agency/Client Master') != 0)
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintainance</div>
 
 										<li id="schedule_entry">
@@ -96,16 +95,11 @@
     										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintainace</span>
     										</a>
 										</li>
-										@endif
-
-										@if (Session::get('Brand Master') != 0)
 										<li id="brand">
     										<a href="{{URL::to('dsmg/crossing')}}">
-    										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint/Crossing</span>
+    										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint & X-ing</span>
     										</a>
 										</li>
-										@endif
-										@if (Session::get('Commercial Master') != 0)
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
 										<li id="client">
@@ -126,45 +120,52 @@
 
 										</li>
 
-										@endif
-
-
-										@if (Session::get('Deals') != 0)
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master Data</div>
 										<li id="deals">
-    										<a href="{{URL::to('dsmg/stations')}}">
-    										  <i class="fa fa-home text-primary-dk"> </i> <span class="font-bold">Station Master</span>
+    										<a href="{{URL::to('dsmg/stationmaster')}}">
+    										  <i class="fa fa-home text-primary-dk"> </i> <span class="font-bold">Stations</span>
     										</a>
 
 										</li>
 
 										<li id="deals">
     										<a href="{{URL::to('dsmg/schedulecode')}}">
-    										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">Schedule Code Master</span>
+    										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">Schedule Codes</span>
     										</a>
 
 										</li>
 										<li id="deals">
     										<a href="{{URL::to('dsmg/geartype')}}">
-    										  <i class="fa fa-gears text-primary-dk"> </i> <span class="font-bold">Gear Type Master</span>
+    										  <i class="fa fa-gears text-primary-dk"> </i> <span class="font-bold">Gear Type </span>
     										</a>
 
 										</li>
 										<li id="deals">
     										<a href="{{URL::to('dsmg/stationgear')}}">
-    										  <i class="fa fa-industry text-primary-dk"> </i> <span class="font-bold">Station Gear Master</span>
+    										  <i class="fa fa-industry text-primary-dk"> </i> <span class="font-bold">Station Gears</span>
     										</a>
 
 										</li>
 										<li id="deals">
 												<a href="{{URL::to('dsmg/users')}}">
-													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">User Master</span>
+													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">Section Distribution</span>
+												</a>
+
+										</li>
+										<li id="deals">
+												<a href="{{URL::to('dsmg/users')}}">
+													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">News & Updates</span>
+												</a>
+
+										</li>
+										<li id="deals">
+												<a href="{{URL::to('dsmg/users')}}">
+													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">Users</span>
 												</a>
 
 										</li>
 
-										@endif
-										</ul>
+									</ul>
 								</nav>
 								<!-- / nav -->
 							</div>

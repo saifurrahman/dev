@@ -24,14 +24,14 @@
 <body class="">
 	<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
 		<div class="container aside-xxl">
-			<div class="col-xs-12 col-md-4 col-md-offset-4  col-sm-offset-4">
+			<div class="col-xs-12 col-md-6 col-md-offset-3  col-sm-offset-3">
 					<img id="logo" alt="" class="img-responsive" src="packages/images/logo.png">
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-md-12">
 					<h4 class="text-center" style="margin-bottom: 0;">NF Railway</h4>
-					<h3 class="text-center" style="margin-top: 0;">DSMG Schedule Monitoring Module<small>(v 0.6)</small></h3>
+					<h3 class="text-center" style="margin-top: 0;">DSMG Monitoring Module<small>(v 0.9)</small></h3>
 					<h5 class="text-center">(Tinsukia Division)</h5>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 				<div class="list-group">
 					<div class="list-group-item">
 						<input type="text" class="form-control no-border" name="username"
-							placeholder="registered mobile" required="required"
+							placeholder="Registered mobile" required="required"
 							autocomplete="off">
 					</div>
 					<div class="list-group-item">

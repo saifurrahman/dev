@@ -4,42 +4,39 @@
 		<h3>Gear Maintainace</h3>
 	</div>
 </div>
-{{Form::open(array('','id'=>'schedule-form','class'=>'form-horizontal'))}}
+{{Form::open(array('url' => ' ','id'=>'schedule-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row">
 			<div class="col-md-3">
+					<label class="small">Date</label>
 				<input type="text" class="form-control" id="maintenance_date"
 					name="maintenance_date" placeholder="Maintenance Date">
 			</div>
-			<div class="col-md-1 col-md-offset-8">
-				<button type="button" title="click to download as a excel" class="btn btn-default cmn_btn"
-					id="excel">
-					<i class="fa fa-download text-danger-dk"></i>
-				</button>
+			<div class="col-md-2">
+				<label class="small">Station</label>
+					<div class="form-group">
+						<select class="form-control" id="station_id" name="station_id"></select>
 			</div>
+		</div>
 </div>
 
 <div class="row" id="schedule-form">
-				<div class="col-md-2">
-					<label class="small">Station</label>
+				<div class="col-md-1">
+						<label class="small">GC</label>
 						<div class="form-group">
-							<select class="form-control" id="station_id" name="station_id"></select>
-				</div>
-			</div>
-
-				<div class="col-md-3">
-						<label class="small">Gear code</label>
-						<div class="form-group">
-							<div class="input-group">
 								<select class="form-control" id="gear_code" name="gear_code"></select>
-								<span class="input-group-addon">-</span>
+							</div>
+					</div>
+					<div class="col-md-2">
+							<label class="small">Name</label>
+							<div class="form-group">
 								<select class="form-control" id="station_gear_id"
 									name="station_gear_id"></select>
-							</div>
+											</div>
 						</div>
-					</div>
+
 					<div class="col-md-3">
 						<div class="form-group">
-						<label class="small">Schedule code</label>
+						<label class="small">Schedule code  &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Role</label>
 							<div class="input-group">
 								<select class="form-control" id="schedule_code_id" name="schedule_code_id"></select>
 								<span class="input-group-addon">-</span>
@@ -59,8 +56,13 @@
 							</select>
 					</div>
 					<div class="col-md-2">
-						<label class="small">Maintained by</label>
-						<input type="text" class="form-control" name="maintenance_by" id="maintenance_by">
+						<label class="small">Desig</label>
+							<select class="form-control" id="designation" name="designation"></select>
+
+					</div>
+					<div class="col-md-2">
+						<label class="small">Name</label>
+					<select class="form-control" id="maintenance_by" name="maintenance_by"></select>
 					</div>
 					<div class="col-md-1">
 						<label></label>
@@ -78,10 +80,11 @@
 								<th>Gear Code</th>
 								<th>Gear No.</th>
 								<th>Schedule Code</th>
-								<th>Designation</th>
+								<th>Role</th>
 								<th>Next Maintainance Date</th>
 								<th>Disc app.</th>
 								<th>Maintained by</th>
+								<th>Designation</th>
 								<th>Delete</th>
 							</tr>
 						</thead>

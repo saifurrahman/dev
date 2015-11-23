@@ -6,7 +6,7 @@
 			</div>
 </div>
 
-{{Form::open(array('','id'=>'add-station-form','class'=>'form-horizontal'))}}
+{{Form::open(array('url'=>'','id'=>'add-station-form','class'=>'form-horizontal'  , 'method' => 'post'))}}
 <div class="row" id="add-station-form">
 	<div class="col-md-3">
 		<div class="form-group">

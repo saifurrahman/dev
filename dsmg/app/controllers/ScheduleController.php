@@ -3,13 +3,11 @@
 class ScheduleController extends Controller
 {
 
-    public function __construct ()
-    {
-        $this->beforeFilter('csrf',
-                array(
-                        'on' => 'post'
-                ));
-    }
+  public function __construct() {
+		$this->beforeFilter ( 'csrf', array (
+				'on' => 'post'
+		) );
+	}
 //Maintainance Ledger
     public function postMaintanaceledger(){
         $maintenance_date=$this->convert_to_mysqlDateFormate(Input::get('maintenance_date'));
@@ -57,6 +55,7 @@ class ScheduleController extends Controller
           $next_maintenance_date = date('Y-m-d', strtotime($maintenance_date."+ $periodicity_level_2 days"));
         }
         $ledger = new MaintainanceLedger();
+        $ledger->station_id = Input::get('station_id');
         $ledger->station_gear_id = Input::get('station_gear_id');
         $ledger->schedule_code_id = Input::get('schedule_code_id');
         $ledger->maintenance_date = $maintenance_date;
@@ -64,7 +63,7 @@ class ScheduleController extends Controller
         $ledger->role = Input::get('role');
         $ledger->discontinuation_status = Input::get('discontinuation_status');
         $ledger->maintenance_by = Input::get('maintenance_by');
-
+        $ledger->designation = Input::get('designation');
         $ledger->user_id = $user_id;
         $ledger->save();
         return Response::json($ledger);
@@ -72,11 +71,12 @@ class ScheduleController extends Controller
     public function postSavecrossingdata(){
         $user_id = Session::get("user_id");
         $inspection_date=$this->convert_to_mysqlDateFormate(Input::get('inspection_date'));
-        $next_inspection_date = date('Y-m-d', strtotime($inspection_date."+ 30 days"));
+        $next_inspection_date = date('Y-m-d', strtotime($inspection_date."+ 90 days"));
 
         $ledger = new CrossingInspection();
         $ledger->station_id = Input::get('station_id');
         $ledger->role = Input::get('role');
+        $ledger->designation = Input::get('designation');
         $ledger->date_of_inspection = $inspection_date;
         $ledger->due_date_of_inspection = $next_inspection_date;
         $ledger->user_id = $user_id;

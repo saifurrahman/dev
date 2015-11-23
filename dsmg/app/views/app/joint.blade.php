@@ -2,28 +2,33 @@
 
 <div class="row">
 			<div class="page-header">
-				<h3>Joint Point and Crossing Inspection	</h3>
+				<h3>Joint Point and X-ing Inspection	</h3>
 			</div>
 </div>
-{{Form::open(array('','id'=>'crossing-form','class'=>'form-horizontal'))}}
+{{Form::open(array('','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row" id="crossing-form">
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<label class="small">Station</label>
 						<div class="form-group">
 							<select class="form-control" id="station_id" name="station_id"></select>
 				</div>
 			</div>
 
-				<div class="col-md-3">
-					<label class="small">Inspection By</label>
+				<div class="col-md-2">
+					<label class="small">Role</label>
 								<select class="form-control" id="role"
 									name="role">
 										<option value="SS">SS</option>
 										<option value="IC">IC</option>
 									</select>
 				</div>
+				<div class="col-md-3">
+					<label class="small">Designation</label>
+					<select class="form-control" id="designation" name="designation"></select>
 
-					<div class="col-md-3">
+				</div>
+
+					<div class="col-md-2">
 						<label class="small">Inspection Date</label>
 						<input type="text" class="form-control" name="inspection_date" id="inspection_date">
 					</div>

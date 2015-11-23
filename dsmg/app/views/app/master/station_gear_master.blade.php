@@ -5,6 +5,8 @@
 				<h3>Station Gear Master</h3>
 			</div>
 </div>
+{{Form::open(array('url' => ' ','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+{{ Form::close()}}
 <div class="row">
 			<div class="col-md-3 col-xs-12">
 				<select class="form-control" id="station_id"
@@ -34,4 +36,20 @@
 			</span>
 
 		</div>
+		<br/>
+<div class="row">
+		<div class="col-md-12">
+	<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Gear Type</th>
+								<th>Gear Name</th>
+							</tr>
+						</thead>
+						<tbody id="railway_gears_list"></tbody>
+					</table>
+				</div>
+		</div>
+</div>
 {{HTML::script('packages/script/master/station_gears.js');}} @stop

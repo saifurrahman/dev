@@ -5,7 +5,7 @@
 				<h3>Overdue Gear Report</h3>
 			</div>
 </div>
-{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal'))}}
+{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row">
 <div class="col-md-6">
 						 <select id="select_station_id" name="station_id[]" multiple class="form-control" placeholder="Select Station"></select>
@@ -27,12 +27,13 @@
                     <th>Gear Code</th>
                     <th>Gear No</th>
                     <th>Schedule Code/Role</th>
-                    <th>Last Maintenance Date</th>
-                    <th>Discontinuation Applied</th>
+										<th>Last Maintenance Date</th>
+                    <th>Due Date</th>
+                    <th>Disc Applied</th>
                     <th>Maintenance By</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="data-list"></tbody>
               </table>
             </div>
           </div>
