@@ -119,10 +119,5 @@ class CommonController extends Controller
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
-  public function getSupervisorstations($id){
-
-    $query="SELECT * from nfr_supervisors_stations t1,nfr_station_master t2 where supervisors_id=$id and t1.station_id=t2.id";
-    $data = DB::select(DB::raw($query));
-    return Response::json($data);
-  }
+  
 }

@@ -194,10 +194,9 @@ $("#data-list").on("click", ".del", function(){
 });
 function delete_data(id){
 	$.ajax({
-	url: '/schedule/deletedata/',
-		type: 'POST',
+	url: '/schedule/deletedata/'+id,
+		type: 'GET',
 		datatype: 'JSON',
-		data: {'id':id,'_token':token},
 		success: function(data){
 			if(data == 1){
 				$deleting.closest("tr").remove();

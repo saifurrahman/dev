@@ -17,8 +17,8 @@ class ScheduleController extends Controller
 
     }
     // delete data
-  	public function postDeletedata() {
-  		$id = $_POST ['id'];
+  	public function getDeletedata($id) {
+  		//$id = Input::get('id');
       $data= DB::table('nfr_maintenance_schedule_ledger')->where('id', '=', $id)->delete();
       return Response::json($data);
   	}
@@ -30,8 +30,8 @@ class ScheduleController extends Controller
       return Response::json($data);
     }
 
-    public function postDeletecrossinginspection() {
-      $id = $_POST ['id'];
+    public function getDeletecrossinginspection($id) {
+      //$id = Input::get('id');
       $data= DB::table('nfr_jp_crossing_inspection_ledger')->where('id', '=', $id)->delete();
       return Response::json(1);
     }

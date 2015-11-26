@@ -15,7 +15,7 @@
 {{HTML::style('packages/css/app.css')}}
 
 
-
+{{HTML::script('packages/js/jquery.min.js');}}
 {{HTML::script('packages/js/bootstrap.js');}}
 {{HTML::script('packages/js/app.js');}}
 {{HTML::script('packages/js/app.plugin.js');}}

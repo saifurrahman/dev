@@ -23,7 +23,7 @@ function allStation(){
 }
 $("#station_id").on("change", function () {
  var station_id = $('#station_id').val();
- 
+
 });
 function allsupervisorsdesignation(){
 	$('#designation').empty();
@@ -155,10 +155,9 @@ $("#data-list").on("click", ".del", function(){
 });
 function delete_data(id){
 	$.ajax({
-		url: '/schedule/deletecrossinginspection/',
-		type: 'POST',
+		url: '/schedule/deletecrossinginspection/'+id,
+		type: 'GET',
 		dataType: 'JSON',
-		data: {'id':id,'_token':token},
 		success: function(data){
 				$deleting.closest("tr").remove();
 				alertify.error("Data Deleted");
