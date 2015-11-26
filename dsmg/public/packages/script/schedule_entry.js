@@ -7,7 +7,7 @@ window.onload = function(){
 	allStation();
 	gearCode();
 	//migrateData();
-	loadStationSupervisors(0)
+	allsupervisors();
 }
 var token =  $("input[name=_token]").val();
 function migrateData(){
@@ -17,7 +17,7 @@ function migrateData(){
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 		}
 	});
 }
@@ -80,27 +80,27 @@ $("#station_id").on("change", function () {
 
  });
 
- function loadStationSupervisors(station_id){
+ function allsupervisors(){
 	 $('#designation').empty();
 	 $('#maintenance_by').empty();
  	$.ajax({
  		url: '/common/allsupervisors',
- 		type: 'POST',
- 		data: {'station_id':station_id, '_token':token},
+ 		type: 'GET',
  		dataTtype: 'JSON',
  		success: function(data){
-
+			$('#designation').append('<option value="NA">--NA--</option>');
+			$('#maintenance_by').append('<option value="NA">--NA--</option>');
  			for(var i in data){
-				console.log(data[i].designation);
-				console.log(data[i].name);
- 				$('#designation').append('<option value="'+data[i].designation+'">'+data[i].designation+'</option>');
+				$('#designation').append('<option value="'+data[i].designation+'">'+data[i].designation+'</option>');
 				$('#maintenance_by').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
- 			}
+			}
  		}
  	});
  }
 
 function loadStationGears(station_id,gear_code){
+	$('#station_gear_id').empty();
+	$('#schedule_code_id').empty();
 	$.ajax({
 		url: '/common/stationgear',
 		type: 'POST',
@@ -146,7 +146,7 @@ function loadStationGears(station_id,gear_code){
 					getMaintanaceLedgerOn(m_date);
 				}
 				else{
-					alertify.error('please input  datas');
+					alertify.error('Not able to save ');
 				}
 			}
 		});
@@ -172,7 +172,7 @@ function loadStationGears(station_id,gear_code){
 					+'<td>'+data[i].gear_no+'</td>'
 					+'<td>'+data[i].schedule_code+'</td>'
 					+'<td>'+data[i].role+'</td>'
-					+'<td>'+moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'</td>'
+					+'<td>'+moment(data[i].next_maintenance_date).format('DD/MM/YY')+'</td>'
 					+'<td>'+data[i].discontinuation_status+'</td>'
 					+'<td>'+data[i].maintenance_by+'</td>'
 					+'<td>'+data[i].designation+'</td>'

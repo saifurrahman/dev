@@ -5,7 +5,7 @@
 				<h3>Joint Point and X-ing Inspection	</h3>
 			</div>
 </div>
-{{Form::open(array('','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+{{Form::open(array('url' => ' ','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row" id="crossing-form">
 				<div class="col-md-2">
 					<label class="small">Station</label>
@@ -18,8 +18,8 @@
 					<label class="small">Role</label>
 								<select class="form-control" id="role"
 									name="role">
-										<option value="SS">SS</option>
-										<option value="IC">IC</option>
+										<option value="JE/Signal">JE/Signal</option>
+										<option value="SSE/IC/Signal">SSE/IC/Signal</option>
 									</select>
 				</div>
 				<div class="col-md-3">
@@ -40,8 +40,9 @@
 						<label></label>
 						<button type="button" onclick="overdueStation();" id="overdueBtn" class="btn btn-danger btn-block">overdue station</button>
 					</div>
-{{ Form::close()}}
+
 </div>
+{{ Form::close()}}
 <div class="row">
 			<div class="col-md-12">
 				<label id="table_level">Inspection ledger</label>
@@ -50,7 +51,9 @@
 						<thead id="table_header">
 
 						</thead>
+							{{Form::open(array('url' => ' ','id'=>'del-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 						<tbody id="data-list"></tbody>
+						{{ Form::close()}}
 					</table>
 				</div>
 			</div>

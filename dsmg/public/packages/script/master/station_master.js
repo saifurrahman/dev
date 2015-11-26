@@ -1,24 +1,11 @@
 var district_list=[];
 window.onload = function(){
 	get_all_stations();
-	get_all_districts();
+
 };
 var token =  $("input[name=_token]").val();
 
-function get_all_districts(){
-  	$.ajax({
-        url: '/common/alldistrict/',
-      	type: 'GET',
-    		datatype: 'JSON',
-    		success: function(data){
-          $('#district_id').append('<option>Select District</option>');
-          for(var i in data){
-            $('#district_id, #edit_district_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
-          }
 
-        }
-    	});
-}
 function get_all_stations(){
 	$('#saveBtn').attr('onclick','createStation()').attr('class','btn btn-success btn-block').html('save station');
 
@@ -29,7 +16,7 @@ function get_all_stations(){
 		datatype: 'JSON',
 		success: function(data){
 			$('#railway_stations_list').empty();
-var count=1;
+			var count=1;
 			for (var i in data){
         var status =data[i].status;
         var status_row='<button class="del btn btn-default btn-xs" onclick="changeStationStatus('+data[i].id+','+data[i].status+');">Disable</button>';
@@ -42,10 +29,7 @@ var count=1;
 					+'<td class="code">'+count+'</td>'
 					+'<td class="code">'+data[i].code+'</td>'
 		 			+'<td class="name">'+data[i].name+'</td>'
-		 			+'<td class="district_id hidden">'+data[i].district_id+'</td>'
-		 			+'<td class="district_name">'+data[i].district_name+'</td>'
-					+'<td>'+ediBtn+'</td>'
-		 			+'<td>'+status_row+'</td>'
+		 			+'<td>'+ediBtn+'</td>'
 		 			+'</tr>';
 
 				$('#railway_stations_list').append(row);

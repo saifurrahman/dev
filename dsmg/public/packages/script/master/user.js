@@ -46,7 +46,6 @@ function allUser() {
 						} else {
 							action = '<button class="enable btn  btn-default btn-xs">Disabled</button>';
 						}
-						var permission = '<button class="permission btn btn-info btn-xs">permission</button>';
 						var row = '<tr>'
 									+ '<td class="id hidden">'+ data[i].id + '</td>'
 									+ '<td class="name">'+ data[i].name + '</td>'
@@ -54,7 +53,6 @@ function allUser() {
 									+ '<td class="email">'+ data[i].email + '</td>'
 									+ '<td class="email">'+ data[i].designation + '</td>'
 									+ '<td class="email">'+ data[i].role + '</td>'
-									+ '<td class="email">'+ permission + '</td>'
 									+ '<td class="email">'+ action + '</td>'
 									+ '<td class="email"><button class="permission btn btn-info btn-xs">Edit</button></td>'
 									+'</tr>';

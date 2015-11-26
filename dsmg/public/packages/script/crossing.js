@@ -5,8 +5,7 @@ window.onload = function(){
 
 	allStation();
 	loadCrossingPointInspectionLedger();
-	loadStationSupervisors(0);
-
+allsupervisorsdesignation();
 }
 var token =  $("input[name=_token]").val();
 function allStation(){
@@ -24,10 +23,24 @@ function allStation(){
 }
 $("#station_id").on("change", function () {
  var station_id = $('#station_id').val();
- loadStationSupervisors(station_id);
-
+ 
 });
+function allsupervisorsdesignation(){
+	$('#designation').empty();
 
+ $.ajax({
+	 url: '/common/allsupervisorsdesignation',
+	 type: 'GET',
+	 dataTtype: 'JSON',
+	 success: function(data){
+		 $('#designation').append('<option value="NA">Maintainance by</option>');
+		 for(var i in data){
+			 $('#designation').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
+
+		 }
+	 }
+ });
+}
 function loadCrossingPointInspectionLedger(){
 	$('#overdueBtn').attr('onclick','overdueStation()').attr('class','btn btn-danger btn-block').html('overdue station');
 
@@ -46,9 +59,9 @@ function loadCrossingPointInspectionLedger(){
 				 var today=moment(new Date()).format('DD/MM/YY');
 
 				 //alert(today);
-				 	console.log(moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'----'+today);
-				  console.log(moment(data[i].due_date_of_inspection)+'----'+new Date().getTime());
-					console.log(moment(data[i].due_date_of_inspection).isAfter(new Date()));
+				 //	console.log(moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'----'+today);
+				  //console.log(moment(data[i].due_date_of_inspection)+'----'+new Date().getTime());
+					//console.log(moment(data[i].due_date_of_inspection).isAfter(new Date()));
 				 if(moment(data[i].due_date_of_inspection).isAfter(new Date().getTime())){
 				 			next_date_row='<td>'+moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'</td>';
 					 }else{
@@ -153,23 +166,7 @@ function delete_data(id){
 		}
 	});
 }
-function loadStationSupervisors(station_id){
-	$('#designation').empty();
 
- $.ajax({
-	 url: '/common/allsupervisors',
-	 type: 'POST',
-	 data: {'station_id':station_id, '_token':token},
-	 dataTtype: 'JSON',
-	 success: function(data){
-
-		 for(var i in data){
-			 $('#designation').append('<option value="'+data[i].designation+'">'+data[i].designation+'</option>');
-
-		 }
-	 }
- });
-}
 $("#excel").click(function() {
 	//alert(1);
 	$("#data-list").table2excel({

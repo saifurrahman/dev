@@ -95,6 +95,14 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
+    public function getSection()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.section_distribution');
+        } else {
+            return Redirect::to('/');
+        }
+    }
     public function getUsers ()
     {
         if (Auth::check()) {

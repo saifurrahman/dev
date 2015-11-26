@@ -2,12 +2,12 @@
 
 <div class="row">
 			<div class="page-header">
-				<h3>Stations master</h3>
+				<h3>Stations details</h3>
 			</div>
 </div>
 
 {{Form::open(array('url'=>'','id'=>'add-station-form','class'=>'form-horizontal'  , 'method' => 'post'))}}
-<div class="row" id="add-station-form">
+<div class="row" id="add-station-form" hidden="hidden">
 	<div class="col-md-3">
 		<div class="form-group">
 			<input type="hidden"  id="station_id" name="station_id">
@@ -40,9 +40,7 @@
 								<th>Sl no</th>
 								<th>Station Code</th>
 								<th>Station Name</th>
-								<th>District Name</th>
 								<th>Edit</th>
-								<th>Station Status</th>
 							</tr>
 						</thead>
 						<tbody id="railway_stations_list"></tbody>

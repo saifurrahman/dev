@@ -14,11 +14,7 @@ class CommonController extends Controller
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
-  public function postAllsupervisors(){
-    $query="SELECT * from nfr_supervisors";
-    $data = DB::select(DB::raw($query));
-    return Response::json($data);
-  }
+
   public function getAlldistrict(){
     $gears = District::all ();
     return Response::json ( $gears );
@@ -108,12 +104,25 @@ class CommonController extends Controller
   			}
 
   	}
-
-
-
-  //  DB::table('nfr_station_gear_master')->insert($final_array);
+    //  DB::table('nfr_station_gear_master')->insert($final_array);
 
     $users = DB::table('nfr_station_gear_master')->get();
   //  print_r($users);
+  }
+  public function getAllsupervisors(){
+    $query="SELECT t1.*,GROUP_CONCAT(t3.code SEPARATOR ', ') as stations from nfr_supervisors t1 LEFT Join nfr_supervisors_stations t2 on t1.id=t2.supervisors_id LEFT JOIN nfr_station_master t3 ON t2.station_id=t3.id GROUP by t1.id";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+  public function getAllsupervisorsdesignation(){
+    $query="SELECT * from nfr_supervisors_desig";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+  public function getSupervisorstations($id){
+
+    $query="SELECT * from nfr_supervisors_stations t1,nfr_station_master t2 where supervisors_id=$id and t1.station_id=t2.id";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
   }
 }

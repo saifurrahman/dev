@@ -68,8 +68,9 @@
 						<label></label>
 						<button type="button" onclick="saveData();" id="saveBtn" class="btn btn-success btn-block">save</button>
 					</div>
-					{{ Form::close()}}
+
 </div>
+{{ Form::close()}}
 <div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
@@ -88,9 +89,14 @@
 								<th>Delete</th>
 							</tr>
 						</thead>
+						{{Form::open(array('url' => ' ','id'=>'del-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+
 						<tbody id="data-list"></tbody>
+						{{ Form::close()}}
+
 					</table>
 				</div>
 			</div>
 </div>
+
 {{HTML::script('packages/script/schedule_entry.js');}} @stop

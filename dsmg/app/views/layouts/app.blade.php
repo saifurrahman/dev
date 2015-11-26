@@ -37,24 +37,20 @@
 <body>
 	<section class="vbox">
 		<header
-			class="bg-white header header-md navbar navbar-fixed-top-xs box-shadow">
-			<div class="navbar-header aside-md dk">
-				<a class="btn btn-link visible-xs"
-					data-toggle="class:nav-off-screen" data-target="#nav"> <i
-					class="fa fa-bars"></i>
-				</a> <a href="#" class="navbar-brand"> {{
-					HTML::image('packages/images/logo.png', 'addneon', array('class' =>
-					'm-r-sm'))}} <span class="hidden-nav-xs">DSMG </span>
-				</a> <a class="btn btn-link visible-xs" data-toggle="dropdown"
-					data-target=".user"> <i class="fa fa-cog"></i>
-				</a>
-			</div>
-			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+			class="bg-black text-white header header-md navbar navbar-fixed-top-xs ">
 
+				<span class="navbar-brand"> {{
+					HTML::image('packages/images/logo.png', 'dsmg', array('class' =>
+					'm-r-md'))}} <span>DSMG monitoring</span>
+				</span>
+				<span class="navbar-brand"><button class="btn btn-danger btn-rounded btn-right">26</button> gear overdue</span>
+
+				<span class="navbar-brand"><button class="btn btn-danger btn-rounded btn-right">3</button>JP&X-ing overdue</span>
+
+
+			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <span class="thumb-sm avatar pull-left"> {{
-							HTML::image('packages/images/a0.png', 'addneon', array('class' =>
-							''))}} </span> <?php echo Session::get("name"); ?> <b
+					data-toggle="dropdown"><?php echo Session::get("name"); ?> <b
 						class="caret"></b>
 				</a>
 					<ul class="dropdown-menu animated fadeInRight">
@@ -147,7 +143,7 @@
 
 										</li>
 										<li id="deals">
-												<a href="{{URL::to('dsmg/users')}}">
+												<a href="{{URL::to('dsmg/section')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">Section Distribution</span>
 												</a>
 
