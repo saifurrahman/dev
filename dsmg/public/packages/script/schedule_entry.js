@@ -8,12 +8,13 @@ window.onload = function(){
 	gearCode();
 	//migrateData();
 	allsupervisors();
+	allsupervisorsdesig();
 }
 var token =  $("input[name=_token]").val();
 function migrateData(){
 
 	$.ajax({
-		url: '/common/migrate/',
+		url: '/common/migrate',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
@@ -35,7 +36,7 @@ $('#maintenance_date').change(function(){
 });
 function allStation(){
 	$.ajax({
-		url: '/common/allstations/',
+		url: '/common/allstations',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
@@ -81,18 +82,29 @@ $("#station_id").on("change", function () {
  });
 
  function allsupervisors(){
-	 $('#designation').empty();
 	 $('#maintenance_by').empty();
  	$.ajax({
  		url: '/common/allsupervisors',
  		type: 'GET',
  		dataTtype: 'JSON',
  		success: function(data){
-			$('#designation').append('<option value="NA">--NA--</option>');
 			$('#maintenance_by').append('<option value="NA">--NA--</option>');
  			for(var i in data){
-				$('#designation').append('<option value="'+data[i].designation+'">'+data[i].designation+'</option>');
 				$('#maintenance_by').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
+			}
+ 		}
+ 	});
+ }
+ function allsupervisorsdesig(){
+	 $('#designation').empty();
+	 	$.ajax({
+ 		url: '/common/allsupervisorsdesignation',
+ 		type: 'GET',
+ 		dataTtype: 'JSON',
+ 		success: function(data){
+			$('#designation').append('<option value="NA">--NA--</option>');
+			for(var i in data){
+				$('#designation').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
 			}
  		}
  	});

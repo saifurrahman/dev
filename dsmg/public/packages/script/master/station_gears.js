@@ -1,6 +1,7 @@
 window.onload = function() {
 	get_all_stations();
 	get_all_gear_type();
+		 get_all_assign_gear(2);
 };
 
 var station_id;
@@ -8,7 +9,7 @@ var token =  $("input[name=_token]").val();
 
 function get_all_stations(){
 	$.ajax({
-		url: '/common/allstations/',
+		url: '/common/allstations',
 		type: 'GET',
 		dataType: 'JSON',
 		success: function(data){
@@ -19,12 +20,12 @@ function get_all_stations(){
 		}
 	}).promise().done(function() {
 		 station_id = $('#station_id').val()
-		 get_all_assign_gear(station_id);
+		 //get_all_assign_gear(station_id);
 	});
 }
 function get_all_gear_type(){
 	$.ajax({
-		url: '/common/allgearcode/',
+		url: '/common/allgearcode',
 		type: 'GET',
 		dataType: 'JSON',
 		success: function(data){
@@ -39,7 +40,7 @@ function get_all_gear_type(){
 function get_all_assign_gear(station_id){
 	$('#railway_gears_list').html('<tr><td colspan="4" style="text-align: center;margin-top: 10px;"><i class="fa fa-spinner fa-spin fa-2x"></i></td></tr>');
 	$.ajax({
-		url: '/common/allassigngear/',
+		url: '/common/allassigngear',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {'station_id':station_id,'_token':token},
@@ -64,7 +65,7 @@ function save_gear(){
 	if(gear_type_id != 0 && gear_no.length != 0){
 		$('#save_gear_btn').attr('disabled',true).html('Save');
 		$.ajax({
-			url: '/common/savestationgear/',
+			url: '/common/savestationgear',
 			type: 'POST',
 			dataTtype: 'JSON',
 			data: {'station_id':station_id,'gear_type_id':gear_type_id,'gear_no':gear_no,'_token':token},

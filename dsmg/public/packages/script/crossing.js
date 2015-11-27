@@ -2,15 +2,15 @@ window.onload = function(){
 	//$('#ro').addClass('active');
 	$('#inspection_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#inspection_date").datepicker("setDate", new Date());
-
 	allStation();
+	allsupervisorsdesignation();
 	loadCrossingPointInspectionLedger();
-allsupervisorsdesignation();
 }
 var token =  $("input[name=_token]").val();
+
 function allStation(){
 	$.ajax({
-		url: '/common/allstations/',
+		url: '/common/allstations',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
@@ -21,13 +21,9 @@ function allStation(){
 		}
 	});
 }
-$("#station_id").on("change", function () {
- var station_id = $('#station_id').val();
 
-});
 function allsupervisorsdesignation(){
 	$('#designation').empty();
-
  $.ajax({
 	 url: '/common/allsupervisorsdesignation',
 	 type: 'GET',
@@ -49,7 +45,7 @@ function loadCrossingPointInspectionLedger(){
 	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
-		url: '/schedule/allcrossinginspectionledger/',
+		url: '/schedule/allcrossinginspectionledger',
 		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
@@ -93,7 +89,7 @@ function overdueStation(){
 	$('#data-list').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
-		url: '/schedule/overduecrossinginspection/',
+		url: '/schedule/overduecrossinginspection',
 		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
@@ -117,16 +113,13 @@ function overdueStation(){
 }
 
 
- //save form data
- var token =  $("input[name=_token]").val();
-
  function saveData(){
  	var formData = $('form#crossing-form').serializeArray();
 
 	$('#saveBtn').attr('disabled',true).html('<i class="fa fa-spinner fa-spin"></i>');
 
 		 $.ajax({
-			url:'/schedule/savecrossingdata/',
+			url:'/schedule/savecrossingdata',
 			type: 'POST',
 			dataTtype: 'JSON',
 			data: formData,
@@ -138,7 +131,7 @@ function overdueStation(){
 					loadCrossingPointInspectionLedger();
 				}
 				else{
-					alertify.error('please input  datas');
+					alertify.error('Not able to save at this moment.Please contact administrator!');
 				}
 			}
 		});
@@ -165,11 +158,3 @@ function delete_data(id){
 		}
 	});
 }
-
-$("#excel").click(function() {
-	//alert(1);
-	$("#data-list").table2excel({
-		exclude : ".noExl",
-		name : "Coommercial Schedule"
-	});
-});

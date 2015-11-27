@@ -109,8 +109,13 @@ class CommonController extends Controller
     $users = DB::table('nfr_station_gear_master')->get();
   //  print_r($users);
   }
-  public function getAllsupervisors(){
+  public function getAllsupervisorsold(){
     $query="SELECT t1.*,GROUP_CONCAT(t3.code SEPARATOR ', ') as stations from nfr_supervisors t1 LEFT Join nfr_supervisors_stations t2 on t1.id=t2.supervisors_id LEFT JOIN nfr_station_master t3 ON t2.station_id=t3.id GROUP by t1.id";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+  public function getAllsupervisors(){
+    $query="SELECT t1.*,t2.name as desig from nfr_supervisors t1 , nfr_supervisors_desig t2 where t1.desig_id=t2.id";
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
@@ -119,5 +124,20 @@ class CommonController extends Controller
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
-  
+  public function postSavedesignation(){
+    $desig = new Designation();
+    $desig->name = Input::get('desig');
+    $desig->save();
+    return Response::json($desig);
+  }
+  public function postSavenewsupervisor(){
+    $supervisor_stations = implode(",",Input::get('supervisor_stations'));
+      $supervisor=new Supervisor();
+      $supervisor->name = Input::get('supervisor_name');
+      $supervisor->desig_id = Input::get('desig_id');
+      $supervisor->stations = $supervisor_stations;
+      $supervisor->save();
+      return Response::json($supervisor);
+
+  }
 }

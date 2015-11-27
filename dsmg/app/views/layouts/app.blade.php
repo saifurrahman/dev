@@ -31,6 +31,8 @@
 {{HTML::script('packages/js/moment.js');}}
 {{HTML::script('packages/js/jquery.table2excel.min.js');}}
 {{HTML::script('packages/js/Chart.js');}}
+{{HTML::script('packages/js/underscore-min.js');}}
+
 
 </head>
 
@@ -43,10 +45,10 @@
 					HTML::image('packages/images/logo.png', 'dsmg', array('class' =>
 					'm-r-md'))}} <span>DSMG monitoring</span>
 				</span>
-				<span class="navbar-brand"><button class="btn btn-danger btn-rounded btn-right">26</button> gear overdue</span>
+			<!--	<span class="navbar-brand"><button class="btn btn-danger btn-rounded btn-right">26</button> gear overdue</span>
 
 				<span class="navbar-brand"><button class="btn btn-danger btn-rounded btn-right">3</button>JP&X-ing overdue</span>
-
+-->
 
 			<ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -55,7 +57,7 @@
 				</a>
 					<ul class="dropdown-menu animated fadeInRight">
 						<li><span class="arrow top"></span> <a
-							href="{{URL::to('addneon/profile')}}">Profile</a></li>
+							href="{{URL::to('dsmg/profile')}}">Profile</a></li>
 						<li class="divider"></li>
 						<li><a href="{{URL::to('users/logout')}}">Logout</a></li>
 					</ul></li>

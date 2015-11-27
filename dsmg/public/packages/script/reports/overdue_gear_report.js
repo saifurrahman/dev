@@ -6,7 +6,7 @@ window.onload = function() {
 var token =  $("input[name=_token]").val();
 function get_all_stations(){
 	$.ajax({
-		url: '/common/allstations/',
+		url: '/common/allstations',
 		type: 'GET',
 		dataType: 'JSON',
 		success: function(data){
@@ -27,7 +27,7 @@ function get_maintenance_reports(){
   $('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
   $.ajax({
-    url: '/report/overduegearbystation/',
+    url: '/report/overduegearbystation',
     type: 'POST',
     datatype: 'JSON',
     data: formData,

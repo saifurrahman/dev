@@ -89,11 +89,9 @@
 								<th>Delete</th>
 							</tr>
 						</thead>
-						{{Form::open(array('url' => ' ','id'=>'del-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 
 						<tbody id="data-list"></tbody>
-						{{ Form::close()}}
-
+					
 					</table>
 				</div>
 			</div>

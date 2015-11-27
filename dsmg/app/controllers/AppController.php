@@ -30,7 +30,7 @@ class AppController extends BaseController
     //user
     public function getProfile() {
     	if (Auth::check ()) {
-    		$this->layout->content = View::make ('app.settings.profile');
+    		$this->layout->content = View::make ('app.profile');
     	} else {
     		return Redirect::to ( '/' );
     	}

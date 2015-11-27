@@ -43,7 +43,7 @@ function createStation(){
 	var formData = $('form#add-station-form').serializeArray();
 //	$('#add_station_btn').attr('disabled',false).html('<i class="fa fa-spinner fa-spin"></i>');
 	 $.ajax({
-		url: '/common/savestation/',
+		url: '/common/savestation',
 		type: 'POST',
 		dataTtype: 'JSON',
 		data: formData,
@@ -66,7 +66,7 @@ $('#saveBtn').attr('onclick','updateStation()').attr('class','btn btn-danger btn
 function updateStation(){
 	var formData = $('form#add-station-form').serializeArray();
   $.ajax({
-		url: '/common/updatestation/',
+		url: '/common/updatestation',
 		type: 'POST',
 		dataType: 'JSON',
 		data: formData,
@@ -81,7 +81,7 @@ function updateStation(){
 }
 function changeStationStatus(station_id,status){
   $.ajax({
-		url: '/common/updatestation/',
+		url: '/common/updatestation',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {'station_id': station_id,'status':status},
