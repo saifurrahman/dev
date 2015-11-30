@@ -43,6 +43,9 @@
 					<strong>Sign in</strong>
 				</header>
 				{{ Form::open(array('url'=>'users/login', 'class'=>''))}}
+        <?php if(Input::get ( 'error' )!=null){?>
+        <div><span class="text-danger">Authentication Failed!<span></div>
+          <?php }?>
 				<div class="list-group">
 					<div class="list-group-item">
 						<input type="text" class="form-control no-border" name="username"

@@ -11,8 +11,10 @@ function get_all_stations(){
 		dataType: 'JSON',
 		success: function(data){
 			$('#station_id').empty();
+			$('#posting').empty();
 			for(var i in data){
 			  $('#station_id').append('<option value="'+data[i].code+'">'+data[i].code+'</option>');
+				$('#posting').append('<option value="'+data[i].code+'">'+data[i].code+'</option>');
 			}
 		}
 	}).promise().done(function(data) {
@@ -63,8 +65,10 @@ function allsupervisors(){
  					+'<td class="hidden id">'+data[i].id+'</td>'
            					+'<td>'+count+'</td>'
  					+'<td>'+data[i].name+'</td>'
- 					+'<td>'+data[i].desig+'</td>'
- 					+'<td>'+data[i].stations+'</td>'
+					+'<td>'+data[i].role+'</td>'
+ 					+'<td>'+data[i].designation+'</td>'
+					+'<td>'+data[i].posting+'</td>'
+ 					+'<td>'+data[i].jurisdiction+'</td>'
 
  					+'<td><button class="edit btn btn-rounded btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
  					+'</tr>';

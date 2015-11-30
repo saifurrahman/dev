@@ -93,7 +93,7 @@ class CommonController extends Controller
   	$query="select * from station_gears";
   	$data = DB::select(DB::raw($query));
   	foreach ($data as $row) {
-  			$gear_name=explode(',',$row->gear_name);
+  			$gear_name=explode(';',$row->gear_name);
         //print_r($gear_name);
   			foreach ($gear_name as $gear) {
           $new_row=array();
@@ -104,9 +104,9 @@ class CommonController extends Controller
   			}
 
   	}
-    //  DB::table('nfr_station_gear_master')->insert($final_array);
+      //DB::table('nfr_station_gear_master')->insert($final_array);
 
-    $users = DB::table('nfr_station_gear_master')->get();
+    //$users = DB::table('nfr_station_gear_master')->get();
   //  print_r($users);
   }
   public function getAllsupervisorsold(){
@@ -115,12 +115,12 @@ class CommonController extends Controller
     return Response::json($data);
   }
   public function getAllsupervisors(){
-    $query="SELECT t1.*,t2.name as desig from nfr_supervisors t1 , nfr_supervisors_desig t2 where t1.desig_id=t2.id";
+    $query="SELECT * from nfr_supervisors order by name asc";
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
   public function getAllsupervisorsdesignation(){
-    $query="SELECT * from nfr_supervisors_desig";
+    $query="SELECT DISTINCT(designation) as name from nfr_supervisors order by order_id asc";
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
@@ -139,5 +139,13 @@ class CommonController extends Controller
       $supervisor->save();
       return Response::json($supervisor);
 
+  }
+  public function postChangedpassword(){
+    $user_id = Session::get('user_id');
+    $password = Input::get('password');
+    $profile = User::find($user_id);
+    $profile->password = Hash::make($password);
+    $profile->save();
+    return $user_id;
   }
 }

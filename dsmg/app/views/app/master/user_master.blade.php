@@ -5,7 +5,7 @@
 				<h3>User Master</h3>
 			</div>
 </div>
-{{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+{{Form::open(array('url' => ' ','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 {{ Form::close()}}
 <div class="row">
 			<div class="col-md-8">

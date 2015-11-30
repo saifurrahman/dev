@@ -36,7 +36,7 @@ class ScheduleController extends Controller
       return Response::json(1);
     }
     public function getOverduecrossinginspection(){
-      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id GROUP BY t1.station_id,t1.role order by t1.station_id";
+      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id GROUP BY t1.station_id,t1.role order by t1.station_id,t1.role";
       $data = DB::select(DB::raw($query));
       return Response::json($data);
     }

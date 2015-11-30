@@ -12,15 +12,20 @@
 					 </div>
 
 	 <div class="col-md-3">
-		 <button type="button" class="btn btn-default pull-right" onclick="get_maintenance_reports();">Search</button>
+		 <button type="button" class="btn btn-success " onclick="get_maintenance_reports();">Search</button>
 	 </div>
+	 <div class="col-md-3">
+		 <a class="btn btn-danger" href="#" id="print_overdue"><i class="fa fa-print"></i></a>
+	</div>
+
+
 </div>
 {{ Form::close()}}
 <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="table-responsive">
-              <table class="table table-bordered table-hover" id="maintenance_reports">
+              <table class="table table-bordered table-hover" id="maintenance_reports" border="1" cellpadding="5" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Station Code</th>

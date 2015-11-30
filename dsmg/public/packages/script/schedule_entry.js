@@ -18,7 +18,7 @@ function migrateData(){
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
-			//console.log(data);
+				console.log(data);
 		}
 	});
 }

@@ -1,8 +1,7 @@
 @extends('layouts.app') @section('content')
 
     <div class="row">
-      	<h1>Schedule Master</h1>
-
+      	<h3>DSMG Schedule Code</h3>
     </div>
     {{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 	{{ Form::close()}}

@@ -2,6 +2,7 @@
 <html lang="en" class="app">
 <head>
 <meta charset="ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>DSMG</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -57,7 +58,7 @@
 				</a>
 					<ul class="dropdown-menu animated fadeInRight">
 						<li><span class="arrow top"></span> <a
-							href="{{URL::to('dsmg/profile')}}">Profile</a></li>
+							href="{{URL::to('dsmg/profile')}}">Change Password</a></li>
 						<li class="divider"></li>
 						<li><a href="{{URL::to('users/logout')}}">Logout</a></li>
 					</ul></li>
@@ -128,7 +129,7 @@
 
 										<li id="deals">
     										<a href="{{URL::to('dsmg/schedulecode')}}">
-    										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">Schedule Codes</span>
+    										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">DSMG Schedule Codes</span>
     										</a>
 
 										</li>
@@ -169,13 +170,7 @@
 							</div>
 						</section>
 
-						<footer class="footer hidden-xs no-padder text-center-nav-xs">
-							<a href="#nav" data-toggle="class:nav-xs"
-								class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs"> <i
-								class="fa fa-arrow-left text"></i> <i
-								class="fa fa-arrow-right text-active"></i>
-							</a>
-						</footer>
+
 					</section>
 				</aside>
 				<!-- /.aside -->

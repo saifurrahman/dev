@@ -1,5 +1,5 @@
 window.onload = function() {
-	getUserProfile();
+	//getUserProfile();
 }
 // get profle details
 function getUserProfile() {
@@ -43,13 +43,13 @@ function updateProfile() {
 }
 
 function changePassword() {
-	var formData = $('form#password-form').serializeArray();
+	var formData = $('form#changePassword-form').serializeArray();
 	var password = $('#password').val();
 	var confirm = $('#confirm_password').val();
 	if (password != 0 & confirm != 0 & password == confirm) {
 		$('#pBtn').attr('disabled', true).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
 		$.ajax({
-			url : '/profile/changepassword',
+			url : '/common/changedpassword',
 			type : 'POST',
 			dataType : 'JSON',
 			data : formData,

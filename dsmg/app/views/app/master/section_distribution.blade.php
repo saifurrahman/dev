@@ -8,14 +8,16 @@
 
 <div class="row">
 
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<button class="btn btn-primary pull-right" id="add_user_btn" data-toggle="modal" data-target="#createUserModal"><i class="fa fa-plus"></i> New Supervisor </button>
 	    </div>
-			<div class="col-md-2">
-				<button class="btn btn-primary" id="add_user_btn" data-toggle="modal" data-target="#createDesigModal">Designation</button>
-			</div>
+
 </div>
 <br/>
+<style>
+   table {border-collapse:collapse; table-layout:fixed; width:310px;}
+   table td {width:100px; word-wrap:break-word;}
+</style>
 <div class="row">
 			<div class="col-md-12">
 				<div class="box box-danger">
@@ -23,11 +25,13 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>Sl No.</th>
+									<th style="width:5%">Sl No.</th>
 									<th>Name</th>
+									<th style="width:10%">Role</th>
 									<th>Designation</th>
-									<th>Stations</th>
-									<th style="width:5%;">Edit</th>
+									<th style="width:8%">Posting</th>
+									<th style="word-wrap: break-word;min-width: 160px;max-width: 260px;">Jurisdiction</th>
+									<th style="width:5%">Edit</th>
 								</tr>
 							</thead>
 							<tbody id="sectional_distribution"></tbody>
@@ -53,12 +57,22 @@
 		        		<label>Name</label>
 			        	<input type="text" class="form-control" id="name" name="name" required="required" placeholder="Name">
 			        </div>
+							<div class="form-group">
+		        		<label>Role</label>
+			        <select class="form-control" id="role" name="role"><option value="TSM">TSM</option>
+							<option value="JE">JE</option>
+						<option value="SSE">SSE</option></select>
+			        </div>
+							<div class="form-group">
+		        		<label>Place of posting</label>
+			        <select class="form-control" id="posting" name="posting"></select>
+			        </div>
 			        <div class="form-group">
 			        	<label>Designation</label>
 								<select class="form-control" id="designation" name="designation"></select></div>
 
 							<div class="form-group">
-								<label>Stations</label>
+								<label>Jurisdiction</label>
 								<select id="select_station_id" name="station_id[]" multiple class="form-control" placeholder="Select Station"></select>
 
 							</div>

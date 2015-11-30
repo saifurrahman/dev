@@ -18,16 +18,19 @@
 					<label class="small">Role</label>
 								<select class="form-control" id="role"
 									name="role">
-										<option value="JE/Signal">JE/Signal</option>
-										<option value="SSE/IC/Signal">SSE/IC/Signal</option>
+										<option value="SS">SS</option>
+										<option value="IC">IC</option>
 									</select>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<label class="small">Designation</label>
 					<select class="form-control" id="designation" name="designation"></select>
 
 				</div>
-
+				<div class="col-md-2">
+					<label class="small">Name</label>
+				<select class="form-control" id="maintenance_by" name="maintenance_by"></select>
+				</div>
 					<div class="col-md-2">
 						<label class="small">Inspection Date</label>
 						<input type="text" class="form-control" name="inspection_date" id="inspection_date">
@@ -47,7 +50,7 @@
 			<div class="col-md-12">
 				<label id="table_level">Inspection ledger</label>
 				<div class="table-responsive">
-					<table id="data-entry-table" class="table table-hover table-bordered table-striped table-condensed">
+					<table id="jp_xing_table" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
 						<thead id="table_header">
 
 						</thead>

@@ -24,13 +24,13 @@ class UserController extends BaseController {
 			 Session::put($row->name, $row->permission);
 			}
 			if(Auth::user ()->role=='admin'){
-				return Redirect::to ( 'dsmg/scheduleentry' );
+				return Redirect::to ( 'dsmg/overduereport' );
 			}else{
 				return Redirect::to ( 'dsmg/scheduleentry' );
 			}
 			// var_dump(Session::all());
 		} else {
-			return Redirect::to ( '/' );
+			return Redirect::to ( '/?error=Authentication Failed!' );
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 <div class="row">
 			<div class="page-header">
-				<h3>Gear Type Master</h3>
+				<h3>DSMG Gear Type Master</h3>
 			</div>
 </div>
 {{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
