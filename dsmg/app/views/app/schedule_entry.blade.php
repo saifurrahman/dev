@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h3>Gear Maintainace</h3>
+		<h3>Gear Maintenance</h3>
 	</div>
 </div>
 {{Form::open(array('url' => ' ','id'=>'schedule-form','class'=>'form-horizontal' , 'method' => 'post'))}}
@@ -44,6 +44,7 @@
 									name="role">
 										<option value="SS">SS</option>
 										<option value="IC">IC</option>
+										<option value="TSM">TSM</option>
 									</select>
 							</div>
 						</div>

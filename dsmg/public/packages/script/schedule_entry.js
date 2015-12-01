@@ -206,8 +206,10 @@ function loadStationGears(station_id,gear_code){
 $("#data-list").on("click", ".del", function(){
 	$deleting = $(this);
 	var id = $deleting.closest("tr").find(".id").text();
-	$deleting.html('&nbsp;&nbsp;<i class="fa fa-spinner fa-spin fa-lg"></i>&nbsp;&nbsp;');
-	delete_data(id);
+	alertify.confirm('Please confirm your delete!').set('onok', function(closeEvent){
+				$deleting.html('&nbsp;&nbsp;<i class="fa fa-spinner fa-spin fa-lg"></i>&nbsp;&nbsp;');
+				delete_data(id);
+	});
 });
 function delete_data(id){
 	$.ajax({

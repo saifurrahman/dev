@@ -44,11 +44,25 @@ class CommonController extends Controller
                 ->get ();
 
 	  $datanew ['gear_no'] = $data;
-    $data = DB::table ( 'nfr_schedule_code_master' )
-                ->where('gear_type_id',$gear_code)
-                ->get ();
+    if($gear_code==24){
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->whereIn('gear_type_id', array(24, 4, 7,9,12,13,14,16,17))
+                  ->get ();
 
-    $datanew ['sch_code'] = $data;
+      $datanew ['sch_code'] = $data;
+    }elseif ($gear_code==25) {
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->whereIn('gear_type_id', array(25, 4, 7,12,13,14,16,17))
+                  ->get ();
+
+      $datanew ['sch_code'] = $data;
+    }else{
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->where('gear_type_id',$gear_code)
+                  ->get ();
+
+      $datanew ['sch_code'] = $data;
+    }
     return Response::json ( $datanew );
   }
   public function postSavestation(){
@@ -115,7 +129,7 @@ class CommonController extends Controller
     return Response::json($data);
   }
   public function getAllsupervisors(){
-    $query="SELECT * from nfr_supervisors order by name asc";
+    $query="SELECT DISTINCT(name) as name from nfr_supervisors order by name asc";
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }

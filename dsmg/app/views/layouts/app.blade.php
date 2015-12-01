@@ -91,7 +91,7 @@
 
 										<li id="schedule_entry">
     										<a href="{{URL::to('dsmg/scheduleentry')}}">
-    										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintainace</span>
+    										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintenance</span>
     										</a>
 										</li>
 										<li id="brand">
