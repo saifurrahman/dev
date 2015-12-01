@@ -82,4 +82,9 @@ class ReportController extends Controller {
 			$deals = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $deals );
 	}
+	public function getAllscheduleamount(){
+			$query="SELECT * from monthly_report_master";
+			$deals = DB::select ( DB::raw ( $query ) );
+			return Response::json ( $deals );
+	}
 }

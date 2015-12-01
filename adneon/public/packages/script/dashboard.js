@@ -17,6 +17,63 @@ window.onload = function() {
 		monthlyBills();
 	locationMonthlyDeals();
 	getMonthlyscheduleamount();
+	monthly_report_master();
+}
+
+function monthly_report_master(){
+	$.ajax({
+		url : '/report/allscheduleamount',
+		type : 'GET',
+		datatype : 'JSON',
+		success : function(data) {
+			var rowsx = [];
+			var rowsy1 = [];
+			var rowsy2 = [];
+
+			for ( var key in data) {
+				rowsx.push(data[key].month);
+				rowsy1.push(parseFloat(data[key].schedule_amount/100000).toFixed(2));
+				rowsy2.push(parseFloat(data[key].govt_amount/100000).toFixed(2));
+				//rowsy3.push(parseFloat(data[key].mumbai/100000).toFixed(2));
+				//rowsy4.push(parseFloat(data[key].delhi/100000).toFixed(2));
+				//rowsy5.push(parseFloat(data[key].kolkota/100000).toFixed(2));
+				//rowsy6.push(parseFloat(data[key].bangalore/100000).toFixed(2));
+			}
+			var data_set = {
+    labels: rowsx,
+    datasets: [
+        {
+            label: "Total Schedule",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: getRandomColor(),
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: rowsy1
+        },
+        {
+            label: "Govt",
+            fillColor: "rgba(191,197,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: rowsy2
+        }
+    	]
+		};
+		var ctx = document.getElementById('monthly_report_master')
+				.getContext('2d');
+				ctx.canvas.width = 900;
+				ctx.canvas.height = 300;
+		var myLineChart = new Chart(ctx).Line(data_set);
+
+		}
+	});
+
+
 }
 var token = $("input[name=_token]").val();
 

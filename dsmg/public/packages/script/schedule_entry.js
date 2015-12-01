@@ -127,7 +127,12 @@ function loadStationGears(station_id,gear_code){
 				$('#schedule_code_id').append('<option value="'+data['sch_code'][j].id+'" data-level1="'+data['sch_code'][j].periodicity_level_1+'" data-level2="'+data['sch_code'][j].periodicity_level_2+'" >'+data['sch_code'][j].code+'</option>');
 			}
 		}
-	});
+	}).promise().done(function(data) {
+					//console.log(data);
+        	$select_station_id = $('#station_gear_id').selectize({
+        	maxItems: null,valueField: 'id',labelField: 'gear_no',searchField: 'gear_no',options: data['gear_no'],create: false
+        });
+    });
 }
 
  //save form data

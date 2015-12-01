@@ -29,8 +29,8 @@
 					<div class="col-md-2">
 							<label class="small">Name</label>
 							<div class="form-group">
-								<select class="form-control" id="station_gear_id"
-									name="station_gear_id"></select>
+								<select multiple class="form-control" id="station_gear_id"
+									name="station_gear_id[]"></select>
 											</div>
 						</div>
 
@@ -91,7 +91,7 @@
 						</thead>
 
 						<tbody id="data-list"></tbody>
-					
+
 					</table>
 				</div>
 			</div>
