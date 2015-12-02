@@ -31,8 +31,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h4 class="text-center" style="margin-bottom: 0;">NF Railway</h4>
-					<h3 class="text-center" style="margin-top: 0;">DSMG Monitoring Module<small>(v 0.9)</small></h3>
+					<h3 class="text-center" style="margin-top: 0;">DSMG Monitoring Module</h3>
 					<h5 class="text-center">(Tinsukia Division)</h5>
+          <h5 class="text-center"><small>Version 1.0</small></h5>
+
 				</div>
 			</div>
 			<div class="text-center padder">
