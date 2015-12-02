@@ -16,7 +16,7 @@
 {{HTML::style('packages/css/app.css')}}
 {{HTML::style('packages/css/alertify.min.css')}}
 {{HTML::style('packages/css/selectize.bootstrap3.css')}}
-{{HTML::style('packages/css/addneon.css')}}
+{{HTML::style('packages/css/dsmg.css')}}
 {{HTML::style('packages/css/jquery-ui.min.css')}}
 {{HTML::style('packages/css/jquery-ui.min.css')}}
 
