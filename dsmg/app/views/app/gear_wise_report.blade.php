@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <div class="row">
 			<div class="page-header">
-				<h3>Gear Wise Maintainance Report</h3>
+				<h3>Gear Wise Maintenance Report</h3>
 			</div>
 </div>
 {{Form::open(array('url' => ' ','id'=>'gear_wise_report_form','class'=>'form-horizontal' , 'method' => 'post'))}}

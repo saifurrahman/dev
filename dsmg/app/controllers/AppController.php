@@ -103,6 +103,14 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
+    public function getNews ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.master.news_update');
+        } else {
+            return Redirect::to('/');
+        }
+    }
     public function getUsers ()
     {
         if (Auth::check()) {

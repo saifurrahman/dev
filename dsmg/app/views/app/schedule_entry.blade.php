@@ -21,14 +21,14 @@
 
 <div class="row" id="schedule-form">
 				<div class="col-md-1">
-						<label class="small">GC</label>
+						<label class="small">GType</label>
 						<div class="form-group">
 								<select class="form-control" id="gear_code" name="gear_code"></select>
 							</div>
 					</div>
 					<div class="col-md-2">
 							<label class="small">Name</label>
-							<div class="form-group">
+							<div class="form-group" id="station_gear_div">
 								<select multiple class="form-control" id="station_gear_id"
 									name="station_gear_id[]"></select>
 											</div>
@@ -83,7 +83,7 @@
 								<th>Gear No.</th>
 								<th>Schedule Code</th>
 								<th>Role</th>
-								<th>Next Maintainance Date</th>
+								<th>Next Maintenance Date</th>
 								<th>Disc app.</th>
 								<th>Maintained by</th>
 								<th>Designation</th>

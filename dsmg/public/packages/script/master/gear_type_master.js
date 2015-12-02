@@ -1,4 +1,5 @@
 window.onload = function() {
+	$('#gear_type').addClass('active');
 	get_all_gear_type();
 };
 function get_all_gear_type(){

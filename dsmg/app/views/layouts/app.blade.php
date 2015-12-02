@@ -87,77 +87,77 @@
 								</div>
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav nav-main">
-										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintainance</div>
+										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintenance</div>
 
 										<li id="schedule_entry">
     										<a href="{{URL::to('dsmg/scheduleentry')}}">
     										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintenance</span>
     										</a>
 										</li>
-										<li id="brand">
+										<li id="jp_crossing">
     										<a href="{{URL::to('dsmg/crossing')}}">
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint & X-ing</span>
     										</a>
 										</li>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
-										<li id="client">
+										<li id="overdue_report">
 												<a href="{{URL::to('dsmg/overduereport')}}">
 													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Gear</span>
 												</a>
 										</li>
-										<li id="deals">
+										<li id="stn_report">
 												<a href="{{URL::to('dsmg/staionwisereport')}}">
-													<i class="fa fa-home text-success-dk"> </i> <span class="font-bold">Station Wise Maintainance</span>
+													<i class="fa fa-home text-success-dk"> </i> <span class="font-bold">Station Wise Maintenance</span>
 												</a>
 
 										</li>
-										<li id="deals">
+										<li id="gear_report">
     										<a href="{{URL::to('dsmg/gearwisereport')}}">
-    										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Maintainance</span>
+    										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Maintenance</span>
     										</a>
 
 										</li>
 
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master Data</div>
-										<li id="deals">
+										<li id="stn_details">
     										<a href="{{URL::to('dsmg/stationmaster')}}">
     										  <i class="fa fa-home text-primary-dk"> </i> <span class="font-bold">Stations</span>
     										</a>
 
 										</li>
 
-										<li id="deals">
+										<li id="code_master">
     										<a href="{{URL::to('dsmg/schedulecode')}}">
     										  <i class="fa  fa-calendar-check-o text-primary-dk"> </i> <span class="font-bold">DSMG Schedule Codes</span>
     										</a>
 
 										</li>
-										<li id="deals">
+										<li id="gear_type">
     										<a href="{{URL::to('dsmg/geartype')}}">
     										  <i class="fa fa-gears text-primary-dk"> </i> <span class="font-bold">Gear Type </span>
     										</a>
 
 										</li>
-										<li id="deals">
+										<li id="stn_gear">
     										<a href="{{URL::to('dsmg/stationgear')}}">
     										  <i class="fa fa-industry text-primary-dk"> </i> <span class="font-bold">Station Gears</span>
     										</a>
 
 										</li>
-										<li id="deals">
+										<li id="sec_distribution">
 												<a href="{{URL::to('dsmg/section')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">Section Distribution</span>
 												</a>
 
 										</li>
-										<li id="deals">
-												<a href="{{URL::to('dsmg/users')}}">
+										<li id="news_update">
+												<a href="{{URL::to('dsmg/news')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">News & Updates</span>
 												</a>
 
 										</li>
-										<li id="deals">
+										<li id="users">
 												<a href="{{URL::to('dsmg/users')}}">
 													<i class="fa fa-user text-primary-dk"> </i> <span class="font-bold">Users</span>
 												</a>

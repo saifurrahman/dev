@@ -1,4 +1,5 @@
 window.onload = function(){
+	$('#code_master').addClass('active');
 	get_all_schedule_code();
 	get_all_gear_type();
 };

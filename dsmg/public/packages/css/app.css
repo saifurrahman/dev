@@ -1,5 +1,5 @@
 html {
-  
+
   overflow-x: hidden;
 }
 body {
@@ -2089,7 +2089,7 @@ fieldset[disabled] .btn-dark.active {
 .bg-dark .nav > li:focus > a,
 .bg-dark .nav > li:active > a,
 .bg-dark .nav > li.active > a {
-  color: #fff;
+  color: #D90944;
   background-color: #12151d;
 }
 .bg-dark .nav > li > a {

@@ -1,5 +1,5 @@
 window.onload = function(){
-	//$('#ro').addClass('active');
+	$('#schedule_entry').addClass('active');
 	$('#maintenance_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#maintenance_date").datepicker("setDate", new Date());
 	var maintenance_date = $('#maintenance_date').val();
@@ -111,7 +111,9 @@ $("#station_id").on("change", function () {
  }
 
 function loadStationGears(station_id,gear_code){
-	$('#station_gear_id').empty();
+
+	//$("#station_gear_id").html().empty()
+	//document.getElementById('station_gear_id').innerHTML = "";
 	$('#schedule_code_id').empty();
 	$.ajax({
 		url: '/common/stationgear',
@@ -119,8 +121,9 @@ function loadStationGears(station_id,gear_code){
 		data: {'station_id':station_id, 'gear_code':gear_code,'_token':token},
 		dataTtype: 'JSON',
 		success: function(data){
-
+			$('#station_gear_div').empty().append('<select multiple class="form-control" id="station_gear_id" name="station_gear_id[]">[]"></select>');
 			for(var i in data['gear_no']){
+				console.log(data['gear_no'][i].gear_no);
 				$('#station_gear_id').append('<option value="'+data['gear_no'][i].id+'">'+data['gear_no'][i].gear_no+'</option>');
 			}
 			for (var j in data['sch_code']){
@@ -128,9 +131,13 @@ function loadStationGears(station_id,gear_code){
 			}
 		}
 	}).promise().done(function(data) {
-					//console.log(data);
-        	$select_station_id = $('#station_gear_id').selectize({
-        	maxItems: null,valueField: 'id',labelField: 'gear_no',searchField: 'gear_no',options: data['gear_no'],create: false
+		      	$select_station_id = $('#station_gear_id').selectize({
+        	maxItems: null,
+					valueField: 'id',
+					labelField: 'gear_no',
+					searchField: 'gear_no',
+					//options: data.gear_no,
+					create: false
         });
     });
 }
@@ -180,8 +187,13 @@ function loadStationGears(station_id,gear_code){
  	 success: function(data){
  		$('#data-list').empty();
  		 for (var i in data){
+			 var next_date_row;
+			 if(moment(data[i].next_maintenance_date).isAfter(new Date().getTime())){
+					next_date_row='<td>'+moment(data[i].next_maintenance_date).format('DD/MM/YY')+'</td>';
+			 }else{
+				 next_date_row='<td class="text text-danger">'+moment(data[i].next_maintenance_date).format('DD/MM/YY')+'</td>';
 
-
+			 }
 			var row = '<tr>'
 					+'<td class="hidden id">'+data[i].id+'</td>'
 					+'<td>'+data[i].station+'</td>'
@@ -189,7 +201,7 @@ function loadStationGears(station_id,gear_code){
 					+'<td>'+data[i].gear_no+'</td>'
 					+'<td>'+data[i].schedule_code+'</td>'
 					+'<td>'+data[i].role+'</td>'
-					+'<td>'+moment(data[i].next_maintenance_date).format('DD/MM/YY')+'</td>'
+					+ next_date_row
 					+'<td>'+data[i].discontinuation_status+'</td>'
 					+'<td>'+data[i].maintenance_by+'</td>'
 					+'<td>'+data[i].designation+'</td>'

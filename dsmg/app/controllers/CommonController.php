@@ -39,6 +39,7 @@ class CommonController extends Controller
     $gear_code = Input::get ( 'gear_code' );
 
     $data = DB::table ( 'nfr_station_gear_master' )
+                ->select('id', 'gear_no')
                 ->where('station_id',$station_id)
                 ->where('gear_type_id',$gear_code)
                 ->get ();
@@ -46,18 +47,21 @@ class CommonController extends Controller
 	  $datanew ['gear_no'] = $data;
     if($gear_code==24){
       $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
                   ->whereIn('gear_type_id', array(24, 4, 7,9,12,13,14,16,17))
                   ->get ();
 
       $datanew ['sch_code'] = $data;
     }elseif ($gear_code==25) {
       $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
                   ->whereIn('gear_type_id', array(25, 4, 7,12,13,14,16,17))
                   ->get ();
 
       $datanew ['sch_code'] = $data;
     }else{
       $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
                   ->where('gear_type_id',$gear_code)
                   ->get ();
 
@@ -133,6 +137,12 @@ class CommonController extends Controller
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }
+  public function getAllsupervisorsdetails(){
+    $query="SELECT * from nfr_supervisors order by order_id asc";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+
   public function getAllsupervisorsdesignation(){
     $query="SELECT DISTINCT(designation) as name from nfr_supervisors order by order_id asc";
     $data = DB::select(DB::raw($query));
@@ -145,11 +155,18 @@ class CommonController extends Controller
     return Response::json($desig);
   }
   public function postSavenewsupervisor(){
-    $supervisor_stations = implode(",",Input::get('supervisor_stations'));
-      $supervisor=new Supervisor();
+    $supervisor=new Supervisor();
+    $supervisor_stations ="";
+    if(Input::get('supervisor_stations')!=null){
+      $supervisor_stations = implode(",",Input::get('supervisor_stations'));
+    }
+      
+
       $supervisor->name = Input::get('supervisor_name');
-      $supervisor->desig_id = Input::get('desig_id');
-      $supervisor->stations = $supervisor_stations;
+      $supervisor->posting = Input::get('posting');
+      $supervisor->role = Input::get('role');
+      $supervisor->designation = Input::get('desig_id');
+      $supervisor->jurisdiction = $supervisor_stations;
       $supervisor->save();
       return Response::json($supervisor);
 

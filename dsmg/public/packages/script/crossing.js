@@ -1,5 +1,5 @@
 window.onload = function(){
-	//$('#ro').addClass('active');
+	$('#jp_crossing').addClass('active');
 	$('#inspection_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#inspection_date").datepicker("setDate", new Date());
 	allStation();
@@ -55,7 +55,7 @@ function loadCrossingPointInspectionLedger(){
 	$('#overdueBtn').attr('onclick','overdueStation()').attr('class','btn btn-danger btn-block').html('overdue station');
 
 	$('#table_level').empty().html('<h4><span class="label label-success">Joint Point & Crossing Inspection Ledger</span></h4>');
-	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Maintainance by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th><th>Delete</th></tr>');
+	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Maintenance by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th><th>Delete</th></tr>');
 	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
@@ -98,7 +98,7 @@ function overdueStation(){
 	$('#overdueBtn').attr('onclick','loadCrossingPointInspectionLedger()').attr('class','btn btn-success btn-block').html('Ledger');
 	$('#table_level').empty().html('<h3><span class="label label-danger">Joint Point & Crossing Inspection Overdue Station</span><a class="btn btn-info pull-right" href="#" onclick="printoverdueStation();"><i class="fa fa-print"></i></a></h3>');
 
-	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Maintainance by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th></tr>');
+	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Maintenance by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th></tr>');
 
 	$('#data-list').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 

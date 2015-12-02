@@ -1,4 +1,5 @@
 window.onload = function() {
+	$('#stn_gear').addClass('active');
 	get_all_stations();
 	get_all_gear_type();
 		 get_all_assign_gear(2);

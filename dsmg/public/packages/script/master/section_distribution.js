@@ -1,4 +1,5 @@
 window.onload = function(){
+	$('#sec_distribution').addClass('active');
 	allsupervisors();
 	get_all_stations();
 	allsupervisorsdesig();
@@ -35,7 +36,7 @@ function allsupervisorsdesig(){
 		 var count=0;
 		 $('#designation').append('<option value="NA">--NA--</option>');
 		 for(var i in data){
-			 $('#designation').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+			 $('#designation').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
 
 			  allDesig.push(data[i].name);
 	       count=count+1;
@@ -53,7 +54,7 @@ function allsupervisorsdesig(){
 function allsupervisors(){
   $('#sectional_distribution').empty();
   $.ajax({
-   url: '/common/allsupervisors',
+   url: '/common/allsupervisorsdetails',
    type: 'GET',
    dataTtype: 'JSON',
 
@@ -102,16 +103,18 @@ if(_.contains(allDesig, desig)){
 }
 
 function createSupervisor(){
-	alert('fdsfd');
+
 	var supervisor_name=$('#name').val();
 	var desig_id=$('#designation').val();
 	var supervisor_stations=$('#select_station_id').val();
+	var role=$('#role').val();
+	var posting=$('#posting').val();
 
 	$.ajax({
 	 url: '/common/savenewsupervisor',
 	 type: 'POST',
 	 dataTtype: 'JSON',
-	 data: {'supervisor_name':supervisor_name,'desig_id': desig_id,'supervisor_stations':supervisor_stations,'_token':token},
+	 data: {'supervisor_name':supervisor_name,'desig_id': desig_id,'posting':posting,'role':role,'supervisor_stations':supervisor_stations,'_token':token},
 	 success: function(data){
 
 			 $('#createUserModal').modal('hide');

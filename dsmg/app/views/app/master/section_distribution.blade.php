@@ -59,9 +59,13 @@
 			        </div>
 							<div class="form-group">
 		        		<label>Role</label>
-			        <select class="form-control" id="role" name="role"><option value="TSM">TSM</option>
-							<option value="JE">JE</option>
-						<option value="SSE">SSE</option></select>
+			        <select class="form-control" id="role" name="role">
+									<option value="SSE">SSE</option>
+									<option value="JE">JE</option>
+									<option value="TSM">TSM</option>
+
+
+					</select>
 			        </div>
 							<div class="form-group">
 		        		<label>Place of posting</label>

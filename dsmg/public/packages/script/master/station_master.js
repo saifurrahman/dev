@@ -1,5 +1,6 @@
 var district_list=[];
 window.onload = function(){
+	$('#stn_details').addClass('active');
 	get_all_stations();
 
 };
@@ -11,7 +12,7 @@ function get_all_stations(){
 
 	$('#railway_stations_list').html('<tr><td colspan="6" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-2x"></i></td></tr>');
 	$.ajax({
-    url: '/common/allstations/',
+    url: '/common/allstations',
     type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
