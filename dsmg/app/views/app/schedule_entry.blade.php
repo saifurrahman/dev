@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="col-md-1">
-						<label class="small">Disc. apply</label>
+						<label class="small">Disc.applied</label>
 							<select class="form-control" id="discontinuation_status" name="discontinuation_status">
 								<option value="Yes">Y</option>
 								<option value="No">N</option>
@@ -84,7 +84,7 @@
 								<th>Schedule Code</th>
 								<th>Role</th>
 								<th>Next Maintenance Date</th>
-								<th>Disc. applied</th>
+								<th>Disc.applied</th>
 								<th>Maintained by</th>
 								<th>Designation</th>
 								<th>Delete</th>

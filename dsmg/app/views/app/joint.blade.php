@@ -18,7 +18,7 @@
 				</div>
 			</div>
 
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label class="small">Role</label>
 								<select class="form-control" id="role"
 									name="role">

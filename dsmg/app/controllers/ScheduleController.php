@@ -84,6 +84,7 @@ class ScheduleController extends Controller
         $ledger->station_id = Input::get('station_id');
         $ledger->role = Input::get('role');
         $ledger->designation = Input::get('designation');
+        $ledger->maintenance_by = Input::get('maintenance_by');
         $ledger->date_of_inspection = $inspection_date;
         $ledger->due_date_of_inspection = $next_inspection_date;
         $ledger->user_id = $user_id;
