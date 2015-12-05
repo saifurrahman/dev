@@ -108,12 +108,13 @@ class CommonController extends Controller
   }
   public function getMigrate(){
   	$final_array=array();
-  	$query="select * from station_gears";
+  	$query="select * from TABLE_2";
   	$data = DB::select(DB::raw($query));
   	foreach ($data as $row) {
-  			$gear_name=explode(';',$row->gear_name);
-        //print_r($gear_name);
+  			$gear_name=explode(',',$row->gear_name);
+
   			foreach ($gear_name as $gear) {
+
           $new_row=array();
           $new_row['station_id']=$row->station_id;
   				$new_row['gear_no']=$gear;
@@ -122,7 +123,7 @@ class CommonController extends Controller
   			}
 
   	}
-      //DB::table('nfr_station_gear_master')->insert($final_array);
+    //  DB::table('station_gear_master')->insert($final_array);
 
     //$users = DB::table('nfr_station_gear_master')->get();
   //  print_r($users);
@@ -160,7 +161,7 @@ class CommonController extends Controller
     if(Input::get('supervisor_stations')!=null){
       $supervisor_stations = implode(",",Input::get('supervisor_stations'));
     }
-      
+
 
       $supervisor->name = Input::get('supervisor_name');
       $supervisor->posting = Input::get('posting');

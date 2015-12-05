@@ -2,7 +2,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>DSMG Monitoring Module(Tinsukia Div)</title>
+<meta property="og:title" content="DSMG monitoring module" />
+<meta property="og:image" content="packages/images/logo.png" />
+  <title>DSMG monitoring module</title>
+
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

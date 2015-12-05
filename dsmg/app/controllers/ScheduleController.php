@@ -48,10 +48,10 @@ class ScheduleController extends Controller
         $maintenance_date=$this->convert_to_mysqlDateFormate(Input::get('maintenance_date'));
         $role =Input::get('role');
         $next_maintenance_date;
-        if($role=='SS' || $role=='TSM'){
+        if($role==='SS' || $role==='TSM'){
           $next_maintenance_date = date('Y-m-d', strtotime($maintenance_date."+ $periodicity_level_1 days"));
         }
-        if($role=='IC'){
+        if($role==='IC'){
           $next_maintenance_date = date('Y-m-d', strtotime($maintenance_date."+ $periodicity_level_2 days"));
         }
 

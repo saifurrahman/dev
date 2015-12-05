@@ -27,16 +27,16 @@
 							</div>
 					</div>
 					<div class="col-md-2">
-							<label class="small">Name</label>
+							<label class="small">Gear no</label>
 							<div class="form-group" id="station_gear_div">
 								<select multiple class="form-control" id="station_gear_id"
-									name="station_gear_id[]"></select>
+									name="station_gear_id[]" style="height:33px"></select>
 											</div>
 						</div>
 
 					<div class="col-md-3">
 						<div class="form-group">
-						<label class="small">Schedule code  &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Role</label>
+						<label class="small">Schedule code  &nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Role</label>
 							<div class="input-group">
 								<select class="form-control" id="schedule_code_id" name="schedule_code_id"></select>
 								<span class="input-group-addon">-</span>
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="col-md-1">
-						<label class="small">Disc. app</label>
+						<label class="small">Disc. apply</label>
 							<select class="form-control" id="discontinuation_status" name="discontinuation_status">
 								<option value="Yes">Y</option>
 								<option value="No">N</option>
@@ -84,7 +84,7 @@
 								<th>Schedule Code</th>
 								<th>Role</th>
 								<th>Next Maintenance Date</th>
-								<th>Disc app.</th>
+								<th>Disc. applied</th>
 								<th>Maintained by</th>
 								<th>Designation</th>
 								<th>Delete</th>

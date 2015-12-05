@@ -7,6 +7,8 @@
 {{Form::open(array('url' => ' ','id'=>'news_update','class'=>'form-horizontal' , 'method' => 'post'))}}
 <div class="row">
 
+
+
 </div>
 {{ Form::close()}}
 

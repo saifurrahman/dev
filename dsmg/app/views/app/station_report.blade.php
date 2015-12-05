@@ -20,9 +20,11 @@
 	 <div class="col-md-2">
  		<button type="button" class="btn btn-success " onclick="get_maintenance_reports();">Search</button>
  	</div>
- 	<div class="col-md-2">
- 		<a class="btn btn-danger" href="#" id="print_overdue"><i class="fa fa-print"></i></a>
-  </div>
+	<div class="btn-group">
+   <button type="button" class="btn btn-danger" id="print_report"><i class="fa fa-print"></i></button>
+   <button type="button" class="btn btn-warning" id="excel_report"><i class="fa fa-download"></i></button>
+ </div>
+
 </div>
 {{ Form::close()}}
 <div class="row">
@@ -37,8 +39,8 @@
                     <th>Gear No</th>
                     <th>Schedule Code/Role</th>
                     <th>Last Maintenance Date</th>
-										<th>Next Maintenance Date</th>
-                    <th style="width:5%">Discontinuation Applied</th>
+										<th>Due Date</th>
+                    <th style="width:5%">Disc. applied</th>
                     <th style="width:20%">Maintenance By</th>
                   </tr>
                 </thead>

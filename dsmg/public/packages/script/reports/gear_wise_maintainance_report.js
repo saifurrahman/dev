@@ -111,7 +111,7 @@ if(fromDate!='' && toDate!='' && gear_code!=''){
   alertify.error('Please select from date and to date and Gear Code !');
 }
 }
-$("#print_overdue").on("click", function () {
+$("#print_report").on("click", function () {
  printDiv();
 
 });
@@ -128,3 +128,10 @@ function printDiv()
   newWin.print();
   //newWin.close();
 }
+$("#excel_report").click(function() {
+	$("#maintenance_reports").table2excel({
+		exclude : ".noExl",
+		name : "maintainance_report",
+    filename: "maintainance_report"
+	});
+});

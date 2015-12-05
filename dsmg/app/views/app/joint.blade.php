@@ -2,7 +2,11 @@
 
 <div class="row">
 			<div class="page-header">
-				<h3>Joint Point and X-ing Inspection	</h3>
+				<h3>Joint Point and X-ing Inspection
+					<div class="btn-group pull-right">
+				   <button type="button" class="btn btn-danger" id="print_report"><i class="fa fa-print"></i></button>
+				   <button type="button" class="btn btn-warning" id="excel_report"><i class="fa fa-download"></i></button>
+				 </div>	</h3>
 			</div>
 </div>
 {{Form::open(array('url' => ' ','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
