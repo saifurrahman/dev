@@ -41,7 +41,7 @@ class AppController extends BaseController
     public function getOverduereport ()
     {
         if (Auth::check()) {
-            $this->layout->content = View::make('app.overdue_report');
+            $this->layout->content = View::make('app.report.overdue_report');
         } else {
             return Redirect::to('/');
         }
@@ -49,7 +49,7 @@ class AppController extends BaseController
     public function getStaionwisereport ()
     {
         if (Auth::check()) {
-            $this->layout->content = View::make('app.station_report');
+            $this->layout->content = View::make('app.report.station_report');
         } else {
             return Redirect::to('/');
         }
@@ -57,11 +57,20 @@ class AppController extends BaseController
     public function getGearwisereport ()
     {
         if (Auth::check()) {
-            $this->layout->content = View::make('app.gear_wise_report');
+            $this->layout->content = View::make('app.report.gear_wise_report');
         } else {
             return Redirect::to('/');
         }
     }
+    public function getOverduejp()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.report.overduejp');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+
     //Masters
     public function getStationmaster ()
     {
@@ -103,6 +112,7 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
+
     public function getNews ()
     {
         if (Auth::check()) {

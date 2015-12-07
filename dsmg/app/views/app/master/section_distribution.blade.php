@@ -60,8 +60,8 @@
 							<div class="form-group">
 		        		<label>Role</label>
 			        <select class="form-control" id="role" name="role">
-									<option value="SSE">SSE</option>
-									<option value="JE">JE</option>
+									<option value="IC">IC</option>
+									<option value="SS">SS</option>
 									<option value="TSM">TSM</option>
 
 
@@ -73,7 +73,7 @@
 			        </div>
 			        <div class="form-group">
 			        	<label>Designation</label>
-								<select class="form-control" id="designation" name="designation"></select></div>
+								<select class="form-control" id="designation" name="designation" editable></select></div>
 
 							<div class="form-group">
 								<label>Jurisdiction</label>

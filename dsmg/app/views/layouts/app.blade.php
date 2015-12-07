@@ -91,7 +91,7 @@
 
 										<li id="schedule_entry">
     										<a href="{{URL::to('dsmg/scheduleentry')}}">
-    										  <i class="fa fa-gears text-danger-dk"> </i> <span class="font-bold">Gear Maintenance</span>
+    										  <i class="fa fa-gears text-info-dk"> </i> <span class="font-bold">Gear Maintenance</span>
     										</a>
 										</li>
 										<li id="jp_crossing">
@@ -116,6 +116,12 @@
     										<a href="{{URL::to('dsmg/gearwisereport')}}">
     										  <i class="fa fa-gear text-success-dk"> </i> <span class="font-bold">Gear Wise Maintenance</span>
     										</a>
+
+										</li>
+										<li id="overdue_jp_report">
+												<a href="{{URL::to('dsmg/overduejp')}}">
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing</span>
+												</a>
 
 										</li>
 
