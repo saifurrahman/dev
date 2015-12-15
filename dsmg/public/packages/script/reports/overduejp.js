@@ -3,6 +3,12 @@ window.onload = function(){
 	overdueStation();
 
 }
+var overdueOn =0;
+$("#overdue_on").on("change", function () {
+ overdueOn = $('#overdue_on').val();
+	overdueStation();
+});
+var token =  $("input[name=_token]").val();
 function overdueStation(){
 	//$('#overdueBtn').attr('onclick','loadCrossingPointInspectionLedger()').attr('class','btn btn-success btn-block').html('Ledger');
 	//$('#table_level').empty().html('<h5><span class="label label-danger">Joint Point & Crossing Inspection Overdue Station</span></h5>');
@@ -13,11 +19,14 @@ function overdueStation(){
 
 	$.ajax({
 		url: '/schedule/overduecrossinginspection',
-		type: 'GET',
+		type: 'POST',
+		data: {'overdue_on':overdueOn,'_token':token},
 		dataTtype: 'JSON',
 		success: function(data){
 			$('#data-list').empty();
+			var count=0;
 			 for (var i in data){
+				 count=count+1;
 				var row = '<tr>'
 						+'<td>'+data[i].code+'</td>'
 						+'<td>'+data[i].role+'</td>'
@@ -28,6 +37,7 @@ function overdueStation(){
 						+'</tr>';
 				if(moment(data[i].due_date_of_inspection)<= new Date()){
 				$('#data-list').append(row);
+				$('#total_overdue').empty().append('Total Overdue: '+count);
 			 }
 			}
 		}

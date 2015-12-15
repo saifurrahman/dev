@@ -35,8 +35,11 @@ class ScheduleController extends Controller
       $data= DB::table('nfr_jp_crossing_inspection_ledger')->where('id', '=', $id)->delete();
       return Response::json(1);
     }
-    public function getOverduecrossinginspection(){
-      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id GROUP BY t1.station_id,t1.role order by t1.station_id,t1.role";
+    public function postOverduecrossinginspection(){
+      $overdue_on = Input::get("overdue_on");
+      $today= date('Y-m-d');
+      $overdurOn_date = date('Y-m-d', strtotime( $today. " + $overdue_on days"));
+      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id and t1.due_date_of_inspection <= '$overdurOn_date' order by t1.station_id,t1.due_date_of_inspection";
       $data = DB::select(DB::raw($query));
       return Response::json($data);
     }
@@ -69,6 +72,7 @@ class ScheduleController extends Controller
           $ledger->discontinuation_status = Input::get('discontinuation_status');
           $ledger->maintenance_by = Input::get('maintenance_by');
           $ledger->designation = Input::get('designation');
+          $ledger->remarks = Input::get('remarks');
           $ledger->user_id = $user_id;
           $ledger->save();
         }

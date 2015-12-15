@@ -18,7 +18,7 @@
 				</div>
 			</div>
 
-				<div class="col-md-1">
+				<div class="col-md-2">
 					<label class="small">Role</label>
 								<select class="form-control" id="role"
 									name="role">
@@ -40,15 +40,11 @@
 						<label class="small">Inspection Date</label>
 						<input type="text" class="form-control" name="inspection_date" id="inspection_date">
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-2">
 						<label></label>
 						<button type="button" onclick="saveData();" id="saveBtn" class="btn btn-success btn-block">save</button>
 					</div>
-					<div class="col-md-2">
-						<label></label>
-						<button type="button" onclick="overdueStation();" id="overdueBtn" class="btn btn-danger btn-block">overdue station</button>
-					</div>
-
+					
 </div>
 {{ Form::close()}}
 <div class="row">

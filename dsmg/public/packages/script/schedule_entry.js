@@ -123,7 +123,7 @@ function loadStationGears(station_id,gear_code){
 		success: function(data){
 			$('#station_gear_div').empty().append('<select multiple class="form-control" id="station_gear_id" name="station_gear_id[]">[]"></select>');
 			for(var i in data['gear_no']){
-				console.log(data['gear_no'][i].gear_no);
+			//	console.log(data['gear_no'][i].gear_no);
 				$('#station_gear_id').append('<option value="'+data['gear_no'][i].id+'">'+data['gear_no'][i].gear_no+'</option>');
 			}
 			for (var j in data['sch_code']){
@@ -178,7 +178,7 @@ function loadStationGears(station_id,gear_code){
 	}
 
  function getMaintanaceLedgerOn(maintenance_date){
-	$('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
+	$('#data-list').html('<tr><td colspan="10"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
  	$.ajax({
  	 url:'/schedule/maintanaceledger',
  	 type: 'POST',
@@ -199,12 +199,12 @@ function loadStationGears(station_id,gear_code){
 					+'<td>'+data[i].station+'</td>'
 					+'<td>'+data[i].gear_type+'</td>'
 					+'<td>'+data[i].gear_no+'</td>'
-					+'<td>'+data[i].schedule_code+'</td>'
-					+'<td>'+data[i].role+'</td>'
+					+'<td>'+data[i].schedule_code+'/'+data[i].role+'</td>'
 					+ next_date_row
 					+'<td>'+data[i].discontinuation_status+'</td>'
 					+'<td>'+data[i].maintenance_by+'</td>'
 					+'<td>'+data[i].designation+'</td>'
+					+'<td>'+data[i].remarks+'</td>'
 					+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
 					+'</tr>';
 			$('#data-list').append(row);
