@@ -3,14 +3,44 @@ window.onload = function(){
 	$('#maintenance_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#maintenance_date").datepicker("setDate", new Date());
 	var maintenance_date = $('#maintenance_date').val();
+	gearmaintenececommon();
 	getMaintanaceLedgerOn(maintenance_date);
-	allStation();
-	gearCode();
-	//migrateData();
-	allsupervisors();
-	allsupervisorsdesig();
+
 }
 var token =  $("input[name=_token]").val();
+
+function gearmaintenececommon(){
+
+	$.ajax({
+		url: '/gear/gearmaintenececommon',
+		type: 'GET',
+		datatype: 'JSON',
+		success: function(result){
+
+				var data =	result['stations'];
+				for (var i in data){
+					$('#station_id').append('<option value="'+data[i].id+'">'+data[i].code+'</option>');
+				}
+				data =	result['gear_type'];
+				$('#gear_code').append('<option value="">Select</option>');
+				for(var i in data){
+					$('#gear_code').append('<option value="'+data[i].id+'">'+data[i].code+'</option>');
+				}
+
+				data =	result['designation'];
+				$('#designation').append('<option value="NA">--NA--</option>');
+				for(var i in data){
+					$('#designation').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
+				}
+				data =	result['supervisor'];
+				$('#maintenance_by').append('<option value="NA">--NA--</option>');
+	 			for(var i in data){
+					$('#maintenance_by').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
+				}
+		}
+	});
+}
+
 function migrateData(){
 
 	$.ajax({
@@ -34,33 +64,7 @@ $('#maintenance_date').change(function(){
 		 getMaintanaceLedgerOn(maintenance_date);
 
 });
-function allStation(){
-	$.ajax({
-		url: '/common/allstations',
-		type: 'GET',
-		datatype: 'JSON',
-		success: function(data){
-			//$('#station_id').append('<option value="0">--station code--</option>');
-			for (var i in data){
-				$('#station_id').append('<option value="'+data[i].id+'">'+data[i].code+'</option>');
-			}
-		}
-	});
-}
 
-function gearCode(){
-	$.ajax({
-		url: '/common/allgearcode',
-		type: 'GET',
-		dataTtype: 'JSON',
-		success: function(data){
-			$('#gear_code').append('<option value="">Select</option>');
-			for(var i in data){
-				$('#gear_code').append('<option value="'+data[i].id+'">'+data[i].code+'</option>');
-			}
-		}
-	});
-}
 $("#station_id").on("change", function () {
  var station_id = $('#station_id').val();
  var gear_code = $('#gear_code').val();
@@ -81,34 +85,6 @@ $("#station_id").on("change", function () {
 
  });
 
- function allsupervisors(){
-	 $('#maintenance_by').empty();
- 	$.ajax({
- 		url: '/common/allsupervisors',
- 		type: 'GET',
- 		dataTtype: 'JSON',
- 		success: function(data){
-			$('#maintenance_by').append('<option value="NA">--NA--</option>');
- 			for(var i in data){
-				$('#maintenance_by').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
-			}
- 		}
- 	});
- }
- function allsupervisorsdesig(){
-	 $('#designation').empty();
-	 	$.ajax({
- 		url: '/common/allsupervisorsdesignation',
- 		type: 'GET',
- 		dataTtype: 'JSON',
- 		success: function(data){
-			$('#designation').append('<option value="NA">--NA--</option>');
-			for(var i in data){
-				$('#designation').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
-			}
- 		}
- 	});
- }
 
 function loadStationGears(station_id,gear_code){
 

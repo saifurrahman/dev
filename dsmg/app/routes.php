@@ -23,3 +23,4 @@ Route::controller('dsmg', 'AppController');
 Route::controller('schedule', 'ScheduleController');
 Route::controller('common', 'CommonController');
 Route::controller('report', 'ReportController');
+Route::controller('gear', 'GearController');
