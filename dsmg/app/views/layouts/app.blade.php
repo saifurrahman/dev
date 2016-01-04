@@ -120,6 +120,12 @@
     										</a>
 
 										</li>
+										<li id="inspection_jp_report">
+												<a href="{{URL::to('dsmg/jpinspection')}}">
+													<i class="fa fa-futbol-o"> </i> <span class="font-bold">JP & X-ing Inspection</span>
+												</a>
+
+										</li>
 										<li id="overdue_jp_report">
 												<a href="{{URL::to('dsmg/overduejp')}}">
 													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing</span>

@@ -96,7 +96,26 @@ class ReportController extends Controller
       return $pdf->stream();
 
     }
+    public function postJpinspectionreports(){
+      $from_date= $this->convert_to_mysqlDateFormate(Input::get('from_date'));
+      $to_date= $this->convert_to_mysqlDateFormate(Input::get('to_date'));
 
+      $station_ids="";
+      $query;
+        if(Input::get('station_id') != null){
+             $station_ids = implode(",",Input::get('station_id'));
+
+             $query="SELECT t1.*,t2.code FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id AND t1.date_of_inspection BETWEEN '$from_date' and '$to_date' and t1.station_id IN ($station_ids) order by t1.station_id,t1.date_of_inspection desc";
+        }else{
+          $query="SELECT t1.*,t2.code FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id AND t1.date_of_inspection BETWEEN '$from_date' and '$to_date' order by t1.station_id,t1.date_of_inspection desc";
+        }
+
+
+        $data = DB::select(DB::raw($query));
+
+        return Response::json($data);
+
+    }
     public function convert_to_mysqlDateFormate($getdate){
        //to yyyy-mm-dd
      $date = DateTime::createFromFormat('d-m-Y', $getdate);

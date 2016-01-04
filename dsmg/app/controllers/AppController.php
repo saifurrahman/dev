@@ -79,6 +79,14 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
+    public function getJpinspection()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.report.station_wise_jp_xing_report');
+        } else {
+            return Redirect::to('/');
+        }
+    }
 
     //Masters
     public function getStationmaster ()
