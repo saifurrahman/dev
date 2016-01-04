@@ -24,8 +24,7 @@
 									name="role">
 										<option value="SS">SS</option>
 										<option value="IC">IC</option>
-										<option value="IC">TSM</option>
-									</select>
+								</select>
 				</div>
 				<div class="col-md-2">
 					<label class="small">Designation</label>
