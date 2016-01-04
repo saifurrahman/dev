@@ -97,6 +97,7 @@ if(fromDate!='' && toDate!='' && gear_code!=''){
             	+next_date_row
     					+'<td>'+data[i].discontinuation_status+'</td>'
     					+'<td>'+data[i].maintenance_by+'/'+data[i].designation+'</td>'
+              +'<td>'+data[i].remarks+'</td>'
     					+'</tr>';
     			$('#data-list').append(row);
 
@@ -117,8 +118,8 @@ $("#print_report").on("click", function () {
 });
 function printDiv()
 {
-  var fromDate =moment($( "#from_date" ).val()).format('DD/MM/YY');
-  var toDate =moment($( "#to_date" ).val()).format('DD/MM/YY');
+  var fromDate =$( "#from_date" ).val();
+  var toDate =$( "#to_date" ).val();
   var divToPrint=document.getElementById('maintenance_reports');
   newWin= window.open("");
   //console.log(divToPrint.outerHTML);

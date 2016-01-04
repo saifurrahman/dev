@@ -39,7 +39,7 @@ class ScheduleController extends Controller
       $overdue_on = Input::get("overdue_on");
       $today= date('Y-m-d');
       $overdurOn_date = date('Y-m-d', strtotime( $today. " + $overdue_on days"));
-      $query ="SELECT * FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 where t1.station_id=t2.id and t1.due_date_of_inspection <= '$overdurOn_date' order by t1.station_id,t1.due_date_of_inspection";
+      $query ="SELECT * from nfr_jp_crossing_inspection_ledger t1,nfr_station_master t2 WHERE t1.due_date_of_inspection<='$overdurOn_date' and t1.station_id=t2.id and t1.date_of_inspection=(SELECT max(t3.date_of_inspection) from nfr_jp_crossing_inspection_ledger t3 WHERE t1.station_id=t3.station_id)";
       $data = DB::select(DB::raw($query));
       return Response::json($data);
     }

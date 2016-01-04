@@ -65,17 +65,22 @@ function loadCrossingPointInspectionLedger(){
 		success: function(data){
 			$('#data-list').empty();
 			 for (var i in data){
-				 var next_date_row;
+
 				 var today=moment(new Date()).format('DD/MM/YY');
 
-				 //alert(today);
-				 //	console.log(moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'----'+today);
-				  //console.log(moment(data[i].due_date_of_inspection)+'----'+new Date().getTime());
-					//console.log(moment(data[i].due_date_of_inspection).isAfter(new Date().getTime()));
+				 var next_date_row=moment(data[i].due_date_of_inspection).format('DD/MM/YY');
+
+
+				 if(data[i].role=='SS'){
+				 	next_date_row=next_date_row+'  for IC';
+				}else{
+					next_date_row=next_date_row+'  for SS';
+				}
+
 				 if(moment(data[i].due_date_of_inspection).isAfter(new Date().getTime())){
-				 			next_date_row='<td>'+moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'</td>';
+				 			next_date_row='<td >'+next_date_row+'</td>';
 					 }else{
-						 next_date_row='<td class="text text-danger">'+moment(data[i].due_date_of_inspection).format('DD/MM/YY')+'</td>';
+						 next_date_row='<td class="text text-danger">'+next_date_row+'</td>';
 
 					 }
 

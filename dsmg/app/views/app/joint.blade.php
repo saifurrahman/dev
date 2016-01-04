@@ -44,7 +44,7 @@
 						<label></label>
 						<button type="button" onclick="saveData();" id="saveBtn" class="btn btn-success btn-block">save</button>
 					</div>
-					
+
 </div>
 {{ Form::close()}}
 <div class="row">

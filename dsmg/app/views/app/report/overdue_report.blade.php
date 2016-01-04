@@ -37,6 +37,7 @@
                     <th>Due Date</th>
                     <th>Disc. applied</th>
                     <th>Maintenance By</th>
+										  <th>Remarks</th>
                   </tr>
                 </thead>
                 <tbody id="data-list"></tbody>

@@ -25,6 +25,8 @@ class UserController extends BaseController {
 			}
 			if(Auth::user ()->role=='admin'){
 				return Redirect::to ( 'dsmg/overduereport' );
+			}else if(Auth::user ()->role=='report'){
+				return Redirect::to ( 'dsmg/overduereport' );
 			}else{
 				return Redirect::to ( 'dsmg/scheduleentry' );
 			}

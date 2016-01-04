@@ -66,6 +66,36 @@ class ReportController extends Controller
         return Response::json($data);
 
     }
+    public function getGeneratepdf(){
+      $pdf = App::make('dompdf');
+      $html='<h3>Gear Maintenance Report from <small>---</small></h3>';
+
+    //  echo 'Test   ---'.$_GET['fromDate'];
+        $from_date= $this->convert_to_mysqlDateFormate($_GET['fromDate']);
+      $to_date= $this->convert_to_mysqlDateFormate($_GET['toDate']);
+
+      $station_ids="";
+      $query;
+        if(Input::get('station_id') != null){
+  			     $station_ids = implode(",",Input::get('station_ids'));
+
+             $query="SELECT t1.*,t4.code as station,t5.code as gear_type,t2.gear_no,t3.code as schedule_code FROM nfr_maintenance_schedule_ledger t1,nfr_station_gear_master t2, nfr_schedule_code_master t3,nfr_station_master t4,nfr_gear_type_master t5 WHERE t1.station_gear_id=t2.id AND t1.schedule_code_id=t3.id AND t2.station_id=t4.id AND t2.gear_type_id=t5.id AND t1.maintenance_date BETWEEN '$from_date' and '$to_date' and t1.station_id IN ($station_ids) ORDER BY t1.station_id,t1.updated_at desc ";
+  		  }else{
+          $query="SELECT t1.*,t4.code as station,t5.code as gear_type,t2.gear_no,t3.code as schedule_code FROM nfr_maintenance_schedule_ledger t1,nfr_station_gear_master t2, nfr_schedule_code_master t3,nfr_station_master t4,nfr_gear_type_master t5 WHERE t1.station_gear_id=t2.id AND t1.schedule_code_id=t3.id AND t2.station_id=t4.id AND t2.gear_type_id=t5.id AND t1.maintenance_date BETWEEN '$from_date' and '$to_date' ORDER BY t1.station_id,t1.updated_at desc";
+        }
+
+      $data = DB::select(DB::raw($query));
+      $html='<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>head><body>';
+
+      foreach ($data as $row) {
+           $html.='<h4>'.$row->station_id.'</h5>';
+      }
+      $html.='</body></html>';
+      $pdf->loadHTML($html);
+      //$pdf->loadHTML($data);
+      return $pdf->stream();
+
+    }
 
     public function convert_to_mysqlDateFormate($getdate){
        //to yyyy-mm-dd

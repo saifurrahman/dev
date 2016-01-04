@@ -42,6 +42,7 @@
 										<th>Due Date</th>
                     <th style="width:5%">Disc. applied</th>
                     <th style="width:20%">Maintenance By</th>
+										  <th>Remarks</th>
                   </tr>
                 </thead>
                 <tbody id="data-list"></tbody>

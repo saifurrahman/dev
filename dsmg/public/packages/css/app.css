@@ -18,6 +18,9 @@ body {
 .h6 {
   margin: 0;
 }
+@media print {
+   thead {display: table-header-group;}
+}
 a {
   color: #3c4144;
   text-decoration: none;

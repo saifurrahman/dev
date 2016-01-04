@@ -9,6 +9,15 @@ class AppController extends BaseController
           'on' => 'post'
       ) );
     }
+
+    public function getDashboard ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.report.dashboard');
+        } else {
+            return Redirect::to('/');
+        }
+    }
     // program manager
     public function getScheduleentry ()
     {

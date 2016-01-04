@@ -87,6 +87,7 @@
 								</div>
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav nav-main">
+										<?php if(Session::get("role")!='report'){ ?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintenance</div>
 
 										<li id="schedule_entry">
@@ -99,6 +100,7 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint & X-ing</span>
     										</a>
 										</li>
+										<?php }?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
 										<li id="overdue_report">
@@ -124,7 +126,7 @@
 												</a>
 
 										</li>
-
+										<?php if(Session::get("role")!='report'){ ?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master Data</div>
 										<li id="stn_details">
     										<a href="{{URL::to('dsmg/stationmaster')}}">
@@ -169,7 +171,7 @@
 												</a>
 
 										</li>
-
+										<?php }?>
 									</ul>
 								</nav>
 								<!-- / nav -->
