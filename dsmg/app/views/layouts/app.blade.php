@@ -105,7 +105,7 @@
 
 										<li id="overdue_report">
 												<a href="{{URL::to('dsmg/overduereport')}}">
-													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Gear</span>
+													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Gear  </span><span class="badge text-danger" id="overdue_gears_count">0</span>
 												</a>
 										</li>
 										<li id="stn_report">
@@ -128,7 +128,7 @@
 										</li>
 										<li id="overdue_jp_report">
 												<a href="{{URL::to('dsmg/overduejp')}}">
-													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing</span>
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing  </span><span class="badge text-danger" id="overdue_jpxing_count">0</span>
 												</a>
 
 										</li>

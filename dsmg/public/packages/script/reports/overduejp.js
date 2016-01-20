@@ -1,5 +1,5 @@
 window.onload = function(){
-	$('#overduejp').addClass('active');
+	$('#overdue_jp_report').addClass('active');
 	overdueStation();
 
 }
@@ -48,6 +48,7 @@ function overdueStation(){
 
 			}
 			$('#total_overdue').empty().append('Total Overdue: '+count);
+			$('#overdue_jpxing_count').empty().append(count);
 		}
 	});
 

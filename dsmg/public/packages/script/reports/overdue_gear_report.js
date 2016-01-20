@@ -39,7 +39,10 @@ function get_maintenance_reports(){
         $('#data-list').append('<tr><td colspan="9"><center><h4 class="label label-danger text-center">No data found</h4></center></td></tr>');
 
       }
+      var count=0;
         for(var i in data){
+
+          count = count+1;
         //  <th>Station Code</th>
         //  <th>Gear Code</th>
         //  <th>Gear No</th>
@@ -62,6 +65,7 @@ function get_maintenance_reports(){
 
 
         }
+        $('#overdue_gears_count').empty().append(count);
 
       }
 

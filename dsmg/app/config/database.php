@@ -50,10 +50,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost:8889',
-			'database'  => 'dsmg',
+			'host'      => 'localhost',
+			'database'  => 'dsmg_test',
 			'username'  => 'root',
-			'password'  => 'root',
+			'password'  => 'Gl0m1ndz@01234',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
