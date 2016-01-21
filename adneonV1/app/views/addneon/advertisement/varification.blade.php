@@ -19,60 +19,26 @@
 				</div>
 				<input type="file" id="xlf" name="xlfile">
 			</div>
-			<div class="col-md-3 text-left-xs m-t-md">
-				<button class="btn btn-danger"
-					onclick="processVarification();">Process
-
-				</button>
-			</div>
+			
 		</div>
 	</div>
 </section>
-<div class="row" id="processed_row">
+
+<div class="row" id="varification_row">
+
 	<div class="col-md-12">
 		<table class="table table-striped m-b-none table-hover">
 			<thead>
 				<tr>
-					<th>Caption</th>
-					<th>Ad ID</th>
-					<th>Time Slot</th>
-					<th>Telecast Time</th>
-
-				</tr>
-			</thead>
-			<tbody id="processed_table"></tbody>
-		</table>
-	</div>
-</div>
-<div class="row" id="varification_row">
-	<div class="col-md-8">
-		<table class="table table-striped m-b-none table-hover">
-			<thead>
-				<tr>
-					<!-- 					<th>Date</th> -->
-
-					<th>Break</th>
-
-					<th>Duration (<small>in secs.</small>)
-					</th>
-					<th>Caption</th>
-					<th>Ad ID</th>
-					<th>Time Slot</th>
-					<th>Telecast Time</th>
-
-				</tr>
-			</thead>
-			<tbody id="schecdule_table"></tbody>
-		</table>
-	</div>
-	<div class="col-md-4">
-		<table class="table table-striped m-b-none table-hover">
-			<thead>
-				<tr>
 					<!-- 					<th>Date</th> -->
 
 					<th>Ad ID</th>
+					<th>Caption</th>
+					<th>Client</th>
+					<th>Brand</th>
+					<th>Duration</th>
 					<th>Telecast Time</th>
+
 
 				</tr>
 			</thead>

@@ -54,8 +54,6 @@
 						<tr>
 							<th>Count</th>
 							<th>Schedule Date</th>
-							<th>Time Slot</th>
-							<th>Break</th>
 							<th>Ad ID</th>
 							<th>Caption</th>
 							<th class="text-center">Duration <small>(in secs.)</small></th>

@@ -86,12 +86,7 @@ function searchReport() {
 					+ moment(data[i].schedule_date)
 					.format('ll')
 					+ '</td>'
-					+ '<td>'
-					+ data[i].time_slot
-					+ '</td>'
-					+ '<td>'
-					+ data[i].break_name
-					+ '</td>'
+
 					+ '<td>AT'
 					+ pad(data[i].ad_id, 4)
 					+ '</td>'

@@ -14,7 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/app', function () {
+    return view('index');
+});
+Route::post('/login', function (Request $request) {
+    //
+    return redirect('/app');
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -28,4 +34,5 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+
 });

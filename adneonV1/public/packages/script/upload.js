@@ -186,11 +186,21 @@ function process_wb(wb) {
 					for ( var i in data) {
 						var adlog = '<tr class="danger">'
 								+ '<td class="ad_id">AT'
-								+ pad(data[i].ad_id, 4)
+								+ pad(data[i].id, 4)
 								+ '</td>'
-								+ '<td class="time_slot" draggable="true" ondragstart="drag(event)" id="'
-								+ data[i].tc_time + '"data-ad_id="'
-								+ data[i].ad_id + '">' + data[i].tc_time
+								+ '<td>'
+								+ data[i].caption
+								+ '</td>'
+								+ '<td>'
+								+ data[i].client_name
+								+ '</td>'
+								+ '<td>'
+								+ data[i].brand_name
+								+ '</td>'
+								+ '<td>'
+								+ data[i].duration
+								+ '</td>'
+								+ '<td class="time_slot">' + data[i].tc_time
 								+ '</td>';
 
 						$('#tc_time_table').append(adlog);
@@ -202,6 +212,7 @@ function process_wb(wb) {
 var xlf = document.getElementById('xlf');
 
 function handleFile(e) {
+	//alert(1);
 	var files = e.target.files;
 	var f = files[0];
 	{

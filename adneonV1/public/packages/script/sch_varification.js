@@ -4,7 +4,7 @@ window.onload = function() {
 	$('#varification').addClass('active');
 	$('#processed_row').hide();
 	schedule_date = $('#schedule_date').val();
-	scheduleByDate(schedule_date);
+//	scheduleByDate(schedule_date);
 	tcbydate(schedule_date);
 }
 
@@ -17,7 +17,7 @@ $("#schedule_date").datepicker({
 
 $('#schedule_date').change(function() {
 	schedule_date = $('#schedule_date').val();
-	scheduleByDate(schedule_date);
+	//scheduleByDate(schedule_date);
 	tcbydate(schedule_date);
 });
 
@@ -110,7 +110,7 @@ function tcbydate(schedule_date) {
 
 	$('#tc_time_table')
 			.html(
-					'<tr><td colspan="4" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+					'<tr><td colspan="12" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 	$
 			.ajax({
 				url : '/adlog/tcbydate',
@@ -127,18 +127,23 @@ function tcbydate(schedule_date) {
 						tc_details = [];
 
 						for ( var i in data) {
-							var sch = [];
-							sch[0] = data[i].tc_time;
-							sch[1] = data[i].ad_id;
-							tc_details.push(sch);
-
 							var adlog = '<tr class="danger">'
 									+ '<td class="ad_id">AT'
-									+ pad(data[i].ad_id, 4)
+									+ pad(data[i].id, 4)
 									+ '</td>'
-									+ '<td class="time_slot" draggable="true" ondragstart="drag(event)" id="'
-									+ data[i].tc_time + '"data-ad_id="'
-									+ data[i].ad_id + '">' + data[i].tc_time
+									+ '<td>'
+									+ data[i].caption
+									+ '</td>'
+									+ '<td>'
+									+ data[i].client_name
+									+ '</td>'
+									+ '<td>'
+									+ data[i].brand_name
+									+ '</td>'
+									+ '<td>'
+									+ data[i].duration
+									+ '</td>'
+									+ '<td class="time_slot">' + data[i].tc_time
 									+ '</td>';
 
 							$('#tc_time_table').append(adlog);
@@ -146,7 +151,7 @@ function tcbydate(schedule_date) {
 					} else {
 						$('#tc_time_table')
 								.append(
-										'<tr class="danger"><td colspan="4" class="text-center">No Telecast Time uploaded.Please upload excel in proper format.</td></tr>');
+										'<tr class="danger"><td colspan="12" class="text-center">No Telecast Time uploaded.Please upload excel in proper format.</td></tr>');
 					}
 
 				}
