@@ -3,7 +3,7 @@
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-4">
-				<h3 class="m-b-xs text-black">Schedule Varification</h3>
+				<h3 class="m-b-xs text-black">Daily Telecast Log</h3>
 			</div>
 			<div class="col-md-3">
 				<label></label> <input type="text" class="form-control"
@@ -19,7 +19,7 @@
 				</div>
 				<input type="file" id="xlf" name="xlfile">
 			</div>
-			
+
 		</div>
 	</div>
 </section>

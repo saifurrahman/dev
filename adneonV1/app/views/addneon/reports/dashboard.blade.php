@@ -6,12 +6,7 @@
 
 </section>
 <div class="row">
-	<div class="col-md-12">
-	   <section class="panel panel-default">
-			<header class="panel-heading font-bold">Monthly Report</header>
-			<canvas id="monthly_report_master" height="100%"></canvas>
-	   </section>
-	</div>
+
 
 </div>
 <div class="row">

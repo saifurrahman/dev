@@ -22,6 +22,16 @@ class ReportController extends Controller {
 
 		return Response::json ( $alladd );
 	}
+	public function postTelecastreport() {
+		$client_id = Input::get ( 'client_id' );
+		$from_date = Input::get ( 'from_date' );
+		$to_date = Input::get ( 'to_date' );
+
+		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time,t0.tc_date FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t2.id=$client_id and t0.tc_date BETWEEN '$from_date' AND '$to_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_date,t0.tc_time";
+
+		$all_log = DB::select ( DB::raw ( $query ) );
+		return Response::json ( $all_log	 );
+}
 	public function postTelecasttime() {
 		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );
 		$tc_date = Input::get ( 'tc_date' );

@@ -79,7 +79,7 @@ class AdlogController extends Controller {
 			$telecasttimelog->save ();
 		}
 
-		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t0.tc_date='$tc_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_time";
+		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time,t0.tc_date FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t0.tc_date='$tc_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_time";
 
 		$all_log = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $all_log	 );

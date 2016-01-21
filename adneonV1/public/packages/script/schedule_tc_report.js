@@ -36,46 +36,24 @@ function allClient() {
 	;
 }
 
-function allfctdealbyclient() {
-	$.ajax({
-		url : '/deal/allfct',
-		type : 'GET',
-		datatype : 'JSON',
-		success : function(data) {
-			$('#deal_id').append('<option value="0">Select</option>');
-			for ( var i in data) {
-				// select box
-				$('#deal_id').append(
-						'<option  value="' + data[i].id + '">'
-								+ pad(data[i].id, 4) + '--'
-								+ data[i].client_name + '(' + data[i].from_date
-								+ ' to ' + data[i].to_date + ')</option>');
-			}
-
-		}
-
-	});
-
-}
 
 function searchReport() {
 //	alert('hello')
 	var formData = $('form#report-form').serializeArray();
 	var client_id = $('#client_id').val();
-	var deal_d = $('#deal_id').val();
 	var from_date = $('#from_date').val();
 	var to_date = $('#to_date').val();
 	if (client_id != 0 && from_date != '' && to_date!='') {
 		$('#searchBtn').attr('disabled', true).html('please wait..');
 		$('#schecdule_table').empty();
 		$.ajax({
-			url : '/report/schedulereport',
+			url : '/report/telecastreport',
 			type : 'POST',
 			datatype : 'JSON',
 			data : formData,
 			success : function(data) {
 				$('#searchBtn').attr('disabled', false).html('Search');
-				console.log(data);
+
 				var count=0;
 				for ( var i in data) {
 					count=count+1;
@@ -83,12 +61,12 @@ function searchReport() {
 					+ count
 					+ '</td>'
 					+ '<td>'
-					+ moment(data[i].schedule_date)
+					+ moment(data[i].tc_date)
 					.format('ll')
 					+ '</td>'
 
 					+ '<td>AT'
-					+ pad(data[i].ad_id, 4)
+					+ pad(data[i].id, 4)
 					+ '</td>'
 					+ '<td>'
 					+ data[i].caption
@@ -97,10 +75,13 @@ function searchReport() {
 					+ data[i].duration
 					+ '</td>'
 					+ '<td>'
-					+ data[i].telecast_time
+					+ data[i].tc_time
 					+ '</td>';
 
 			$('#schecdule_table').append(deal);
+				}
+				if(count==0){
+					$('#schecdule_table').append('<tr class="danger"><td colspan="8" class="text-center">No Schedule found</td></tr>');
 				}
 			}
 
