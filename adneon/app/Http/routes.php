@@ -12,11 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/app', function () {
     return view('index');
 });
+Route::get('/app', function () {
+    return view('layout.app');
+});
+Route::controller('users', 'UserController');
+
 Route::post('/login', function (Request $request) {
     //
     return redirect('/app');
@@ -35,4 +37,16 @@ Route::post('/login', function (Request $request) {
 Route::group(['middleware' => ['web']], function () {
     //
 
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });

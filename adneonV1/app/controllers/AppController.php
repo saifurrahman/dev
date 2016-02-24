@@ -50,7 +50,7 @@ class AppController extends BaseController
     }
     public function getDeals() {
         if (Auth::check ()) {
-            $this->layout->content = View::make ( 'addneon.advertisement.deals' );
+            $this->layout->content = View::make ( 'addneon.advertisement.new_deal' );
         } else {
             return Redirect::to ( '/' );
         }

@@ -31,6 +31,7 @@
 {{HTML::script('packages/js/moment.js');}}
 {{HTML::script('packages/js/jquery.table2excel.min.js');}}
 {{HTML::script('packages/js/Chart.js');}}
+{{HTML::script('packages/js/list.min.js');}}
 
 </head>
 <body>
@@ -106,7 +107,7 @@
 									</ul>-->
 
 									<div class="line dk hidden-nav-xs"></div>
-									<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Advertisement</div>
+									<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Master</div>
 									<ul class="nav nav-main">
 										@if (Session::get('Agency/Client Master') != 0)
 										<li id="agency">
@@ -136,6 +137,7 @@
     										</a>
 										</li>
 										@endif
+											<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Operations</div>
 										@if (Session::get('Deals') != 0)
 										<li id="deals">
     										<a href="{{URL::to('addneon/deals')}}">
@@ -172,6 +174,7 @@
 
 										</li>
 										@endif
+											<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 										@if (Session::get('Reports') != 0)
 										<li id="schedulereports"class="auto">
     										<a href="{{URL::to('addneon/schedulereport')}}">

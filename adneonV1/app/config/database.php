@@ -51,7 +51,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost:8889',
-			'database'  => 'adneon',
+			'database'  => 'adneon_V2',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',

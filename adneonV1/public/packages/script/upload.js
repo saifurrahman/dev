@@ -168,6 +168,7 @@ function process_wb(wb) {
 		sch[1] = obj[i].ad_id;
 		tc_details.push(sch);
 	}
+	tc_details.serializeObject();
 	var schedule_date = $('#schedule_date').val();
 
 	$
