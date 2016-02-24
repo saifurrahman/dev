@@ -24,8 +24,9 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Email</th>
+
 									<th>Mobile</th>
+										<th>Email</th>
 									<th>Designation</th>
 									<th>Role</th>
 									<th style="width:5%;">Approve</th>
