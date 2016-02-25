@@ -62,7 +62,7 @@ class CommonController extends Controller
     }elseif ($gear_code==26) {
       $data = DB::table ( 'nfr_schedule_code_master' )
                   ->select('id', 'code','periodicity_level_1','periodicity_level_2')
-                  ->whereIn('gear_type_id', array(2,26))
+                  ->whereIn('gear_type_id', array(2,9,26))
                   ->get ();
 
       $datanew ['sch_code'] = $data;
