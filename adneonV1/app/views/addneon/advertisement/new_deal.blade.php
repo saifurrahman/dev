@@ -16,7 +16,7 @@
 
 	</div>
 </section>
-	{{Form::open(array('','id'=>'deal-form'))}}
+	{{Form::open(array('url' => ' ','id'=>'schedule-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 	<section class="panel panel-default" id="deal-div" >
 	<div class="row panel-heading">
 		<div class="col-md-6">
@@ -58,11 +58,11 @@
             name="executive_id"></select>
         </div>
 				<div class="col-md-3">
-          <label>Payment Peference</label>
+          <label>Terms</label>
           <select class="form-control" id="payment_peference"
-            name="payment_peference"><option value="Cash">Cash</option>
-					<option value="Cheque">Cheque/Draft</option>
-				<option value="Online">Online</option></select>
+            name="payment_peference"><option value="Cash">Due on recieved</option>
+					<option value="Cheque">Advance</option>
+				<option value="Online">Free</option></select>
         </div>
         <div class="col-md-3">
           <label>Remark</label>
@@ -91,13 +91,13 @@
               <label>Time Segment</label> <select class="form-control"
                 name="time_slot[]" id="time_slot" multiple>
                 <option value="NA">NA</option>
-                <option value="RODP (6 AM 12 AM)">6AM-12AM</option>
-                <option value="Morning Prime Time(7 AM 10 AM)">7AM-10AM</option>
-                <option value="Noon Prime Time (10 AM 4 PM)">10AM-4PM</option>
-                <option value="Evening Prime Time(4 PM 7 PM)">4PM-7PM</option>
-                <option value="Super Prime Time (7 PM 10 PM)">7PM-10PM</option>
-                <option value="Night Prime Time (10 PM 12 PM)">10PM-12PM</option>
-                  <option value="Night Slot (12 PM 6 AM)">12PM-6AM</option>
+                <option value="6AM-12AM">6AM-12AM</option>
+                <option value="7AM-10AM">7AM-10AM</option>
+                <option value="10AM-4PM">10AM-4PM</option>
+                <option value="4PM-7PM">4PM-7PM</option>
+                <option value="7PM-10PM">7PM-10PM</option>
+                <option value="10PM-12PM">10PM-12PM</option>
+                  <option value="12PM-6AM">12PM-6AM</option>
 
               </select>
             </div>
@@ -157,8 +157,6 @@
 							<th>Ro Detail</th>
 							<th>Amount</th>
 							<th>Remarks</th>
-							<th>Action</th>
-
 						</tr>
 					</thead>
 					<tbody id="deal_details_list"></tbody>

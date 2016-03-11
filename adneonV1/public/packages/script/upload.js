@@ -155,6 +155,8 @@ function b64it() {
 }
 var token = $("input[name=_token]").val();
 function process_wb(wb) {
+
+
 	if (use_worker)
 		XLS.SSF.load_table(wb.SSF);
 	var output = to_json(wb);
@@ -168,7 +170,7 @@ function process_wb(wb) {
 		sch[1] = obj[i].ad_id;
 		tc_details.push(sch);
 	}
-	tc_details.serializeObject();
+	//tc_details.serializeObject();
 	var schedule_date = $('#schedule_date').val();
 
 	$
@@ -249,3 +251,4 @@ function handleFile(e) {
 
 if (xlf.addEventListener)
 	xlf.addEventListener('change', handleFile, false);
+	

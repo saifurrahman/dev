@@ -43,6 +43,15 @@ $("#save_deal").on("click",function(e){
 		var remark=$('#remark').val();
 		var ro_date=moment($('#ro_date').val()).format('DD/MM/YY');
 
+		if(itemList.length==0){
+
+				alertify.error('Please add property!');
+
+		}else if(client_id==0 || ro_number=='' || ro_date==''){
+
+				alertify.error('Please select all reqired filed!');
+
+		}else{
 		$.ajax({
 			url : '/deal/savedeal',
 			type : 'POST',
@@ -67,6 +76,7 @@ $("#save_deal").on("click",function(e){
 				}
 			}
 		});
+	}
 
 		console.log(client_id+'--'+executive_id);
 	  return false;
@@ -92,14 +102,19 @@ function dealForm(){
 var itemList =[];// new List('item', options);
 
 function additem(){
-
-	var property=$( "#item_id option:selected").val();
+var property= $( "#item_id option:selected" ).text();
+	alert(property);
+//	var property=$( "#item_id option:selected").val();
 	var time_slot=$('#time_slot').val();
 	var from_date=moment($('#from_date').val()).format('DD/MM/YY');
 	var to_date=moment($('#to_date').val()).format('DD/MM/YY');
 	var units=$('#units').val();
 	var rate=$('#rate').val();
 	var amount=units*rate;
+	if(from_date=='' || to_date=='' || units=='' || rate=='' ){
+		alertify.error('Please select all required field!');
+
+	}else{
 var id=Math.floor(Math.random()*110000);
 	var deal = '<tr>'
 				+'<td class="id" style="display:none;">'+id+'</td>'
@@ -112,8 +127,10 @@ var id=Math.floor(Math.random()*110000);
 								+'<td ><button class="delete btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
 				+'</tr>';
 	$('#item-list').append(deal);
+var property_id=	$( "#item_id" ).val();
 	var item ={
 	 id: id,
+	 property_id: property_id,
 	 property: property,
 	 time_slot: time_slot,
 	 from_date: from_date,
@@ -123,6 +140,7 @@ var id=Math.floor(Math.random()*110000);
 	 amount: amount
  };
  itemList.push(item);
+ }
 	console.log(itemList);
 }
 
@@ -151,7 +169,7 @@ function allClient(){
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
-			$('#client_id').append('<option value="">Select</option>');
+			$('#client_id').empty().append('<option value="">Select</option>');
 			for(var i in data){
 				//select box
 				$('#client_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
@@ -170,6 +188,7 @@ function allAgency(){
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
+			$('#agency_id').empty();
 			$('#agency_id').append('<option value="">Select</option>');
 			for(var i in data){
 				//select box
@@ -184,22 +203,19 @@ function allAgency(){
 }
 //advertisement type
 function allItem(){
+	$('#item_id').empty();
 	$.ajax({
 		url : '/deal/allitem',
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
-
 			for(var i in data){
 				//select box
-				$('#item_id').append('<option value="'+data[i].name+'">'+data[i].name+'</option>');
+				$('#item_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
 			}
 
 		}
-
-	}).done(function() {
-		$('#item_id').selectize()
-	});;
+});
 }
 
 $('#executive_id').on('change', function(){
@@ -242,6 +258,7 @@ function saveDeal(){
 				});
 				alertify.success('saved successfully');
 				$('#deal-div').hide('200');
+				$('#deal-div').show(deal_details_div);
 				allDeal();
 			}
 			else{
@@ -299,7 +316,7 @@ function allDeal(){
 							+'<td class="remarks">'+data[i].ro_number+'||'+data[i].ro_date+'</td>'
 							+'<td class="remarks">'+data[i].ro_amount+'</td>'
 							+'<td class="remarks">'+data[i].remarks+'</td>'
-							+'<td ><button class="edit btn btn-rounded btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
+
 							+'</tr>';
 				$('#deal_details_list').append(deal);
 
@@ -363,32 +380,4 @@ function getdealByID(id){
 		}
 	});
 
-}
-
-
-//update deal
-function updateDeal(){
-	var formData = $('form#dealedit-form').serializeArray();
-	$('#updateBtn').attr('disabled', true).html('PLEASE WAIT..');
-
-	$.ajax({
-		url : '/deal/updatedeal',
-		type : 'POST',
-		dataType : 'JSON',
-		data : formData,
-		success : function(data) {
-			$('#updateBtn').attr('disabled', false).html('submit');
-			if(data!=0){
-				$('form#dealedit-form').each(function() {
-					this.reset();
-				});
-				alertify.success('update successfully');
-				allDeal();
-				$('#editModal').modal('hide');
-			}
-			else{
-				alertify.error('something went wrong!!');
-			}
-		}
-	});
 }

@@ -75,7 +75,7 @@ class AdlogController extends Controller {
 			$telecasttimelog = new Telecasttimelog ();
 			$telecasttimelog->tc_date = $tc_date;
 			$telecasttimelog->ad_id = substr ( $ad_id, 2 );
-			$telecasttimelog->tc_time = $tc_time;
+			$telecasttimelog->tc_time =$tc_time;// $this->tctimeslot(6);
 			$telecasttimelog->save ();
 		}
 
@@ -83,6 +83,22 @@ class AdlogController extends Controller {
 
 		$all_log = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $all_log	 );
+	}
+
+	private function tctimeslot($tctime){
+
+		if($tctime>1 && $tctime<=10){
+			return 1;
+		}
+
+		if($tctime>10 && $tctime<=20){
+			return 2;
+		}
+		if($tctime>20 && $tctime<=30){
+			return 3;
+		}
+
+
 	}
 	public function postTelecasttime() {
 		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );

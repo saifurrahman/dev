@@ -71,7 +71,7 @@ function allsupervisors(){
 					+'<td>'+data[i].posting+'</td>'
  					+'<td>'+data[i].jurisdiction+'</td>'
 
- 					+'<td><button class="edit btn btn-rounded btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
+ 					+'<td><button class="btn btn-danger btn-sm " type="button"  aria-haspopup="true" aria-expanded="false">Enabled</button></td>'
  					+'</tr>';
  			$('#sectional_distribution').append(row);
      }

@@ -31,7 +31,7 @@
 									<th>Designation</th>
 									<th style="width:8%">Posting</th>
 									<th style="word-wrap: break-word;min-width: 160px;max-width: 260px;">Jurisdiction</th>
-									<th style="width:5%">Edit</th>
+									<th style="width:8%">Edit</th>
 								</tr>
 							</thead>
 							<tbody id="sectional_distribution"></tbody>

@@ -41,8 +41,12 @@ class DealController extends Controller {
 		for($count=0;$count<count($itemList);$count++){
 			$dealdetails=new DealDetails();
 			$dealdetails->deal_id=$id;
-			$dealdetails->item_id=$itemList[$count]['property'];
-			$dealdetails->time_slot=$itemList[$count]['time_slot'];
+			$dealdetails->item_id=$itemList[$count]['property_id'];
+			if(count($itemList)==0){
+				$dealdetails->time_slot='NA';
+			}else{
+				$dealdetails->time_slot=implode(",",$itemList[$count]['time_slot']);
+			}
 			$dealdetails->from_date=$itemList[$count]['from_date'];
 			$dealdetails->to_date=$itemList[$count]['to_date'];
 			$dealdetails->units=$itemList[$count]['units'];
@@ -75,6 +79,8 @@ class DealController extends Controller {
 				->get();
 		return Response::json ( $alldeal );
 	}
+
+
 
 	//deal by id
 	public function postDealbyid(){

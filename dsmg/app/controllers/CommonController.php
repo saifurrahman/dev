@@ -168,15 +168,13 @@ class CommonController extends Controller
     if(Input::get('supervisor_stations')!=null){
       $supervisor_stations = implode(",",Input::get('supervisor_stations'));
     }
-
-
-      $supervisor->name = Input::get('supervisor_name');
-      $supervisor->posting = Input::get('posting');
-      $supervisor->role = Input::get('role');
-      $supervisor->designation = Input::get('desig_id');
-      $supervisor->jurisdiction = $supervisor_stations;
-      $supervisor->save();
-      return Response::json($supervisor);
+    $supervisor->name = Input::get('supervisor_name');
+    $supervisor->posting = Input::get('posting');
+    $supervisor->role = Input::get('role');
+    $supervisor->designation = Input::get('desig_id');
+    $supervisor->jurisdiction = $supervisor_stations;
+    $supervisor->save();
+    return Response::json($supervisor);
 
   }
   public function postChangedpassword(){

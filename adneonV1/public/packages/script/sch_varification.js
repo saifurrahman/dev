@@ -179,9 +179,11 @@ function updateTelecastTime(sch_table_asmid, tc_time) {
 }
 
 
+	$('#xls_upload').addEventListener('click', handleFile, false);
 function excelUpload() {
 
-	$('#xlf').click();
+	//$('#xlf').click();
+
 }
 function allowDrop(ev) {
 	ev.preventDefault();
