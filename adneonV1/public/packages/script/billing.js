@@ -1,60 +1,12 @@
 window.onload = function() {
 	$('#billing').addClass('active');
-	allClient();
-	allAgency();
-	$('#search_field').show();
 	$('#generate_bill_section').hide();
-	$('#deal_details_div').hide();
-	$('#schedulebill-div').hide();
-
 }
+var token = $("input[name=_token]").val();
 $("#from_date,#to_date").datepicker({
 	dateFormat : 'yy-mm-dd',
 	showAnim : 'slideDown'
 });
-
-var total_duration, count;
-var token = $("input[name=_token]").val();
-function allClient(){
-	$.ajax({
-		url : '/deal/allclient',
-		type : 'GET',
-		datatype : 'JSON',
-		success : function(data) {
-			$('#client_id').append('<option value="0">Select Client</option>');
-			for(var i in data){
-				//select box
-				$('#client_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
-			}
-
-		}
-
-	}).done(function() {
-		$('#client_id').selectize()
-	});;
-}
-//all agency
-function allAgency(){
-	$.ajax({
-		url : '/deal/allagency',
-		type : 'GET',
-		datatype : 'JSON',
-		success : function(data) {
-			$('#agency_id').append('<option value="0">Select Agency</option>');
-			for(var i in data){
-				//select box
-				$('#agency_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
-			}
-
-		}
-
-	}).done(function() {
-		$('#agency_id').selectize()
-	});;
-}
-function editModel(dealId){
-	alert(dealId);
-}
 
 function search() {
 	var deal_id = $('#deal_id').val();
@@ -78,7 +30,7 @@ function search() {
 		},
 		success : function(data) {
 			$('#item_list').empty();
-var deal_master =data['deal_master'];
+			var deal_master =data['deal_master'];
 			if(deal_master.length==0){
 					alertify.error('No deal found!');
 					$('#generate_bill_section').hide();
@@ -94,7 +46,7 @@ var deal_master =data['deal_master'];
 			var row_deal_details='<tr><td>'+deal_master[0].ro_number+'</td><td>'+deal_master[0].ro_date+'</td><td>'+deal_master[0].ro_number+'</td><td>'+from_date+' To '+to_date+'</td><td>'+deal_master[0].payment_peference+'</td></tr>';
 			$('#deal_details').empty().append(row_deal_details);
 			for(var i in deal_details){
-				var row_item='<tr><td>'+deal_details[i].item_id+'</td><td>600 Sec</td><td>165</td><td>250</td><td>33000</td></tr>';
+				var row_item='<tr><td>'+deal_details[i].item+'</td><td>600 Sec</td><td>165</td><td>250</td><td>33000</td></tr>';
 				$('#item_list').append(row_item);
 
 			}
@@ -112,48 +64,13 @@ var deal_master =data['deal_master'];
 	});
 
 }
-$("#deal_details_list").on("click", ".bill", function() {
-	var $edit = $(this);
-	var id = $edit.closest("tr").find(".deal_id").text();
-	$('#generate_bill_section').show();
-	$('#deal_details_div').hide();
-	$('#schedulebill-div').hide();
+var agency_commission=100;
+$('#agency_com').on("change",function(){
+	agency_commission=$('#agency_com').val();
 
-	//alert(id);
 });
+$("#savebillBtn").on("click", function() {
+	agency_commission=$('#agency_com').val();
+	alert(agency_commission);
 
-$('#editModal').on('hidden.bs.modal', function (e) {
-	$('form#dealedit-form').each(function() {
-		this.reset();
-	});
-	$('#editclient_id,#editagency_id,#edititem_id,#editexecutive_id').empty();
-	})
-
-
-
-function getdealdetails(id){
-
-			 $('#detailsModal').modal('show');
-			 $.ajax({
-		 		url : '/deal/dealbyid',
-		 		type : 'POST',
-				data:{'_token':token,'deal_id':id},
-		 		datatype : 'JSON',
-		 		success : function(data) {
-
-						for(var i in data){
-							$('#deal_details').empty();
-					var deal = '<tr>'
-								+'<td>'+data[i].item_id+'</td>'
-								+'<td>'+data[i].time_slot+'</td>'
-									+'<td>'+data[i].from_date+' To '+data[i].to_date+'</td>'
-											+'<td>'+data[i].units+'</td>'
-												+'<td>'+data[i].rate+'</td>'
-												+'<td>'+data[i].amount+'</td>'
-
-								+'</tr>';
-		 			$('#deal_details').append(deal);
-				}
-				}
-			});
-}
+});

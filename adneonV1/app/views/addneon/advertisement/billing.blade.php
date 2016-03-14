@@ -112,11 +112,10 @@
 		<br>
 				<div class="row">
 					<div class="col-md-12">
-						<button  class="btn btn-danger pull-right" id="savebillBtn"
-							onclick="savebill();">Save Bill</button>
+						<button  class="btn btn-danger pull-right" id="savebillBtn">Save Bill</button>
 					</div>
 				</div>
-		
+
 	</section>
 
 {{HTML::script('packages/script/billing.js');}} @stop
