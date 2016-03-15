@@ -277,10 +277,11 @@ function getdealdetails(id){
 		 		datatype : 'JSON',
 		 		success : function(data) {
 
+$('#deal_details').empty();
 						for(var i in data){
-							$('#deal_details').empty();
+
 					var deal = '<tr>'
-								+'<td>'+data[i].item_id+'</td>'
+								+'<td>'+data[i].name+'</td>'
 								+'<td>'+data[i].time_slot+'</td>'
 									+'<td>'+data[i].from_date+' To '+data[i].to_date+'</td>'
 											+'<td>'+data[i].units+'</td>'

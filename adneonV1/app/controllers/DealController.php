@@ -86,6 +86,7 @@ class DealController extends Controller {
 	public function postDealbyid(){
 		$id = Input::get('deal_id');
 		$dealbyid = DB::table ( 'deal_details' )
+		->join ('item_master', 'deal_details.item_id', '=', 'item_master.id')
 				->where('deal_details.deal_id',$id)
 				->get();
 		return Response::json($dealbyid);
