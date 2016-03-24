@@ -45,7 +45,21 @@ class CommonController extends Controller
                 ->get ();
 
 	  $datanew ['gear_no'] = $data;
-    if($gear_code==24){
+    if($gear_code==1){
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
+                  ->whereIn('gear_type_id', array(1,2,9))
+                  ->get ();
+
+      $datanew ['sch_code'] = $data;
+    }elseif($gear_code==3){
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
+                  ->whereIn('gear_type_id', array(1,13))
+                  ->get ();
+
+      $datanew ['sch_code'] = $data;
+    }elseif($gear_code==24){
       $data = DB::table ( 'nfr_schedule_code_master' )
                   ->select('id', 'code','periodicity_level_1','periodicity_level_2')
                   ->whereIn('gear_type_id', array(24, 4, 7,9,12,13,14,16,17))
@@ -55,7 +69,7 @@ class CommonController extends Controller
     }elseif ($gear_code==25) {
       $data = DB::table ( 'nfr_schedule_code_master' )
                   ->select('id', 'code','periodicity_level_1','periodicity_level_2')
-                  ->whereIn('gear_type_id', array(25, 4, 7,12,13,14,16,17))
+                  ->whereIn('gear_type_id', array(25, 4, 7,9,12,13,14,16,17))
                   ->get ();
 
       $datanew ['sch_code'] = $data;
