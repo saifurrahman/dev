@@ -5,7 +5,7 @@ class BrandController extends Controller
 
     public function __construct ()
     {
-        $this->beforeFilter('csrf', 
+        $this->beforeFilter('csrf',
                 array(
                         'on' => 'post'
                 ));
@@ -13,26 +13,21 @@ class BrandController extends Controller
 
     public function postSave ()
     {
-        $validator = Validator::make(Input::all(), Brand::$rules);
-        if ($validator->passes()) {
+
             $brand = new Brand();
             $brand->client_id = Input::get('client_id');
             $brand->brand_name = Input::get('brand_name');
             $brand->category_id = Input::get('category_id');
             $brand->save();
             return Response::json($brand);
-        } else {
-            return 0;
-        }
+
     }
 
     public function getAll ()
     {
-        $brand = DB::table ( 'brand_master' )
-				->join ( 'client_master', 'brand_master.client_id', '=', 'client_master.id' )
-				->join ( 'category_master', 'brand_master.category_id', '=', 'category_master.id' )
-				->select('client_master.name','client_master.id as client_id', 'brand_master.*','category_master.name as cat_name','category_master.id as cat_id')
-				->get(); 
-		return Response::json ( $brand );
+      $query="SELECT t1.brand_name,t2.name,t3.name as category FROM brand_master t1,client_master t2,category_master t3 where t1.category_id=t3.id and t1.client_id=t2.id order by t1.id desc";
+      $brands = DB::select ( DB::raw ( $query ) );
+
+		return Response::json ( $brands );
     }
 }

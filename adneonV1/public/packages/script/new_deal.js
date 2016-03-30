@@ -47,7 +47,7 @@ $("#save_deal").on("click",function(e){
 
 				alertify.error('Please add property!');
 
-		}else if(client_id==0 || ro_number=='' || ro_date==''){
+		}else if(client_id==0 || ro_number=='' || ro_date=='' || executive_id=='0'){
 
 				alertify.error('Please select all reqired filed!');
 
@@ -69,7 +69,7 @@ $("#save_deal").on("click",function(e){
 					itemList =[];
 					$('#item-list').empty();
 
-					//allDeal();
+					allDeal();
 				}
 				else{
 					alertify.error('something went wrong!!');
@@ -107,8 +107,8 @@ var property= $( "#item_id option:selected" ).text();
 //	var property=$( "#item_id option:selected").val();
 	var start_time=$('#start_time').val();
 	var end_time=$('#end_time').val();
-	var from_date=moment($('#from_date').val()).format('DD/MM/YY');
-	var to_date=moment($('#to_date').val()).format('DD/MM/YY');
+	var from_date=$('#from_date').val();
+	var to_date=$('#to_date').val();
 	var units=$('#units').val();
 	var rate=$('#rate').val();
 	var amount=units*rate;
@@ -120,8 +120,9 @@ var id=Math.floor(Math.random()*110000);
 	var deal = '<tr>'
 				+'<td class="id" style="display:none;">'+id+'</td>'
 				+'<td>'+property+'</td>'
-					+'<td>'+start_time+'--'+end_time+'</td>'
-						+'<td>'+from_date+'-'+to_date+'</td>'
+					+'<td>'+start_time+'-'+end_time+'</td>'
+					+'<td>'+moment(from_date).format('ll')+'--'+moment(to_date).format('ll')+'</td>'
+
 							+'<td>'+units+'</td>'
 								+'<td>'+rate+'</td>'
 								+'<td>'+amount+'</td>'
@@ -151,7 +152,7 @@ jQuery('#table-div').css("overflow-y", "scroll");
 
 var token = $("input[name=_token]").val();
 
-$("#from_date,#to_date,#editfrom_date,#editto_date,#editro_date").datepicker({
+$("#from_date,#to_date").datepicker({
 	dateFormat : 'yy-mm-dd',
 	changeMonth : true,
 	changeYear : true,
@@ -297,13 +298,14 @@ $('#deal_details').empty();
 			});
 }
 function allDeal(){
-	$('#deal-list').html('<tr><td colspan="9" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+	$('#deal_details_div').show();
+	$('#deal_details_list').html('<tr><td colspan="9" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 	$.ajax({
 		url : '/deal/alldeal',
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
-			$('#deal-list').empty();
+
 			var count = 0;
 			var agency;
 			var total_amount=0;
@@ -333,15 +335,3 @@ function allDeal(){
 		}
 	});
 }
-
-
-
-$("#deal-list").on("click", ".edit", function() {
-	var $edit = $(this);
-	var id = $edit.closest("tr").find(".deal_id").text();
-	var deal_name = $edit.closest("tr").find(".deal_name").text();
-	$('#editModal').modal('show');
-	$('#deal_name').empty();
-	$('#deal_name').append(deal_name);
-	getdealByID(id);
-});

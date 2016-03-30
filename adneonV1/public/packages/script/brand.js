@@ -27,7 +27,10 @@ function allClient(){
 	});
 }
 
-
+$('#saveBtn').on("click", function() {
+  saveBrand();
+  return false;
+});
 $('#category_id').on('change', function(){
 	if($(this).val() == 0){
 		$('#categoryModal').modal('show');
@@ -87,14 +90,17 @@ function saveCategory(){
 
 
 function saveBrand(){
-	var formData = $('form#brand-form').serializeArray();
+	//var formData = $('form#brand-form').serializeArray();
 	$('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
+	var client_id=$('#client_id').val();
+	var category_id=$('#category_id').val();
+	var brand_name=$('#brand_name').val();
 
 	$.ajax({
 		url : '/brand/save',
 		type : 'POST',
 		dataType : 'JSON',
-		data : formData,
+		data : {'_token':token,'client_id':client_id,'category_id':category_id,'brand_name':brand_name},
 		success : function(data) {
 			$('#saveBtn').attr('disabled', false).html('submit');
 			if(data!=0){
@@ -125,16 +131,10 @@ function allBrand(){
 			for(var i in data){
 				count = count+1;
 				var deal = '<tr>'
-							+'<td class="hidden id">'+data[i].id+'</td>'
 							+'<td>'+count+'</td>'
 							+'<td class="brand_name">'+data[i].brand_name+'</td>'
-
-							+'<td class="client_id hidden">'+data[i].client_id+'</td>'
-							+'<td class="cat_id hidden">'+data[i].cat_id+'</td>'
-
-							+'<td class="cat_name">'+data[i].cat_name+'</td>'
+							+'<td class="cat_name">'+data[i].category+'</td>'
 							+'<td class="client_name">'+data[i].name+'</td>'
-							+'<td><button class="edit btn btn-rounded btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
 							+'</tr>';
 				$('#brand-list').append(deal);
 

@@ -5,9 +5,8 @@
 	</div>
 </section>
 <section class="row m-b-md" id="brand_form">
-
+{{Form::open(array('url' => ' ','id'=>'schedule-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 	<div class="col-md-3">
-		<input type="hidden" id="editID" name="id">
 		<select class="form-control"
 			id="client_id" name="client_id"></select>
 	</div>
@@ -21,27 +20,16 @@
 		</select>
 	</div>
 	<div class="col-md-2">
-
-		<button class="btn btn-success" id="saveBtn" onclick="saveBrand();">save</button>
-	</div>
-	<div class="col-md-2">
-		<button class="btn btn-info" id="upBtn" onclick="updateBrand();">update</button>
+	<button class="btn btn-success" id="saveBtn">save</button>
 	</div>
 
+	{{Form::close()}}
 </section>
 <section class="row m-b-md">
 	<div class="col-md-6">
 			<input type="search" class="form-control" id="search" placeholder="search brand using name or client name"></input>
 	</div>
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-2">
-		<button class="btn btn-icon b-2x btn-primary btn-rounded hover "
-			onclick="brandForm();">
-			<i class="fa fa-plus hover-rotate"></i>
-		</button>
-	</div>
+	
 </section>
 
 <section class="row m-b-md">
@@ -53,7 +41,6 @@
 						<th>Brand Name</th>
 						<th>Type</th>
 						<th>Client</th>
-						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody id="brand-list"></tbody>

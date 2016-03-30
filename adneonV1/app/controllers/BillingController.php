@@ -49,8 +49,8 @@ class BillingController extends Controller
 
         foreach ($schedule_details as $key => $value) {
           //echo $telecast_details[$key]->telecast_duration;
-          $schedule_details[$key]->telecast_duration = $telecast_details[$key]->telecast_duration;
-          $schedule_details[$key]->telecast_spots =$telecast_details[$key]->telecast_spots;
+        //  $schedule_details[$key]->telecast_duration = $telecast_details[$key]->telecast_duration;
+        //  $schedule_details[$key]->telecast_spots =$telecast_details[$key]->telecast_spots;
         }
 
         $bill_details['schedule_details']=$schedule_details;
