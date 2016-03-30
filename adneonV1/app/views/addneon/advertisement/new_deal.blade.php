@@ -86,23 +86,21 @@
               name="item_id" id="item_id"></select>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-1">
             <div class="form-group">
-              <label>Time Segment</label> <select class="form-control"
-                name="time_slot[]" id="time_slot" multiple>
-                <option value="NA">NA</option>
-                <option value="6AM-12AM">6AM-12AM</option>
-                <option value="7AM-10AM">7AM-10AM</option>
-                <option value="10AM-4PM">10AM-4PM</option>
-                <option value="4PM-7PM">4PM-7PM</option>
-                <option value="7PM-10PM">7PM-10PM</option>
-                <option value="10PM-12PM">10PM-12PM</option>
-                  <option value="12PM-6AM">12PM-6AM</option>
+              <label>Start Time</label>
+							<input type='number' name="strat_time" id="start_time" class="form-control" min="00" max="24" value="07">
 
-              </select>
             </div>
 
         </div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>End Time</label>
+						<input type='number' name="end_time" id="end_time" class="form-control" min="00" max="24" value="24">
+					</div>
+
+			</div>
         <div class="col-md-2">
           <label>From Date</label> <input type="text" class="form-control"
             name="from_date" id="from_date" placeholder="From Date">

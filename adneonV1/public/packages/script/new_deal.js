@@ -103,9 +103,10 @@ var itemList =[];// new List('item', options);
 
 function additem(){
 var property= $( "#item_id option:selected" ).text();
-	alert(property);
+	//alert(property);
 //	var property=$( "#item_id option:selected").val();
-	var time_slot=$('#time_slot').val();
+	var start_time=$('#start_time').val();
+	var end_time=$('#end_time').val();
 	var from_date=moment($('#from_date').val()).format('DD/MM/YY');
 	var to_date=moment($('#to_date').val()).format('DD/MM/YY');
 	var units=$('#units').val();
@@ -119,7 +120,7 @@ var id=Math.floor(Math.random()*110000);
 	var deal = '<tr>'
 				+'<td class="id" style="display:none;">'+id+'</td>'
 				+'<td>'+property+'</td>'
-					+'<td>'+time_slot+'</td>'
+					+'<td>'+start_time+'--'+end_time+'</td>'
 						+'<td>'+from_date+'-'+to_date+'</td>'
 							+'<td>'+units+'</td>'
 								+'<td>'+rate+'</td>'
@@ -132,7 +133,8 @@ var property_id=	$( "#item_id" ).val();
 	 id: id,
 	 property_id: property_id,
 	 property: property,
-	 time_slot: time_slot,
+	 start_time: start_time,
+	 end_time: end_time,
 	 from_date: from_date,
 	 to_date: to_date,
 	 units: units,
@@ -282,7 +284,7 @@ $('#deal_details').empty();
 
 					var deal = '<tr>'
 								+'<td>'+data[i].name+'</td>'
-								+'<td>'+data[i].time_slot+'</td>'
+								+'<td>'+data[i].start_time+'--'+data[i].end_time+'</td>'
 									+'<td>'+data[i].from_date+' To '+data[i].to_date+'</td>'
 											+'<td>'+data[i].units+'</td>'
 												+'<td>'+data[i].rate+'</td>'
@@ -343,42 +345,3 @@ $("#deal-list").on("click", ".edit", function() {
 	$('#deal_name').append(deal_name);
 	getdealByID(id);
 });
-
-$('#editModal').on('hidden.bs.modal', function (e) {
-	$('form#dealedit-form').each(function() {
-		this.reset();
-	});
-	$('#editclient_id,#editagency_id,#edititem_id,#editexecutive_id').empty();
-	})
-
-function getdealByID(id){
-	$.ajax({
-		url : '/deal/dealbyid',
-		type : 'POST',
-		data: {'id':id,'_token':token},
-		datatype : 'JSON',
-		success : function(data) {
-			for (var i in data){
-				$('form#dealedit-form').each(function() {
-					this.reset();
-				});
-				$('#editclient_id').append('<option value="'+data[i].client_id+'">'+data[i].client_name+'</option>');
-				$('#editagency_id').append('<option value="'+data[i].agency_id+'">'+data[i].agency_name+'</option>');
-				$('#editfrom_date').val(data[i].from_date);
-				$('#editto_date').val(data[i].to_date);
-				$('#editrate').val(data[i].rate);
-				$('#editamount').val(data[i].amount);
-				$('#edittimeslot_id').val(data[i].time_slot);
-				$('#editduration').val(data[i].duration);
-				$('#edititem_id').append('<option value="'+data[i].item_id+'">'+data[i].item_name+'</option>');
-				$('#editexecutive_id').append('<option value="'+data[i].ex_id+'">'+data[i].ex_name+'->'+data[i].location+'</option>');
-				$('#editro_no').val(data[i].ro_number);
-				$('#editro_date').val(data[i].ro_date);
-				$('#editremark').val(data[i].remark);
-				$('#editID').val(data[i].id);
-
-			}
-		}
-	});
-
-}

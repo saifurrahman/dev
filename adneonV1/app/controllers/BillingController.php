@@ -32,13 +32,29 @@ class BillingController extends Controller
                   ->select('item_master.name as item')
                   ->get();
         $bill_details['deal_details']=$deal_details;
+        $query="SELECT t1.ad_id,t2.caption,t3.brand_name,SUM(t2.duration) as schedule_duration,count(t1.id) as schedule_spots from ad_schedule_master t1,ad_master t2,brand_master t3 WHERE t1.schedule_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.ad_id=t2.id and t2.brand_id=t3.id GROUP by t1.ad_id";
+        $schedule_details =DB::select ( DB::raw ($query) );
 
-        $schedule_details =DB::table('ad_schedule_master')
-                    ->join ( 'ad_master', 'ad_master.id', '=', 'ad_schedule_master.ad_id' )
-                    ->where ( 'ad_schedule_master.deal_id', $deal_id )
-                    ->get();
 
-         $bill_details['schedule_details']=$schedule_details;
+
+        $schedule_ad_id=array();
+
+        foreach ($schedule_details as $key => $value) {
+          $schedule_ad_id[]= $value->ad_id;
+
+        }
+        $schedule_ad_id= implode(",",$schedule_ad_id);
+        $query="select t1.ad_id,sum(t2.duration) as telecast_duration,count(t1.id) as telecast_spots from telecasttime_log t1,ad_master t2 where t1.tc_date  BETWEEN '$from_date' and '$to_date' and t1.ad_id IN($schedule_ad_id) and t1.ad_id=t2.id group by t1.ad_id";
+        $telecast_details =DB::select ( DB::raw ($query) );
+
+        foreach ($schedule_details as $key => $value) {
+          //echo $telecast_details[$key]->telecast_duration;
+          $schedule_details[$key]->telecast_duration = $telecast_details[$key]->telecast_duration;
+          $schedule_details[$key]->telecast_spots =$telecast_details[$key]->telecast_spots;
+        }
+
+        $bill_details['schedule_details']=$schedule_details;
+        //$bill_details['telecast_details']=$telecast_details;
         return Response::json($bill_details);
     }
 

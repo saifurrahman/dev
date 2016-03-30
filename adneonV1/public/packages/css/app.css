@@ -247,7 +247,7 @@ a.list-group-item:focus {
   background-color: #f7f8fb;
 }
 .panel {
-  border-radius: 2px; width:100%; position: relative;
+  border-radius: 2px;
 }
 .panel.panel-default {
   border-color: #eaeef1;
@@ -605,21 +605,21 @@ body.container {
   .app,
   .app body {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
   }
   .app .hbox.stretch {
-    height: 100%;height:auto;
+    height: 100%;
   }
   .app .vbox > section,
   .app .vbox > footer {
-    position: relative;
+    position: absolute;
   }
   .app .vbox.flex > section > section {
     overflow: auto;
   }
   .hbox {
     display: table;
-    /*table-layout: fixed;*/
+    table-layout: fixed;
     border-spacing: 0;
     width: 100%;
   }
@@ -742,7 +742,7 @@ body.container {
   overflow-y: auto;
 }
 .no-touch .scrollable.hover {
-  /*overflow-y: hidden;*/
+  overflow-y: hidden;
 }
 .no-touch .scrollable.hover:hover {
   overflow: visible;

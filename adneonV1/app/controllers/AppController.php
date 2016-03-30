@@ -64,7 +64,7 @@ class AppController extends BaseController
     }
     public function getAdschedule(){
         if (Auth::check ()) {
-            $this->layout->content = View::make ( 'addneon.advertisement.adschedule' );
+            $this->layout->content = View::make ( 'addneon.advertisement.schedule' );
         } else {
             return Redirect::to ( '/' );
         }
@@ -78,7 +78,7 @@ class AppController extends BaseController
     }
     public function getVarification(){
         if (Auth::check ()) {
-            $this->layout->content = View::make ( 'addneon.advertisement.varification' );
+            $this->layout->content = View::make ( 'addneon.advertisement.dailyschedule' );
         } else {
             return Redirect::to ( '/' );
         }

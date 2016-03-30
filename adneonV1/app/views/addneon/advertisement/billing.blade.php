@@ -67,6 +67,26 @@
 			</table>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+
+				<h5>Schedile Details</h5>
+				<table class="table table-striped m-b-none table-bordered">
+				<thead>
+					<tr>
+						<th>Ad Id</th>
+						<th>Caption</th>
+						<th>Brand</th>
+						<th>Schedule Duration/Spots</th>
+						<th>Telecast Duration/Spots</th>
+					</tr>
+				</thead>
+				<tbody id="schedule_details">
+
+				</tbody>
+			</table>
+			</div>
+		</div>
 		<br>
 		<div class="row">
 	    <div class="col-md-12" id="items">

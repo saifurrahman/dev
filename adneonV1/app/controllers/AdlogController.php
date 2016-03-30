@@ -18,7 +18,7 @@ class AdlogController extends Controller {
 
 			$adschedule = new Adschedule ();
 			$adschedule->deal_id = $deal_id;
-			$adschedule->ad_id = substr ( $ad_id, 2 );
+			$adschedule->ad_id = $ad_id;
 			$adschedule->timeslot_id = $scheduleArray [$i] [0];
 			$adschedule->break_id = $scheduleArray [$i] [1];
 			$adschedule->user_id = $user_id;

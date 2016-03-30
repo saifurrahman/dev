@@ -41,10 +41,22 @@ function search() {
 			var client_details ='<address><strong>'+deal_master[0].client_name+'</strong><br>1355 Market Street, Suite 900<br>San Francisco, CA 94103<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>';
 			$('#client_details').empty().append(client_details);
 			$('#agency_details').empty().append('<address><strong>'+agency_name+'</strong><br>1355 Market Street, Suite 900<br>San Francisco, CA 94103<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>');
-			var deal_details =data['deal_details'];
+
 
 			var row_deal_details='<tr><td>'+deal_master[0].ro_number+'</td><td>'+deal_master[0].ro_date+'</td><td>'+deal_master[0].ro_number+'</td><td>'+from_date+' To '+to_date+'</td><td>'+deal_master[0].payment_peference+'</td></tr>';
 			$('#deal_details').empty().append(row_deal_details);
+
+			var schedule_details =data['schedule_details'];
+			$('#schedule_details').empty();
+			for(var i in schedule_details){
+
+				var row_item='<tr><td>AT'+pad(schedule_details[i].ad_id,4)+'</td><td>'+schedule_details[i].caption+'</td><td>'+schedule_details[i].brand_name+'</td><td>'+schedule_details[i].schedule_duration+'/'+parseInt(schedule_details[i].schedule_spots)+'</td><td>'+schedule_details[i].telecast_duration+'/'+parseInt(schedule_details[i].telecast_spots)+'</td></tr>';
+
+				$('#schedule_details').append(row_item);
+
+			}
+
+			var deal_details =data['deal_details'];
 			for(var i in deal_details){
 				var row_item='<tr><td>'+deal_details[i].item+'</td><td>600 Sec</td><td>165</td><td>250</td><td>33000</td></tr>';
 				$('#item_list').append(row_item);

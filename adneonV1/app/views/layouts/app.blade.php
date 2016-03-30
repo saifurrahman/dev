@@ -155,7 +155,7 @@
 										@if (Session::get('Schedule Varification') != 0)
 										<li id="varification">
     										<a href="{{URL::to('addneon/varification')}}">
-    										  <i class="i i-circle-sm text-danger-dk"> </i> <span class="font-bold">Upload Daily Log</span>
+    										  <i class="i i-circle-sm text-danger-dk"> </i> <span class="font-bold">Daily Schedule</span>
     										</a>
 										</li>
 										@endif

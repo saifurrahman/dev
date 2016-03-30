@@ -42,11 +42,10 @@ class DealController extends Controller {
 			$dealdetails=new DealDetails();
 			$dealdetails->deal_id=$id;
 			$dealdetails->item_id=$itemList[$count]['property_id'];
-			if(count($itemList)==0){
-				$dealdetails->time_slot='NA';
-			}else{
-				$dealdetails->time_slot=implode(",",$itemList[$count]['time_slot']);
-			}
+
+			$dealdetails->start_time=$itemList[$count]['start_time'];
+			$dealdetails->end_time=$itemList[$count]['end_time'];
+
 			$dealdetails->from_date=$itemList[$count]['from_date'];
 			$dealdetails->to_date=$itemList[$count]['to_date'];
 			$dealdetails->units=$itemList[$count]['units'];
@@ -140,5 +139,40 @@ class DealController extends Controller {
 		$exe->location = Input::get ( 'location' );
 		$exe->save ();
 		return Response::json ( $exe );
+	}
+	public function postSearchdeal() {
+		$deal_id = Input::get('deal_id');
+			$deal_details=[];
+		$query="SELECT t1.id,t1.time_slot FROM timeslot_master t1 ,deal_details t2 where t2.deal_id=$deal_id and t2.item_id IN(1,6) and t2.start_time<= SUBSTRING(t1.time_slot,1,2) and t2.end_time >=SUBSTRING(t1.time_slot,7,2)";
+		$time_slot = DB::select ( DB::raw ( $query ) );
+
+		$deal_details['time_slot']=$time_slot;
+
+		$query="SELECT t1.schedule_date, count(t1.id) as spots,SUM(t2.duration) as duration FROM ad_schedule_master t1,ad_master t2 WHERE t1.deal_id=$deal_id and t2.id =t1.ad_id group BY t1.schedule_date order by t1.schedule_date";
+		$schedule_count = DB::select ( DB::raw ( $query ) );
+
+		$deal_details['schedule_count']=$schedule_count;
+
+		$query="SELECT t1.id,t1.caption,t1.duration,t3.name,t4.brand_name FROM ad_master t1,deal_master t2,language_master t3,brand_master t4 WHERE t1.client_id=t2.client_id and t3.id=t1.language_id and t1.brand_id=t4.id and t2.id=$deal_id order by t1.id desc";
+		$ad_ids = DB::select ( DB::raw ( $query ) );
+
+		$deal_details['ad_id']=$ad_ids;
+
+			$deal_master =  DB::table ( 'deal_master' )
+					->join ( 'client_master', 'deal_master.client_id', '=', 'client_master.id' )
+					->join ( 'agency_master', 'deal_master.agency_id', '=', 'agency_master.id' )
+					->join ( 'advetisement_executive', 'deal_master.executive_id', '=', 'advetisement_executive.id' )
+					->where('deal_master.id', $deal_id)
+					->select('client_master.id as client_id','client_master.name as client_name','agency_master.name as agency_name','deal_master.ro_amount','advetisement_executive.ex_name','deal_master.ro_number','deal_master.ro_date','deal_master.payment_peference')
+					->get();
+			$deal_details['deal_master']=$deal_master;
+
+			$query="SELECT * FROM deal_details where deal_id=$deal_id and item_id IN (1,6)";
+			$details = DB::select ( DB::raw ( $query ) );
+
+			$deal_details['details']=$details;
+
+
+		return Response::json ( $deal_details );
 	}
 }

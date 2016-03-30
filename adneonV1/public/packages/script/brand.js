@@ -7,29 +7,31 @@ window.onload = function(){
 
 var token = $("input[name=_token]").val();
 
-//all clients
+
 function allClient(){
 	$.ajax({
 		url : '/deal/allclient',
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
-			$('#client_id').append('<option value="">Select</option>');
+			$('#client_id').empty().append('<option value="">Select Client</option>');
 			for(var i in data){
 				//select box
 				$('#client_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
 			}
-	
+
 		}
 
+	}).done(function() {
+		$('#client_id').selectize()
 	});
 }
 
 
-$('#category_id').on('change', function(){		
+$('#category_id').on('change', function(){
 	if($(this).val() == 0){
 		$('#categoryModal').modal('show');
-	}		
+	}
 });
 
 //all category
@@ -39,20 +41,21 @@ function category(){
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
-			$('#category_id').append('<option value="1">Select</option><option value="0"> + New</option>');
+			$('#category_id').append('<option value="1">Select Catagory</option><option value="0"> + New</option>');
 			for(var i in data){
 				//select box
 				$('#category_id').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
 			}
 		}
-
+	}).done(function() {
+		$('#category_id').selectize()
 	});
 }
 function saveCategory(){
 	var formData = $('form#category-form').serializeArray();
-	
+
 	var name = $('#cat_name').val();
-	
+
 	if(name != 0 || name !=''){
 		$('#cBtn').attr('disabled', true).html('PLEASE WAIT..');
 		$.ajax({
@@ -71,20 +74,20 @@ function saveCategory(){
 				else{
 					alertify.error('something went wrong!!');
 				}
-				
+
 			}
 		})
 	}
 	else{
 		alertify.error('please enter category name');
 	}
-	
+
 }
 /*category end*/
 
 
 function saveBrand(){
-	var formData = $('form#brand-form').serializeArray(); 
+	var formData = $('form#brand-form').serializeArray();
 	$('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
 
 	$.ajax({
@@ -106,6 +109,8 @@ function saveBrand(){
 			}
 		}
 	});
+
+	return false;
 }
 
 function allBrand(){
@@ -123,18 +128,18 @@ function allBrand(){
 							+'<td class="hidden id">'+data[i].id+'</td>'
 							+'<td>'+count+'</td>'
 							+'<td class="brand_name">'+data[i].brand_name+'</td>'
-							
+
 							+'<td class="client_id hidden">'+data[i].client_id+'</td>'
 							+'<td class="cat_id hidden">'+data[i].cat_id+'</td>'
-							
+
 							+'<td class="cat_name">'+data[i].cat_name+'</td>'
 							+'<td class="client_name">'+data[i].name+'</td>'
 							+'<td><button class="edit btn btn-rounded btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
 							+'</tr>';
 				$('#brand-list').append(deal);
-				
+
 			}
-			
+
 		}
 	});
 }
@@ -146,25 +151,25 @@ $("#brand-list").on("click", ".edit", function() {
 	var brand_name = $edit.closest("tr").find(".brand_name").text();
 	var cat_name = $edit.closest("tr").find(".cat_name").text();
 	var client_name = $edit.closest("tr").find(".client_name").text();
-	
+
 	var client_id = $edit.closest("tr").find(".client_id").text();
 	var cat_id = $edit.closest("tr").find(".cat_id").text();
-	
+
 	$('#saveBtn').hide();
 	$('#upBtn').show();
-	
-	
+
+
 	$('#editID').val(id);
 	$('#brand_name').val(brand_name);
-	
+
 	var client = new Option(client_name, client_id);
 	$("#client_id").append(client);
 	client.setAttribute("selected","selected");
-	
+
 	var category = new Option(cat_name, cat_id);
 	$("#category_id").append(category);
 	category.setAttribute("selected","selected");
-	
+
 });
 
 //table search js
@@ -181,4 +186,3 @@ $("#search").keyup(function () {
         });
     });
 });
-
