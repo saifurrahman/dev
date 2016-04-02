@@ -53,8 +53,8 @@ function searchdeal(){
 			$('#schedule_spots').empty();
 			var total_duration=0;
 			for(var i in schedule_spots){
-					$('#schedule_spots').append('<tr><td class="timeslot">'+moment(schedule_spots[i].schedule_date).format('ll')+'</td><td>'+schedule_spots[i].spots+'</td><td>'+schedule_spots[i].duration+'</td></tr>');
-					total_duration=total_duration+parseInt(schedule_spots[i].duration);
+					$('#schedule_spots').append('<tr><td class="timeslot">'+moment(schedule_spots[i].schedule_date).format('ll')+'</td><td>AT'+pad(schedule_spots[i].ad_id,4)+'</td><td>'+schedule_spots[i].spots+'</td><td>'+schedule_spots[i].total_duration+'</td></tr>');
+					total_duration=total_duration+parseInt(schedule_spots[i].total_duration);
 			}
 
 			var deal_master=data['deal_master'];
@@ -157,7 +157,7 @@ $(document).on('click','input[type="checkbox"]',function(){
 function saveSchedule() {
 	var deal_id = $('#deal_id').val();
 	var ad_id = $('#ad_id').val();
-	
+
 	var schedule_date = $('#schedule_date').val();
 	if(no_of_spot==0){
 			alertify.success('Please select Spots');

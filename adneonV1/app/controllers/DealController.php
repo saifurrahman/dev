@@ -148,7 +148,7 @@ class DealController extends Controller {
 
 		$deal_details['time_slot']=$time_slot;
 
-		$query="SELECT t1.schedule_date, count(t1.id) as spots,SUM(t2.duration) as duration FROM ad_schedule_master t1,ad_master t2 WHERE t1.deal_id=$deal_id and t2.id =t1.ad_id group BY t1.schedule_date order by t1.schedule_date";
+		$query="SELECT t1.schedule_date,t1.ad_id ,count(*) as spots,t2.caption,SUM(t2.duration) as total_duration,t2.duration FROM ad_schedule_master t1, ad_master t2  where t1.deal_id=$deal_id and t1.ad_id=t2.id group by t1.schedule_date,t1.ad_id order by t1.schedule_date,t1.ad_id";
 		$schedule_count = DB::select ( DB::raw ( $query ) );
 
 		$deal_details['schedule_count']=$schedule_count;

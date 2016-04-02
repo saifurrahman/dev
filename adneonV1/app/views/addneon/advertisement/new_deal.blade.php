@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-2">
           <label>RO Amount</label> <input type="text" class="form-control"
-            name="ro_amount" id="ro_amount">
+            name="ro_amount" id="ro_amount" readonly="true" disabled="true">
         </div>
         </div>
         <div class="row">

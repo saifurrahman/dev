@@ -22,6 +22,8 @@ $("#item-list").on("click", ".delete", function() {
 			    var obj = itemList[i];
 			    if(obj.id==itemId) {
 			        itemList.splice(i, 1);
+							ro_amount = ro_amount-parseInt(obj.amount);
+							$('#ro_amount').val(ro_amount);
 			    }
 			}
 			$del.closest("tr").remove();
@@ -41,13 +43,13 @@ $("#save_deal").on("click",function(e){
 		var executive_id=$('#executive_id').val();
 		var payment_peference=$('#payment_peference').val();
 		var remark=$('#remark').val();
-		var ro_date=moment($('#ro_date').val()).format('DD/MM/YY');
+		var ro_date=$('#ro_date').val();
 
 		if(itemList.length==0){
 
 				alertify.error('Please add property!');
 
-		}else if(client_id==0 || ro_number=='' || ro_date=='' || executive_id=='0'){
+		}else if(client_id==0 || ro_number=='' || ro_date=='' || executive_id==0){
 
 				alertify.error('Please select all reqired filed!');
 
@@ -100,7 +102,7 @@ function dealForm(){
 
 // Init list
 var itemList =[];// new List('item', options);
-
+var ro_amount=0;
 function additem(){
 var property= $( "#item_id option:selected" ).text();
 	//alert(property);
@@ -143,24 +145,21 @@ var property_id=	$( "#item_id" ).val();
 	 amount: amount
  };
  itemList.push(item);
+ ro_amount=ro_amount+parseInt(amount);
  }
-	console.log(itemList);
+	console.log(ro_amount);
+	$('#ro_amount').val(ro_amount);
 }
 
-jQuery('#table-div').css("overflow-y", "scroll");
+//jQuery('#table-div').css("overflow-y", "scroll");
 
 
 var token = $("input[name=_token]").val();
 
-$("#from_date,#to_date").datepicker({
+$("#from_date,#to_date,#ro_date").datepicker({
 	dateFormat : 'yy-mm-dd',
 	changeMonth : true,
 	changeYear : true,
-	showAnim : 'slideDown',
-});
-
-$("#ro_date").datepicker({
-	dateFormat : 'yy-mm-dd',
 	showAnim : 'slideDown',
 });
 

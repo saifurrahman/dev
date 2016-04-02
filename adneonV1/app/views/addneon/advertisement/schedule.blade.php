@@ -47,6 +47,7 @@
 		<thead>
 			<tr>
 				<th>Schedule Date</th>
+				<th>Caption</th>
 				<th>Spots</th>
 				<th>Duration</th>
 
