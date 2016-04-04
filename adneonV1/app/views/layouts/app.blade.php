@@ -176,6 +176,11 @@
 										@endif
 											<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 										@if (Session::get('Reports') != 0)
+										<li id="scvstcreport"class="auto">
+    										<a href="{{URL::to('addneon/scvstcreport')}}">
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Schedule vs Telecast</span>
+    										</a>
+										</li>
 										<li id="schedulereports"class="auto">
     										<a href="{{URL::to('addneon/schedulereport')}}">
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Schedule Reports</span>

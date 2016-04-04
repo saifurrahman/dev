@@ -102,6 +102,14 @@ class AppController extends BaseController
     }
 
     //eports
+
+    public function getScvstcreport(){
+      if (Auth::check ()) {
+    		$this->layout->content = View::make ( 'addneon.reports.scvstc' );
+    	} else {
+    		return Redirect::to ( '/' );
+    	}
+    }
     public function getSchedulereport(){
     	if (Auth::check ()) {
     		$this->layout->content = View::make ( 'addneon.reports.schedule' );

@@ -253,6 +253,7 @@ for (var i = 1; i < allTextLines.length; i++) {
 				//console.log(headers.length);
 				sch[0] = data[0];
 				sch[1] = data[1];
+				sch[2] = data[2];
 				tc_details.push(sch);
 
     }

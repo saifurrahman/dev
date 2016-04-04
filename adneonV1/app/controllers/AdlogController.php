@@ -73,10 +73,12 @@ class AdlogController extends Controller {
 		//	echo $tc_details [$i] [0];
 			$tc_time = $tc_details [$i] [1];
 			$ad_id = $tc_details [$i] [0];
+			$deal_id = $tc_details [$i] [2];
 			$telecasttimelog = new Telecasttimelog ();
 			$telecasttimelog->tc_date = $tc_date;
 			$telecasttimelog->ad_id = substr ( $ad_id, 2 );
-			$telecasttimelog->tc_time =$tc_time;// $this->tctimeslot(6);
+			$telecasttimelog->tc_time =$tc_time;
+			$telecasttimelog->deal_id=$deal_id;// $this->tctimeslot(6);
 			$telecasttimelog->save ();
 			$total_spots=$total_spots+1;
 		}

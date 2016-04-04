@@ -51,57 +51,36 @@ class ReportController extends Controller {
 		$tc_time = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $tc_time );
 	}
+	public function postScvstcreport() {
+		$schedule_date = Input::get ( 'from_date' );
+		$to_date = Input::get ( 'to_date' );
+		$result=[];
+		$query="SELECT count(t1.id) as spots,t1.ad_id,t4.duration,t8.time_slot,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption,t1.deal_id FROM ad_schedule_master t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7,timeslot_master t8 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id and t1.timeslot_id=t8.time_slot and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.schedule_date='$schedule_date' group by t1.ad_id order by t1.ad_id,t1.timeslot_id";
+		$schedule = DB::select ( DB::raw ( $query ) );
 
-	public function getLastschedulereport() {
-		$query = "SELECT t1.schedule_date,count(t1.id) as slots,SUM(t2.duration) as total_duration FROM 	ad_schedule_master t1,ad_master t2 where t1.ad_id=t2.id  and MONTH(t1.schedule_date)=MONTH(NOW()) group BY t1.schedule_date ORDER BY t1.schedule_date";
-		$tc_time = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $tc_time );
-	}
-	public function getMonthlydeals() {
-		$query = "SELECT MONTHNAME (created_at) as month_name, sum(amount) as total_amount from deal_master GROUP BY MONTH(created_at)";
-		$tc_time = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $tc_time );
+		$query="SELECT count(t1.id) as spots,t1.ad_id,t4.duration,t1.tc_time,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption,t1.deal_id FROM telecasttime_log t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id  and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.tc_date='$schedule_date' group by t1.ad_id order by t1.ad_id,t1.tc_time";
+		$tc = DB::select ( DB::raw ( $query ) );
+
+		for ($i=0;$i<count($schedule);$i++) {
+
+			 for ($j=0;$j<count($tc);$j++) {
+			 	if($schedule[$i]->ad_id===$tc[$j]->ad_id){
+						$row['ad_id'] =$schedule[$i]->ad_id;
+						$row['caption'] =$tc[$j]->caption;
+						$row['agency_name'] =$tc[$j]->agency_name;
+						$row['client_name'] =$tc[$j]->client_name;
+						$row['rate'] =$schedule[$i]->rate;
+						$row['duration'] =$schedule[$i]->duration;
+						$row['schedule_spots'] =$schedule[$i]->spots;
+						$row['tc_spots'] =$tc[$j]->spots;
+
+						$result[]=$row;
+				}
+			 }
+		}
+
+		return Response::json ( $result );
 	}
 
-	public function getExecutivemonthlydeals(){
-		$query="SELECT t1.executive_id,t2.ex_name as name ,sum(t1.amount) as amount,MONTHNAME(t1.created_at) as month_name FROM deal_master t1, advetisement_executive t2 where t1.executive_id =t2.id and MONTH(t1.created_at)=MONTH(NOW()) group BY t1.executive_id,MONTH(t1.created_at) ORDER BY MONTH(t1.created_at)";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getMonthlybills(){
-		$query = "SELECT MONTHNAME (to_date) as month_name, sum(total_amount) as total_amount from bill_master GROUP BY MONTH(to_date)";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getLocationmonthlydeals(){
-		$query="SELECT t1.executive_id,t2.location as name ,sum(t1.amount) as amount,MONTHNAME(t1.created_at) as month_name FROM deal_master t1, advetisement_executive t2 where t1.executive_id =t2.id and MONTH(t1.created_at)=MONTH(NOW()) group BY t2.location,MONTH(t1.created_at) ORDER BY MONTH(t1.created_at)";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getMonthlypayments(){
-		$query = "SELECT MONTHNAME (payment_date) as month_name, sum(amount) as total_amount from payments_master  GROUP BY MONTH(payment_date) order by payment_date";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getMonthlyscheduleamount(){
-		$query = "SELECT * from deal_master";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getRatedurationcurve(){
-		$query = "SELECT t1.schedule_date as schedule_date, SUM(t2.rate)/count(t1.id) as rate,sum(t3.duration)/60 as total_duration, (rate*SUM(t3.duration))/10000 as amount FROM ad_schedule_master t1,deal_master t2,ad_master t3 WHERE t1.deal_id=t2.id and month(t1.schedule_date)=MONTH(NOW()) and t1.ad_id=t3.id GROUP BY t1.schedule_date";
-		$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function postDailyscheduleamount(){
-		$month = Input::get( 'month' );
-		$query="SELECT t1.schedule_date as schedule_date,SUM(CEILING(t2.rate*t3.duration/10)) as amount FROM ad_schedule_master t1,deal_master t2,ad_master t3 WHERE t1.deal_id=t2.id and month(t1.schedule_date)=$month and t1.ad_id=t3.id and t2.item_id=1 GROUP BY t1.schedule_date ORDER BY t1.schedule_date ASC";
-			$deals = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $deals );
-	}
-	public function getAllscheduleamount(){
-			$query="SELECT * from monthly_report_master";
-			$deals = DB::select ( DB::raw ( $query ) );
-			return Response::json ( $deals );
-	}
+
 }
