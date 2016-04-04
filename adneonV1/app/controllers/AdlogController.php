@@ -29,7 +29,7 @@ class AdlogController extends Controller {
 	}
 	public function postScheduledad() {
 		$schedule_date = Input::get ( 'schedule_date' );
-		$alladd = DB::select ( DB::raw ( "select asm.id, asm.ad_id,asm.schedule_date,asm.status,asm.schedule_date,asm.telecast_time, asm.remark,  am.caption,am.duration,bm.name as break_name,tm.id as timeslot_id,tm.time_slot from ad_schedule_master asm,ad_master am,adbreak_master bm,timeslot_master tm where  asm.schedule_date = '$schedule_date' and asm.ad_id=am.id and asm.break_id=bm.id and asm.timeslot_id=tm.id ORDER BY tm.id,bm.id" ) );
+		$alladd = DB::select ( DB::raw ( "select asm.id, asm.ad_id,asm.schedule_date,asm.status,asm.schedule_date,asm.telecast_time, asm.remark,  am.caption,am.duration,bm.name as break_name,tm.id as timeslot_id,tm.time_slot,asm.deal_id from ad_schedule_master asm,ad_master am,adbreak_master bm,timeslot_master tm where  asm.schedule_date = '$schedule_date' and asm.ad_id=am.id and asm.break_id=bm.id and asm.timeslot_id=tm.id ORDER BY tm.id,bm.id" ) );
 
 		return Response::json ( $alladd );
 	}
@@ -68,21 +68,21 @@ class AdlogController extends Controller {
 		$data = array ();
 		$affected = DB::table ( 'telecasttime_log' )->where ( 'tc_date', '=', $tc_date )->delete ();
 
-
+		$total_spots=0;
 		for($i = 0; $i < count ( $tc_details ); $i ++) {
-			$tc_time = $tc_details [$i] [0];
-			$ad_id = substr ( $tc_details [$i] [1], 2 );
+		//	echo $tc_details [$i] [0];
+			$tc_time = $tc_details [$i] [1];
+			$ad_id = $tc_details [$i] [0];
 			$telecasttimelog = new Telecasttimelog ();
 			$telecasttimelog->tc_date = $tc_date;
 			$telecasttimelog->ad_id = substr ( $ad_id, 2 );
 			$telecasttimelog->tc_time =$tc_time;// $this->tctimeslot(6);
 			$telecasttimelog->save ();
+			$total_spots=$total_spots+1;
 		}
 
-		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time,t0.tc_date FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t0.tc_date='$tc_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_time";
 
-		$all_log = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $all_log	 );
+		return Response::json ( $total_spots);
 	}
 
 	private function tctimeslot($tctime){
@@ -109,7 +109,7 @@ class AdlogController extends Controller {
 	}
 	public function postTcbydate() {
 		$schedule_date = substr ( Input::get ( 'schedule_date' ), 2 );
-		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t0.tc_date='$schedule_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_time";
+		$query = "SELECT * FROM telecasttime_log t1,ad_master t2  WHERE t1.tc_date='$schedule_date' and t1.ad_id=t2.id order by t1.tc_time";
 		$tc_time = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $tc_time );
 	}

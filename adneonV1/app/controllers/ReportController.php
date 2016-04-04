@@ -45,6 +45,13 @@ class ReportController extends Controller {
 		$tc_time = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $tc_time );
 	}
+	public function postDailyschedulereport() {
+		$schedule_date = Input::get ( 'schedule_date' );
+		$query="SELECT t1.ad_id,t4.duration,t8.time_slot,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption FROM ad_schedule_master t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7,timeslot_master t8 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id and t1.timeslot_id=t8.time_slot and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.schedule_date='$schedule_date'  order by t6.rate";
+		$tc_time = DB::select ( DB::raw ( $query ) );
+		return Response::json ( $tc_time );
+	}
+
 	public function getLastschedulereport() {
 		$query = "SELECT t1.schedule_date,count(t1.id) as slots,SUM(t2.duration) as total_duration FROM 	ad_schedule_master t1,ad_master t2 where t1.ad_id=t2.id  and MONTH(t1.schedule_date)=MONTH(NOW()) group BY t1.schedule_date ORDER BY t1.schedule_date";
 		$tc_time = DB::select ( DB::raw ( $query ) );
