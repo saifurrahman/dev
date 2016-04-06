@@ -55,32 +55,13 @@ class ReportController extends Controller {
 		$schedule_date = Input::get ( 'from_date' );
 		$to_date = Input::get ( 'to_date' );
 		$result=[];
-		$query="SELECT count(t1.id) as spots,t1.ad_id,t4.duration,t8.time_slot,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption,t1.deal_id FROM ad_schedule_master t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7,timeslot_master t8 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id and t1.timeslot_id=t8.time_slot and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.schedule_date='$schedule_date' group by t1.ad_id order by t1.ad_id,t1.timeslot_id";
+		$query="SELECT t1.id,t1.deal_id,t1.ad_id,t2.start_time,t2.end_time,t2.time_slot,t1.telecast_time from ad_schedule_master t1,timeslot_master t2 WHERE t1.schedule_date='2016-04-03' and t1.timeslot_id =t2.id order by t2.id,t1.ad_id";
 		$schedule = DB::select ( DB::raw ( $query ) );
 
-		$query="SELECT count(t1.id) as spots,t1.ad_id,t4.duration,t1.tc_time,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption,t1.deal_id FROM telecasttime_log t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id  and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.tc_date='$schedule_date' group by t1.ad_id order by t1.ad_id,t1.tc_time";
+		$query="SELECT deal_id,ad_id,tc_time from telecasttime_log WHERE tc_date='2016-04-03' order by tc_time";
 		$tc = DB::select ( DB::raw ( $query ) );
-
-		for ($i=0;$i<count($schedule);$i++) {
-
-			 for ($j=0;$j<count($tc);$j++) {
-			 	if($schedule[$i]->ad_id===$tc[$j]->ad_id){
-						$row['ad_id'] =$schedule[$i]->ad_id;
-						$row['caption'] =$tc[$j]->caption;
-						$row['agency_name'] =$tc[$j]->agency_name;
-						$row['client_name'] =$tc[$j]->client_name;
-						$row['rate'] =$schedule[$i]->rate;
-						$row['duration'] =$schedule[$i]->duration;
-						$row['schedule_spots'] =$schedule[$i]->spots;
-						$row['tc_spots'] =$tc[$j]->spots;
-
-						$result[]=$row;
-				}
-			 }
-		}
-
+		$result['schedule']=$schedule;
+		$result['tc']=$tc;
 		return Response::json ( $result );
 	}
-
-
 }

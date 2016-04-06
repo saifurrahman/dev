@@ -25,10 +25,9 @@
 			{{ Form::close()}}
 	<div class="col-md-2 text-right">
 
-			<button class="btn btn-icon  btn-danger btn-rounded"
-				id="excel">
-				<i class="fa fa-download"></i>
-			</button>
+		<label></label>
+<button type="button" class="btn btn-danger btn-block" onclick="saveSchedule();"
+	id="saveBtn">Save Schedule</button>
 
 	</div>
 
@@ -40,13 +39,12 @@
 				<table class="table table-striped m-b-none">
 					<thead>
 						<tr>
+							<th>Ad Id</th>
+							<th>Deal id</th>
+							<th>Time Slot</th>
+							<th>Time Stamp</th>
+							<th>Action</th>
 
-							<th>Caption</th>
-							<th>Client</th>
-							<th>Agency</th>
-							<th>Schedule Spots</th>
-							<th>Telecast Spots</th>
-							<th>Loss Spots</th>
 						</tr>
 					</thead>
 					<tbody id="scvstc_report_table"></tbody>
@@ -55,5 +53,15 @@
 
 	</div>
 </section>
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <div class="modal-body" id="telecasttime">
+
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
 {{HTML::script('packages/script/scvstc_report.js');}} @stop

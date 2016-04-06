@@ -183,17 +183,17 @@
 										</li>
 										<li id="schedulereports"class="auto">
     										<a href="{{URL::to('addneon/schedulereport')}}">
-    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Schedule Reports</span>
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise schedule </span>
     										</a>
 										</li>
 										<li id="telecast_time_reports"class="auto">
     										<a href="{{URL::to('addneon/telecastreport')}}">
-    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Telecast Reports</span>
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise Telecast</span>
     										</a>
 										</li>
 										<li id="telecast_time_reports"class="auto">
     										<a href="{{URL::to('addneon/dailyreport')}}">
-    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily Reports</span>
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily schedule</span>
     										</a>
 										</li>
 

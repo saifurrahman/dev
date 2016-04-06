@@ -87,21 +87,7 @@ class AdlogController extends Controller {
 		return Response::json ( $total_spots);
 	}
 
-	private function tctimeslot($tctime){
-
-		if($tctime>1 && $tctime<=10){
-			return 1;
-		}
-
-		if($tctime>10 && $tctime<=20){
-			return 2;
-		}
-		if($tctime>20 && $tctime<=30){
-			return 3;
-		}
-
-
-	}
+	
 	public function postTelecasttime() {
 		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );
 		$tc_date = Input::get ( 'tc_date' );

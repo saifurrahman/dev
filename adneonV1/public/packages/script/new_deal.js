@@ -118,7 +118,7 @@ var property= $( "#item_id option:selected" ).text();
 		alertify.error('Please select all required field!');
 
 	}else{
-var id=Math.floor(Math.random()*110000);
+	var id=Math.floor(Math.random()*110000);
 	var deal = '<tr>'
 				+'<td class="id" style="display:none;">'+id+'</td>'
 				+'<td>'+property+'</td>'

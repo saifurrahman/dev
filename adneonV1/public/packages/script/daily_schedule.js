@@ -265,7 +265,9 @@ function saveTC(tc_details){
 
 	var schedule_date = $('#schedule_date').val();
 //	$("#schecdule_table").hide(200);
-	$('#varification_row').show(200);
+	$('#telecast_table').show(200);
+	$('#telecast_table_row').html('<tr><td colspan="8" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+	$('#telecast_table').show(200);
 	$
 			.ajax({
 				url : '/adlog/savetelecasttime',
@@ -277,7 +279,7 @@ function saveTC(tc_details){
 					'_token' : token
 				},
 				success : function(data) {
-					alert("Saved "+data+" Spots!");
+						telecastTimeByDate(schedule_date);
 					}
 
 			});
