@@ -23,7 +23,7 @@ function allClient(){
 		}
 
 	}).done(function() {
-		$('#client_id').selectize()
+		$('#client_id').selectize();
 	});
 }
 

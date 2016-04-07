@@ -178,9 +178,10 @@
 										@if (Session::get('Reports') != 0)
 										<li id="scvstcreport"class="auto">
     										<a href="{{URL::to('addneon/scvstcreport')}}">
-    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Schedule vs Telecast</span>
+    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily Telecast </span>
     										</a>
 										</li>
+										
 										<li id="schedulereports"class="auto">
     										<a href="{{URL::to('addneon/schedulereport')}}">
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise schedule </span>
@@ -191,11 +192,7 @@
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise Telecast</span>
     										</a>
 										</li>
-										<li id="telecast_time_reports"class="auto">
-    										<a href="{{URL::to('addneon/dailyreport')}}">
-    										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily schedule</span>
-    										</a>
-										</li>
+
 
 										@endif
 									</ul>

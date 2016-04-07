@@ -32,6 +32,17 @@
   	<div class="col-md-6">
   			<input type="search" class="form-control" id="search" placeholder="search brand using name or client name"></input>
   	</div>
+    <div class="col-md-2">
+
+  	   <input type="text" class="form-control" name="no_of_spot"
+  			id="no_of_spot" readonly="readonly">
+
+  	</div>
+    <div class="col-md-2">
+
+      <button type="button" class="btn btn-danger form-control" id="update_tc" >Update Telecast</button>
+
+    </div>
 
   </section>
 <section class="row m-b-md" id="schedule_table">
@@ -63,15 +74,17 @@
 </section>
 <section class="row m-b-md" id="telecast_table">
 	<div class="col-md-11">
-		<table class="table table-striped m-b-none table-hover">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>#</th>
+
           <th>Ad ID</th>
           <th>Caption</th>
+          <th>Deal id</th>
+          <th>Duration <small>(in secs.)</small></th>
+          <th>TimeSlot</th>
           <th>Telecast Time</th>
-          <th class="text-center">Duration <small>(in secs.)</small></th>
-          <th>Deal_id</th>
+          <th>Action</th>
 				</tr>
 			</thead>
 			<tbody id="telecast_table_row"></tbody>

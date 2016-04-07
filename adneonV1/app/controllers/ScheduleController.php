@@ -61,5 +61,17 @@ class ScheduleController extends Controller
        // return Response::json($schedule);
         return Response::json($result);
     }
+    public function postDailyscvstcreport() {
+  		$schedule_date = Input::get ( 'schedule_date' );
+  		$result=[];
+  		$query="SELECT t1.id asm_id,t1.deal_id,t1.ad_id,t2.start_time,t2.end_time,t2.time_slot,t1.telecast_time,t4.caption,t4.duration from ad_schedule_master t1,timeslot_master t2,deal_master t3,ad_master t4 WHERE t1.schedule_date='$schedule_date' and t1.timeslot_id =t2.id and t1.deal_id=t3.id and t3.client_id=t4.client_id and t1.ad_id=t4.id order by t2.id,t1.ad_id";
+  		$schedule = DB::select ( DB::raw ( $query ) );
+
+  		$query="SELECT deal_id,ad_id,tc_time from telecasttime_log WHERE tc_date='$schedule_date' order by tc_time";
+  		$tc = DB::select ( DB::raw ( $query ) );
+  		$result['schedule']=$schedule;
+  		$result['tc']=$tc;
+  		return Response::json ( $result );
+  	}
 
 }

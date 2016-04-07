@@ -1,8 +1,11 @@
 window.onload = function() {
-
+	modified_tc_time=[];
 	$('#varification').addClass('active');
 	$('#schedule_table').hide();
 	$('#telecast_table').hide();
+	$('#no_of_spot').hide();
+	$('#update_tc').hide();
+
 	$("#schedule_date").datepicker("setDate", currentDate);
 	var schedule_date = $('#schedule_date').val();
 	deleteBtnStatus(schedule_date);
@@ -12,6 +15,8 @@ window.onload = function() {
 
 var token = $("input[name=_token]").val();
 var currentDate = new Date();
+var modified_tc_time=[];
+
 $("#schedule_date").datepicker({
 	dateFormat : 'yy-mm-dd',
 	showAnim : 'slideDown'
@@ -21,76 +26,135 @@ $('#schedule_date').on('change', function(){
 	deleteBtnStatus(schedule_date);
 	scheduleByDate(schedule_date);
 	telecastTimeByDate(schedule_date);
-
+	$('#schedule_table').show();
+	$('#telecast_table').hide();
+	$('#no_of_spot').hide();
+	$('#update_tc').hide();
+	$('#search').show();
 
 });
 
 $('#dailyScheduleBtn').on("click", function() {
 	$('#schedule_table').show();
+	$('#search').show();
 	$('#telecast_table').hide();
+	$('#no_of_spot').hide();
+	$('#update_tc').hide();
   return false;
 });
 
 $('#dailyTcBtn').on("click", function() {
 	$('#schedule_table').hide();
+	$('#search').hide();
 	$('#telecast_table').show();
-  return false;
+	$('#no_of_spot').show();
+	$('#update_tc').show();
+	return false;
 });
-function telecastTimeByDate(tcTime){
+$('#update_tc').on("click", function() {
+	$('#schedule_table').hide();
+	$('#search').hide();
+	$('#telecast_table').show();
+	$('#no_of_spot').show();
+	console.log(modified_tc_time.length);
+	updatetelecast();
+	return false;
+});
+function telecastTimeByDate(schedule_date){
+
+
+	modified_tc_time=[];
 
 	$
-			.ajax({
-				url : '/adlog/tcbydate',
-				type : 'POST',
-				datatype : 'JSON',
-				data : {
-					'schedule_date' : tcTime,
-					'_token' : token
-				},
-				success : function(data) {
+	  .ajax({
+	    url : '/schedule/dailyscvstcreport',
+	    type : 'POST',
+	    datatype : 'JSON',
+	    data : {
+	      'schedule_date' : schedule_date,
+	      '_token' : token
+	    },
+	    success : function(data) {
+	          $('#telecast_table_row').empty();
+						var schedule =data['schedule'];
+						tc =data['tc'];
+						if(tc.length==0){
+									$('#telecast_table_row').append('<tr class="danger"><td colspan="7" class="text-center">No Telecast log found</td></tr>');
 
-					$('#telecast_table_row').empty();
-					if (data.length != 0) {
+								}else{
+								var count_schedule=0;
+								for ( var i in schedule) {
+										var ad_id=schedule[i].ad_id;
+										var deal_id=schedule[i].deal_id;
+										var telecast_time=schedule[i].telecast_time;
+										var asm_id=schedule[i].asm_id;
+										var tc_time=0;
 
-						var agency;
-						var time_slot;// =data[0].time_slot;
-						var total_spot=0;
-						for ( var i in data) {
+										if(telecast_time==='00:00:00' || telecast_time=='' || telecast_time==null){
 
-							total_spot = total_spot + 1;
+													tc_time=getTelecastTime(ad_id,deal_id,schedule[i].start_time,schedule[i].end_time);
+													//missed sopt found,showing select box
+													if(tc_time=='0' || tc_time=='' || tc_time==null){
+													  var tc_select= selectTC(ad_id,deal_id);
+														var selectTcRow='<select class="selecttc"><option value="00:00:00">00:00:00</option>';
+														 for(var j in tc_select){
+															 selectTcRow= selectTcRow+'<option value="'+tc_select[j]+'">'+tc_select[j]+'</option>';
+														 }
+														 selectTcRow=selectTcRow+'</select>';
+													//	 $('.selecttc').selectize();
 
-							var deal = '<tr><td>'
-									+ total_spot
-									+ '</td>'
-									+ '<td>AT'
-									+ pad(data[i].ad_id, 4)
-									+ '</td>'
-									+ '<td>'
-									+ data[i].caption
-									+ '</td>'
+													//	tc_time='<button type="button" class="btn" onclick="selectTC('+ad_id+','+deal_id+');"id="searchBtn">Select</button>';
+														tc_time=selectTcRow;
+													}else{
+														var item ={
+																	 asm_id: asm_id,
+																	 tc_time: tc_time
+													 		}
+														modified_tc_time.push(item);
+													}
 
-									+ '<td>'
-									+ data[i].tc_time
-									+ '</td>'
-								+ '<td class="duration text-center">'
-									+ data[i].duration
-									+ '</td>'
-									+ '<td >'
-									+ data[i].deal_id
-									+ '</td>'
-								  + '</tr>';
-							$('#telecast_table_row').append(deal);
-						}
+											}else{
+												tc_time=telecast_time;
+												var item ={
+															 asm_id: asm_id,
+															 tc_time: tc_time
+											 		}
+												modified_tc_time.push(item);
+											}
+									//	console.log(schedule[i].time_slot);
+					        	var row ='<tr><td class="hidden asm_id">'+asm_id+'</td>'
+														+'<td>AT'
+					                  +pad(ad_id,4)
+					                  +'</td>'
+														+'<td>'
+														+schedule[i].caption
+														+'</td>'
+														+'<td>'
+														+pad(deal_id,4)
+														+'</td>'
+														+'<td>'
+														+schedule[i].duration
+														+'</td>'
+														+'<td>'
+					                  +schedule[i].time_slot
+					                  +'</td>'
+					                  +'<td>'
+					                  +tc_time
+					                  +'</td>'
+														+'<td>Edit</td>'
+					                  +'</tr>'
 
 
-					} else {
-						$('#telecast_table_row')
-								.append(
-										'<tr class="danger"><td colspan="7" class="text-center">No Telecast log found!Click here to upload</td></tr>');
+					          $('#telecast_table_row').append(row);
+										count_schedule=count_schedule+1;
+					        }
+							$('#no_of_spot').empty().val(count_schedule);
+
+			      }
 					}
 
-				}
-			});
+
+	    });
 
 }
 var deleteBtn;
@@ -111,6 +175,7 @@ function deleteBtnStatus(schedule_date) {
 function scheduleByDate(schedule_date) {
 	$('#total_spots').empty().append("Total Spots: 0");
 	$('#total_duration').empty().append("Total Duration: 0");
+	$('#schecdule_table_row').html('<tr><td colspan="7" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 		$
 			.ajax({
 				url : '/adlog/scheduledad',
@@ -121,8 +186,10 @@ function scheduleByDate(schedule_date) {
 					'_token' : token
 				},
 				success : function(data) {
-
 					$('#schecdule_table_row').empty();
+					$('#schedule_table').show();
+					$('#schecdule_table_row').empty();
+
 					if (data.length != 0) {
 
 						var agency;
@@ -242,31 +309,34 @@ var headers = allTextLines[0].split(',');
 var lines = [];
 var tc_details = [];
 //console.log("Total row:"+allTextLines.length);
-for (var i = 1; i < allTextLines.length; i++) {
-    var data = allTextLines[i].split(',');
+	for (var i = 1; i < allTextLines.length; i++) {
+	    var data = allTextLines[i].split(',');
 
 
 
-    if (data.length == headers.length) {
-				var sch = [];
-				//console.log(data[0]);
-				//console.log(headers.length);
-				sch[0] = data[0];
-				sch[1] = data[1];
-				sch[2] = data[2];
-				tc_details.push(sch);
+	    if (data.length == headers.length) {
+					var sch = [];
+					//console.log(data[0]);
+					//console.log(headers.length);
+					sch[0] = data[0];
+					sch[1] = data[1];
+					sch[2] = data[2];
+					tc_details.push(sch);
 
-    }
+	    }
+	}
+	//console.log(tc_details);
+		uploadTC(tc_details);
 }
-//console.log(tc_details);
-saveTC(tc_details);
-}
-function saveTC(tc_details){
+
+
+
+function uploadTC(tc_details){
 
 	var schedule_date = $('#schedule_date').val();
 //	$("#schecdule_table").hide(200);
 	$('#telecast_table').show(200);
-	$('#telecast_table_row').html('<tr><td colspan="8" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+	//$('#telecast_table_row').html('<p style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></p>');
 	$('#telecast_table').show(200);
 	$
 			.ajax({
@@ -352,4 +422,97 @@ function resetTable() {
 
 
 	}
+}
+
+
+$("#telecast_table_row").on("change", ".selecttc", function() {
+	var $del = $(this);
+	var id = $del.closest("tr").find(".asm_id").text();
+	var tc_time = $(this).val();
+
+
+	for(var i = 0; i < modified_tc_time.length; i++) {
+			var obj = modified_tc_time[i];
+
+			if(obj.asm_id==id) {
+					modified_tc_time.splice(i, 1);
+				}
+	}
+
+	var item ={
+	 asm_id: id,
+	 tc_time: tc_time
+ }
+	modified_tc_time.push(item);
+	console.log(item);
+	//alert(id+'--'+tc_time);
+});
+
+function updatetelecast(){
+
+var schedule_date = $('#schedule_date').val();
+	$
+	  .ajax({
+	    url : '/schedule/updatetelecast',
+	    type : 'POST',
+	    datatype : 'JSON',
+	    data : {
+	      'modified_tc_time' : modified_tc_time,
+	      '_token' : token
+	    },
+	    success : function(data) {
+				console.log(data);
+				telecastTimeByDate(schedule_date);
+			}
+		});
+
+}
+var tc_select=[];
+function selectTC(ad_id,deal_id){
+	//$('#telecasttime').empty();
+	var	tc_select=[];
+	for(var i in tc){
+		var ad_id_tc = tc[i].ad_id;
+		var deal_id_tc = tc[i].deal_id;
+		if(ad_id_tc===ad_id && deal_id_tc===deal_id){
+			tc_select.push(tc[i].tc_time);
+		//	$('#telecasttime').append('<p class="label label-default">'+tc[i].tc_time+'</p><br>');
+
+		}
+	}
+
+return tc_select;
+}
+function getTelecastTime(ad_id,deal_id,start_time,end_time){
+	//console.log("SCHEDULE: "+ad_id +'-'+deal_id+'-'+start_time+'-'+end_time);
+
+			for (var i in tc) {
+				var ad_id_tc = tc[i].ad_id;
+				var deal_id_tc = tc[i].deal_id;
+
+
+				if(ad_id_tc===ad_id && deal_id_tc===deal_id){
+					var tc_time =tc[i].tc_time;
+
+					var aa1=start_time.split(":");
+					var aa2=end_time.split(":");
+					var aa3=tc_time.split(":");
+
+					var startTimeObject = new Date();
+ 								startTimeObject.setHours(aa1[0], aa1[1], aa1[2]);
+					var endTimeObject = new Date();
+								endTimeObject.setHours(aa2[0], aa2[1], aa2[2]);
+					var tcTimeObject = new Date();
+								tcTimeObject.setHours(aa3[0], aa3[1], aa3[2]);
+						if(tcTimeObject>startTimeObject && tcTimeObject<endTimeObject){
+							tc.splice(i, 1);
+						//	console.log(moment(startTimeObject).format("HH:mm:ss")+'--'+moment(endTimeObject).format("HH:mm:ss")+'--'+moment(tcTimeObject).format("HH:mm:ss"));
+							return moment(tcTimeObject).format("HH:mm:ss");
+						}else{
+							return 0;
+					}
+
+				}
+
+			}
 }

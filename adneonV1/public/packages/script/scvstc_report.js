@@ -1,132 +1,84 @@
 window.onload = function() {
 	$('#scvstcreport').addClass('active');
-	modified_tc_time=[];
+
 
 }
 var token = $("input[name=_token]").val();
 
 
-$("#from_date,#to_date").datepicker({
+$("#telecast_date").datepicker({
 	dateFormat : 'yy-mm-dd',
 	changeMonth : true,
 	changeYear : true,
 	showAnim : 'slideDown',
 });
 
-var modified_tc_time=[];
 
-$("#scvstc_report_table").on("change", ".selecttc", function() {
-	var $del = $(this);
-	var id = $del.closest("tr").find(".asm_id").text();
-	var tc_time = $(this).val();
-
-
-	for(var i = 0; i < modified_tc_time.length; i++) {
-			var obj = modified_tc_time[i];
-		//	console.log(obj[0]+'--'+id);
-			if(obj.asm_id==id) {
-					modified_tc_time.splice(i, 1);
-				}
-	}
-
-	var item ={
-	 asm_id: id,
-	 tc_time: tc_time
- }
-	modified_tc_time.push(item);
-	//alert(id+'--'+tc_time);
-});
-
-function saveSchedule(){
-
-	console.log(modified_tc_time.length);
-	$
-	  .ajax({
-	    url : '/schedule/updatetelecast',
-	    type : 'POST',
-	    datatype : 'JSON',
-	    data : {
-	      'modified_tc_time' : modified_tc_time,
-	      '_token' : token
-	    },
-	    success : function(data) {
-				console.log(data);
-			}
-		});
-
-}
 function searchReport(){
 
-	modified_tc_time=[];
-	var from_date = $('#from_date').val();
-	var to_date = $('#to_date').val();
+
+	var telecast_date = $('#telecast_date').val();
+	$('#scvstc_report_table').html('<tr><td colspan="7" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 
 	$
 	  .ajax({
-	    url : '/report/scvstcreport',
+	    url : '/report/dailytelecastreport',
 	    type : 'POST',
 	    datatype : 'JSON',
 	    data : {
-	      'from_date' : from_date,
-	      'to_date' : to_date,
+	      'telecast_date' : telecast_date,
 	      '_token' : token
 	    },
-	    success : function(data) {
+	    success : function(schedule) {
 	          $('#scvstc_report_table').empty();
-						var schedule =data['schedule'];
-						tc =data['tc'];
 
-
+					var schedule_spot=0;
+					var missed_spot=0;
 					for ( var i in schedule) {
+						schedule_spot=schedule_spot+1;
 						var ad_id=schedule[i].ad_id;
 						var deal_id=schedule[i].deal_id;
-						
-						if(schedule[i].telecast_time=='00:00:00'){
-							var tc_time=0;
-							var asm_id=schedule[i].id;
-							tc_time=getTelecastTime(schedule[i].ad_id,schedule[i].deal_id,schedule[i].start_time,schedule[i].end_time);
-						//	console.log(tc_time);
+						var telecast_time=schedule[i].telecast_time;
+						var row='';
+						if(telecast_time==='00:00:00' || telecast_time=='' || telecast_time==null){
+								row='<tr class="danger">';
+								missed_spot=missed_spot+1;
 
-
-						if(tc_time=='0'){
-						  var tc_select= selectTC(ad_id,deal_id);
-							 var selectTcRow='<select class="selecttc"><option value="00:00:00">00:00:00</option>';
-							 for(var j in tc_select){
-								 selectTcRow= selectTcRow+'<option value="'+tc_select[j]+'">'+tc_select[j]+'</option>';
-							 }
-							 selectTcRow=selectTcRow+'</select>';
-
-						//	tc_time='<button type="button" class="btn" onclick="selectTC('+ad_id+','+deal_id+');"id="searchBtn">Select</button>';
-							tc_time=selectTcRow;
 						}else{
-							var item ={
-							 asm_id: asm_id,
-							 tc_time: tc_time
-						 }
-							modified_tc_time.push(item);
+								row ='<tr>';
+
 						}
-					}else{
-						tc_time=schedule[i].telecast_time;
-					}
-					//	console.log(schedule[i].time_slot);
-	        	var row ='<tr><td class="hidden asm_id">'+asm_id+'</td>'
-										+'<td>AT'
+
+	        		row = row+'<td>AT'
 	                  +pad(ad_id,4)
 	                  +'</td>'
 										+'<td>'
 					          +deal_id
 	                  +'<td>'
+	                  +schedule[i].caption
+	                  +'</td>'
+										+'<td>'
+	                  +schedule[i].duration
+	                  +'</td>'
+										+'<td>'
+	                  +schedule[i].rate
+	                  +'</td>'
+										+'<td>'
 	                  +schedule[i].time_slot
 	                  +'</td>'
 	                  +'<td>'
-	                  +tc_time
+	                  +telecast_time
 	                  +'</td>'
-										+'<td>-</td>'
+										+'<td>'
+										+schedule[i].remark
+										+'</td>'
 	                  +'</tr>'
 
 
 	          $('#scvstc_report_table').append(row);
 	        }
+					$('#schedule_spot').html("Schedule Spot: "+schedule_spot);
+					$('#missed_spot').html("Missed Spot: "+missed_spot);
 
 
 	      }
@@ -183,3 +135,9 @@ function getTelecastTime(ad_id,deal_id,start_time,end_time){
 
 			}
 }
+$("#excel").click(function() {
+	$("#scvstc_report_table").table2excel({
+		exclude : ".noExl",
+		name : "Coommercial Schedule"
+	});
+});

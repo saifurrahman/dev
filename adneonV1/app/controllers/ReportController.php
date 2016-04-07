@@ -32,36 +32,18 @@ class ReportController extends Controller {
 		$all_log = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $all_log	 );
 }
-	public function postTelecasttime() {
-		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );
-		$tc_date = Input::get ( 'tc_date' );
-		$query = "Select tc_time from telecasttime_log where tc_date='$tc_date' and ad_id='$ad_id'";
-		$tc_time = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $tc_time );
-	}
-	public function postTcbydate() {
-		$schedule_date = substr ( Input::get ( 'schedule_date' ), 2 );
-		$query = "Select * from telecasttime_log where tc_date='$schedule_date'ORDER BY ad_id,tc_time";
-		$tc_time = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $tc_time );
-	}
+
 	public function postDailyschedulereport() {
 		$schedule_date = Input::get ( 'schedule_date' );
 		$query="SELECT t1.ad_id,t4.duration,t8.time_slot,t6.rate,t7.ex_name,t2.name as client_name,t3.name as agency_name,t4.caption FROM ad_schedule_master t1,client_master t2,agency_master t3,ad_master t4,deal_master t5,deal_details t6,advetisement_executive t7,timeslot_master t8 WHERE t1.ad_id=t4.id and t1.deal_id=t5.id and t5.client_id=t2.id and t5.agency_id=t3.id and t1.timeslot_id=t8.time_slot and t6.deal_id=t1.deal_id and t5.executive_id=t7.id and t1.schedule_date='$schedule_date'  order by t6.rate";
 		$tc_time = DB::select ( DB::raw ( $query ) );
-		return Response::json ( $tc_time );
+		//return Response::json ( $tc_time );
 	}
-	public function postScvstcreport() {
-		$schedule_date = Input::get ( 'from_date' );
-		$to_date = Input::get ( 'to_date' );
-		$result=[];
-		$query="SELECT t1.id,t1.deal_id,t1.ad_id,t2.start_time,t2.end_time,t2.time_slot,t1.telecast_time from ad_schedule_master t1,timeslot_master t2 WHERE t1.schedule_date='2016-04-03' and t1.timeslot_id =t2.id order by t2.id,t1.ad_id";
+	public function postDailytelecastreport() {
+		$telecast_date = Input::get ('telecast_date' );
+		$query="select t3.caption,t3.duration,t1.ad_id,t1.deal_id,t1.telecast_time,t2.time_slot,t4.rate,t1.remark from ad_schedule_master t1 ,timeslot_master t2,ad_master t3,deal_details t4 WHERE t1.schedule_date='$telecast_date' and t1.timeslot_id=t2.id and t1.ad_id=t3.id and t4.deal_id=t1.deal_id and t4.item_id IN (1,6) ORDER BY `t1`.`telecast_time`  ASC";
 		$schedule = DB::select ( DB::raw ( $query ) );
 
-		$query="SELECT deal_id,ad_id,tc_time from telecasttime_log WHERE tc_date='2016-04-03' order by tc_time";
-		$tc = DB::select ( DB::raw ( $query ) );
-		$result['schedule']=$schedule;
-		$result['tc']=$tc;
-		return Response::json ( $result );
+		return Response::json ( $schedule );
 	}
 }
