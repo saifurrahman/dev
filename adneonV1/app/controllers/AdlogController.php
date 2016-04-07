@@ -47,14 +47,7 @@ class AdlogController extends Controller {
 		$adschedule->save ();
 		return Response::json ( $adschedule );
 	}
-	public function postRemark() {
-		$id = Input::get ( 'id' );
-		$telecast = Adschedule::find ( $id );
-		$telecast->remark = Input::get ( 'remark' );
-		$telecast->status = 0;
-		$telecast->save ();
-		return Response::json ( $telecast );
-	}
+	
 
 	public function postScheduledadvarfication() {
 		$schedule_date = Input::get ( 'schedule_date' );
@@ -87,7 +80,7 @@ class AdlogController extends Controller {
 		return Response::json ( $total_spots);
 	}
 
-	
+
 	public function postTelecasttime() {
 		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );
 		$tc_date = Input::get ( 'tc_date' );

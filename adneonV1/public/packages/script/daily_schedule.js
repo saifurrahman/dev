@@ -3,7 +3,7 @@ window.onload = function() {
 	$('#varification').addClass('active');
 	$('#schedule_table').hide();
 	$('#telecast_table').hide();
-	$('#no_of_spot').hide();
+	//$('#no_of_spot').hide();
 	$('#update_tc').hide();
 
 	$("#schedule_date").datepicker("setDate", currentDate);
@@ -28,7 +28,7 @@ $('#schedule_date').on('change', function(){
 	telecastTimeByDate(schedule_date);
 	$('#schedule_table').show();
 	$('#telecast_table').hide();
-	$('#no_of_spot').hide();
+//	$('#no_of_spot').hide();
 	$('#update_tc').hide();
 	$('#search').show();
 
@@ -38,7 +38,7 @@ $('#dailyScheduleBtn').on("click", function() {
 	$('#schedule_table').show();
 	$('#search').show();
 	$('#telecast_table').hide();
-	$('#no_of_spot').hide();
+//	$('#no_of_spot').hide();
 	$('#update_tc').hide();
   return false;
 });
@@ -47,7 +47,7 @@ $('#dailyTcBtn').on("click", function() {
 	$('#schedule_table').hide();
 	$('#search').hide();
 	$('#telecast_table').show();
-	$('#no_of_spot').show();
+//	$('#no_of_spot').show();
 	$('#update_tc').show();
 	return false;
 });
@@ -55,15 +55,20 @@ $('#update_tc').on("click", function() {
 	$('#schedule_table').hide();
 	$('#search').hide();
 	$('#telecast_table').show();
-	$('#no_of_spot').show();
-	console.log(modified_tc_time.length);
-	updatetelecast();
+	//$('#no_of_spot').show();
+	if(modified_tc_time.length==0){
+		alertify.alert('No telecast log uploaded!');
+	}else{
+		updatetelecast();
+	}
 	return false;
 });
 function telecastTimeByDate(schedule_date){
 
 
 	modified_tc_time=[];
+	var count_schedule=0;
+	var count_missed=0;
 
 	$
 	  .ajax({
@@ -82,7 +87,7 @@ function telecastTimeByDate(schedule_date){
 									$('#telecast_table_row').append('<tr class="danger"><td colspan="7" class="text-center">No Telecast log found</td></tr>');
 
 								}else{
-								var count_schedule=0;
+
 								for ( var i in schedule) {
 										var ad_id=schedule[i].ad_id;
 										var deal_id=schedule[i].deal_id;
@@ -112,6 +117,7 @@ function telecastTimeByDate(schedule_date){
 													 		}
 														modified_tc_time.push(item);
 													}
+													count_missed=count_missed+1;
 
 											}else{
 												tc_time=telecast_time;
@@ -121,6 +127,7 @@ function telecastTimeByDate(schedule_date){
 											 		}
 												modified_tc_time.push(item);
 											}
+										//	var editInput='<input type="text" class="tc_manual" name="tc_manual" id="tc_manual">';
 									//	console.log(schedule[i].time_slot);
 					        	var row ='<tr><td class="hidden asm_id">'+asm_id+'</td>'
 														+'<td>AT'
@@ -141,16 +148,18 @@ function telecastTimeByDate(schedule_date){
 					                  +'<td>'
 					                  +tc_time
 					                  +'</td>'
-														+'<td>Edit</td>'
+														+'<td class="tc_manual"><span class="text-danger">Edit</span></td>'
 					                  +'</tr>'
 
 
 					          $('#telecast_table_row').append(row);
 										count_schedule=count_schedule+1;
 					        }
-							$('#no_of_spot').empty().val(count_schedule);
+
 
 			      }
+					//	$('#no_of_spot').empty().val(count_schedule);
+						$('#missed_spot').empty().val(count_missed);
 					}
 
 
@@ -230,10 +239,7 @@ function scheduleByDate(schedule_date) {
 									+ deleteBtn + '</td>' + '</tr>';
 							$('#schecdule_table_row').append(deal);
 						}
-						$('#total_spots').empty()
-								.append("Spots: " + total_spot);
-						$('#total_duration').empty().append(
-								"Duration: " + total_duration + " Secs");
+						$('#no_of_spot').empty().val(total_spot);
 
 					} else {
 						$('#schecdule_table_row')
@@ -297,7 +303,7 @@ fileInput.addEventListener('change', function(e) {
             reader.readAsText(file);
         } else {
           //  fileDisplayArea.innerText = "File not supported!"
-					alertify.info("File not supported!");
+					alertify.alert('File not supported');
         }
 
 
@@ -325,8 +331,12 @@ var tc_details = [];
 
 	    }
 	}
-	//console.log(tc_details);
+	console.log(headers.length+'--'+tc_details.length);
+	if(tc_details.length==0 || headers.length!=3){
+		alertify.alert('CSV file is not n format!');
+	}else{
 		uploadTC(tc_details);
+	}
 }
 
 
@@ -349,6 +359,8 @@ function uploadTC(tc_details){
 					'_token' : token
 				},
 				success : function(data) {
+					alertify.set('notifier','position', 'top-right');
+					alertify.success('Telecast log successfully!');
 						telecastTimeByDate(schedule_date);
 					}
 
@@ -394,10 +406,7 @@ function doSearch(searchText) {
 			targetTable.rows.item(rowIndex).style.display = 'table-row';
 		}
 	}
-	$('#total_spots').empty()
-	.append("Spots: " + total_spot);
-	$('#total_duration').empty().append(
-	"Duration: " + total_duration + " Secs");
+
 }
 function resetTable() {
 	var targetTable = document.getElementById('schecdule_table_row');
@@ -423,7 +432,40 @@ function resetTable() {
 
 	}
 }
+$("#telecast_table_row").on("click", ".tc_manual", function() {
+	var $del = $(this);
+	var id = $del.closest("tr").find(".asm_id").text();
+	console.log(id);
+	$('#asm_id').val(id);
+	$('#remarkModal').modal('show');
 
+});
+
+function saveManualTc(){
+
+	var asm_id = $('#asm_id').val();
+	var tc_time_mannual = $('#tc_time_mannual').val();
+	var remark = $('#remark').val();
+	console.log(asm_id+'--'+tc_time_mannual);
+	$.ajax({
+	    url : '/schedule/updatemannualtelecasttime',
+	    type : 'POST',
+	    datatype : 'JSON',
+	    data : {
+	      'asm_id' : asm_id,
+				'tc_time_mannual' : tc_time_mannual,
+				'remark' : remark,
+	      '_token' : token
+	    },
+	    success : function(data) {
+				console.log(data);
+				$('#remarkModal').modal('hide');
+				alertify.set('notifier','position', 'top-right');
+				alertify.success('Telecast Time updated successfully!');
+				//telecastTimeByDate(schedule_date);
+			}
+		});
+}
 
 $("#telecast_table_row").on("change", ".selecttc", function() {
 	var $del = $(this);
@@ -462,6 +504,8 @@ var schedule_date = $('#schedule_date').val();
 	    },
 	    success : function(data) {
 				console.log(data);
+				alertify.set('notifier','position', 'top-right');
+				alertify.success('Telecast Time updated successfully!');
 				telecastTimeByDate(schedule_date);
 			}
 		});

@@ -29,13 +29,17 @@
 
   </section>
   <section class="row m-b-md">
-  	<div class="col-md-6">
+  	<div class="col-md-4">
   			<input type="search" class="form-control" id="search" placeholder="search brand using name or client name"></input>
   	</div>
     <div class="col-md-2">
-
-  	   <input type="text" class="form-control" name="no_of_spot"
+  	   <input type="text" class="form-control text-success" name="no_of_spot"
   			id="no_of_spot" readonly="readonly">
+  	</div>
+    <div class="col-md-2">
+
+  	   <input type="text" class="form-control text-danger" name="missed_spot"
+  			id="missed_spot" readonly="readonly">
 
   	</div>
     <div class="col-md-2">
@@ -97,4 +101,41 @@
   </div>
 </div>
 </section>
+<div class="modal fade" id="remarkModal" tabindex="-3" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Mannual Telecast Time</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						{{Form::open(array('url' => ' ','id'=>'mannual_tc-form', 'method' => 'post'))}}
+						<div class="form-group">
+              <input type="hidden" id="asm_id" name="asm_id">
+              <label id="time_slot_mannual">Telecast Time</label>
+							<input type="text" name="tc_time_mannual" id="tc_time_mannual"
+								class="form-control"></input>
+							<label>Remark</label>
+							<textarea rows="1" cols="" name="remark" id="remark"
+								class="form-control"></textarea>
+
+						</div>
+						{{ Form::close()}}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="reBtn"
+					onclick="saveManualTc();">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 {{HTML::script('packages/script/daily_schedule.js');}} @stop

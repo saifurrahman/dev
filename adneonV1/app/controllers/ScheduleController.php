@@ -61,6 +61,15 @@ class ScheduleController extends Controller
        // return Response::json($schedule);
         return Response::json($result);
     }
+    public function postUpdatemannualtelecasttime() {
+  		$asm_id = Input::get ( 'asm_id' );
+  		$telecast = Adschedule::find ( $asm_id );
+  		$telecast->telecast_time = Input::get ( 'tc_time_mannual' );
+      $telecast->remark = Input::get ( 'remark' );
+  		//$telecast->status = 0;
+  		$telecast->save ();
+  		return Response::json ( $telecast );
+  	}
     public function postDailyscvstcreport() {
   		$schedule_date = Input::get ( 'schedule_date' );
   		$result=[];
@@ -73,5 +82,6 @@ class ScheduleController extends Controller
   		$result['tc']=$tc;
   		return Response::json ( $result );
   	}
+
 
 }
