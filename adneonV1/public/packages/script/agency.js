@@ -1,7 +1,7 @@
 window.onload = function(){
 	$('#agency').addClass('active');
 	allAgency();
-	
+	$('#client-div').show();
 }
 
 
@@ -11,7 +11,7 @@ function clientForm(){
 var token = $("input[name=_token]").val();
 
 function saveAgency(){
-	var formData = $('form#agency-form').serializeArray(); 
+	var formData = $('form#agency-form').serializeArray();
 	$('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
 	$.ajax({
 		url : '/client/saveagency',
@@ -56,11 +56,12 @@ function allAgency(){
 								+'<td class="mobile">'+data[i].mobile+'</td>'
 								+'<td class="city">'+data[i].city+'</td>'
 								+'<td class="commission">'+data[i].commission+' &nbsp; </td>'
-								+'<td class="address hidden">'+data[i].address+' &nbsp; </td>'
+								+'<td class="address1 hidden">'+data[i].address1+' &nbsp; </td>'
+								+'<td class="address2 hidden">'+data[i].address2+' &nbsp; </td>'
 								+'<td><button class="edit btn btn-rounded btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
 								+'</tr>';
-				
-				$('#agency-list').append(client);			
+
+				$('#agency-list').append(client);
 			}
 		}
 	});
@@ -76,22 +77,24 @@ $("#agency-list").on("click", ".edit", function() {
 	var mobile = $edit.closest("tr").find(".mobile").text();
 	var city = $edit.closest("tr").find(".city").text();
 	var commission = $edit.closest("tr").find(".commission").text();
-	var address = $edit.closest("tr").find(".address").text();
-	
+	var address1 = $edit.closest("tr").find(".address1").text();
+	var address2 = $edit.closest("tr").find(".address2").text();
+
 	$('#saveBtn').hide();
 	$('#upBtn').show();
 	$('#client-div').show('200');
-	
+
 	$('#editID').val(id);
 	$('#name').val(name);
 	$('#email').val(email);
 	$('#mobile').val(mobile);
 	$('#city').val(city);
 	$('#Editcommission').val(commission);
-	$('#address').val(address);
+	$('#address1').val(address1);
+	$('#address2').val(address2);
 });
 function updateAgency(){
-	var formData = $('form#agency-form').serializeArray(); 
+	var formData = $('form#agency-form').serializeArray();
 	$('#upBtn').attr('disabled', true).html('Updating...');
 	$.ajax({
 		url : '/client/updateagency',
@@ -132,5 +135,3 @@ $("#search").keyup(function () {
         });
     });
 });
-
-

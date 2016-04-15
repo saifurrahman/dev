@@ -43,10 +43,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-2">Region</label>
+						<label class="control-label col-sm-2">Comm.(%)</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="city" id="city"
-								placeholder="Region">
+							<input type="text" class="form-control" id="Editcommission"
+								name="commission" placeholder="commission in %">
 						</div>
 					</div>
 				</div>
@@ -55,17 +55,25 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2">Address</label>
 						<div class="col-sm-10">
-							<textarea rows="3" cols="" class="form-control" name="address"
-								id="address"></textarea>
+							<input type="text" class="form-control" name="address1"
+								id="address1" placeholder="Address Line 1">
 						</div>
 					</div>
-
 					<div class="form-group">
-						<label class="control-label col-sm-2">Commission (%)</label>
+						<label class="control-label col-sm-2"></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="Editcommission"
-								name="commission" placeholder="commission in %">
+							<input type="text" class="form-control" name="address2"
+								id="address2" placeholder="Address Line 2">
 						</div>
+					</div>
+					<div class="form-group">
+
+						<label class="control-label col-sm-2">City</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="city" id="city"
+								placeholder="City">
+						</div>
+
 					</div>
 					<div class="col-md-offset-2">
 						<button type="button" class="btn btn-success" id="saveBtn"
@@ -91,7 +99,7 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<table class="table table-striped m-b-none">
+				<table class="table table-striped m-b-none table-bordered">
 					<thead>
 						<tr>
 							<th>#</th>

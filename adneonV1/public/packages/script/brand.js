@@ -95,26 +95,29 @@ function saveBrand(){
 	var client_id=$('#client_id').val();
 	var category_id=$('#category_id').val();
 	var brand_name=$('#brand_name').val();
-
-	$.ajax({
-		url : '/brand/save',
-		type : 'POST',
-		dataType : 'JSON',
-		data : {'_token':token,'client_id':client_id,'category_id':category_id,'brand_name':brand_name},
-		success : function(data) {
-			$('#saveBtn').attr('disabled', false).html('submit');
-			if(data!=0){
-				$('form#brand-form').each(function() {
-					this.reset();
-				});
-				alertify.success('saved successfully');
-				allBrand();
+	if(brand_name!='' || brand_name!=null || client_id!='' || client_id!=0 ){
+		$.ajax({
+			url : '/brand/save',
+			type : 'POST',
+			dataType : 'JSON',
+			data : {'_token':token,'client_id':client_id,'category_id':category_id,'brand_name':brand_name},
+			success : function(data) {
+				$('#saveBtn').attr('disabled', false).html('submit');
+				if(data!=0){
+					$('form#brand-form').each(function() {
+						this.reset();
+					});
+					alertify.success('saved successfully');
+					allBrand();
+				}
+				else{
+					alertify.error('something went wrong!!');
+				}
 			}
-			else{
-				alertify.error('something went wrong!!');
-			}
-		}
-	});
+		});
+	}else{
+		alertify.error('Please required fileds!');
+	}
 
 	return false;
 }

@@ -1,7 +1,7 @@
 window.onload = function(){
 	$('#client').addClass('active');
 	allclient();
-	
+
 }
 
 function clientForm(){
@@ -12,7 +12,7 @@ function clientForm(){
 var token = $("input[name=_token]").val();
 
 function saveClient(){
-	var formData = $('form#client-form').serializeArray(); 
+	var formData = $('form#client-form').serializeArray();
 	$('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
 	$.ajax({
 		url : '/client/saveclient',
@@ -27,7 +27,7 @@ function saveClient(){
 					this.reset();
 					allclient();
 				});
-			
+
 				alertify.success('saved successfully');
 			}
 			else{
@@ -62,11 +62,12 @@ function allclient(){
 								+'<td class="email">'+data[i].email+'</td>'
 								+'<td class="mobile">'+data[i].mobile+'</td>'
 								+'<td class="city">'+data[i].city+'</td>'
-								+'<td class="address hidden">'+data[i].address+'</td>'
+								+'<td class="address1 hidden">'+data[i].address1+'</td>'
+								+'<td class="address2 hidden">'+data[i].address2+'</td>'
 								+'<td><button class="edit btn btn-rounded btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></button></td>'
 								+'</tr>';
-				
-				$('#client-list').append(client);			
+
+				$('#client-list').append(client);
 			}
 		}
 	});
@@ -82,8 +83,9 @@ $("#client-list").on("click", ".edit", function() {
 	var email = $edit.closest("tr").find(".email").text();
 	var mobile = $edit.closest("tr").find(".mobile").text();
 	var city = $edit.closest("tr").find(".city").text();
-	var address = $edit.closest("tr").find(".address").text();
-	
+	var address1 = $edit.closest("tr").find(".address1").text();
+	var address2 = $edit.closest("tr").find(".address2").text();
+
 	$('#saveBtn').hide();
 	$('#upBtn').show();
 	$('#client-div').show('200');
@@ -92,10 +94,11 @@ $("#client-list").on("click", ".edit", function() {
 	$('#email').val(email);
 	$('#mobile').val(mobile);
 	$('#city').val(city);
-	$('#address').val(address);
+	$('#address1').val(address1);
+	$('#address2').val(address2);
 });
 function updateClient(){
-	var formData = $('form#client-form').serializeArray(); 
+	var formData = $('form#client-form').serializeArray();
 	$('#upBtn').attr('disabled', true).html('Updating...');
 	$.ajax({
 		url : '/client/updateclient',
@@ -135,7 +138,3 @@ $("#search").keyup(function () {
         });
     });
 });
-
-
-
-

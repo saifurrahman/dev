@@ -148,7 +148,7 @@
 										@if (Session::get('Schedule') != 0)
 										<li id="ad_schedule">
     										<a href="{{URL::to('addneon/adschedule')}}">
-    										  <i class="i i-circle-sm text-danger-dk"> </i> <span class="font-bold">Schedule</span>
+    										  <i class="i i-circle-sm text-danger-dk"> </i> <span class="font-bold">Schedule Entry</span>
     										</a>
 										</li>
 										@endif
@@ -181,7 +181,7 @@
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Daily Telecast </span>
     										</a>
 										</li>
-										
+
 										<li id="schedulereports"class="auto">
     										<a href="{{URL::to('addneon/schedulereport')}}">
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise schedule </span>

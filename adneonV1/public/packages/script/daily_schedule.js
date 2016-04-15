@@ -437,6 +437,8 @@ $("#telecast_table_row").on("click", ".tc_manual", function() {
 	var id = $del.closest("tr").find(".asm_id").text();
 	console.log(id);
 	$('#asm_id').val(id);
+	$('#tc_time_mannual').val('00:00:00');
+	$('#remark').val('');
 	$('#remarkModal').modal('show');
 
 });

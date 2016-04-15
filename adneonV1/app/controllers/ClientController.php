@@ -2,7 +2,7 @@
 class ClientController extends Controller {
 	public function __construct() {
 		$this->beforeFilter ( 'csrf', array (
-				'on' => 'post' 
+				'on' => 'post'
 		) );
 	}
 	// client
@@ -16,7 +16,8 @@ class ClientController extends Controller {
 		$client->email = Input::get ( 'email' );
 		$client->mobile = Input::get ( 'mobile' );
 		$client->city = Input::get ( 'city' );
-		$client->address = Input::get ( 'address' );
+		$client->address1 = Input::get ( 'address1' );
+		$client->address2 = Input::get ( 'address2' );
 		$client->save ();
 		return Response::json ( $client );
 	}
@@ -27,11 +28,12 @@ class ClientController extends Controller {
 		$client->email = Input::get ( 'email' );
 		$client->mobile = Input::get ( 'mobile' );
 		$client->city = Input::get ( 'city' );
-		$client->address = Input::get ( 'address' );
+		$client->address1 = Input::get ( 'address1' );
+		$client->address2 = Input::get ( 'address2' );
 		$client->save ();
 		return Response::json ( $client );
 	}
-	
+
 	// agency
 	public function getAllagency() {
 		$agency = Agency::all ();
@@ -43,7 +45,8 @@ class ClientController extends Controller {
 		$agency->email = Input::get ( 'email' );
 		$agency->mobile = Input::get ( 'mobile' );
 		$agency->city = Input::get ( 'city' );
-		$agency->address = Input::get ( 'address' );
+		$agency->address1 = Input::get ( 'address1' );
+		$agency->address2 = Input::get ( 'address2' );
 		$agency->commission = Input::get ( 'commission' );
 		$agency->save ();
 		return Response::json ( $agency );
@@ -55,7 +58,8 @@ class ClientController extends Controller {
 		$agency->email = Input::get ( 'email' );
 		$agency->mobile = Input::get ( 'mobile' );
 		$agency->city = Input::get ( 'city' );
-		$agency->address = Input::get ( 'address' );
+		$agency->address1 = Input::get ( 'address1' );
+		$agency->address2 = Input::get ( 'address2' );
 		$agency->commission = Input::get ( 'commission' );
 		$agency->save ();
 		return Response::json ( $agency );
