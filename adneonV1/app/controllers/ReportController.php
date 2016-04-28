@@ -41,9 +41,25 @@ class ReportController extends Controller {
 	}
 	public function postDailytelecastreport() {
 		$telecast_date = Input::get ('telecast_date' );
-		$query="select t3.caption,t3.duration,t1.ad_id,t1.deal_id,t1.telecast_time,t2.time_slot,t4.rate,t1.remark from ad_schedule_master t1 ,timeslot_master t2,ad_master t3,deal_details t4 WHERE t1.schedule_date='$telecast_date' and t1.timeslot_id=t2.id and t1.ad_id=t3.id and t4.deal_id=t1.deal_id and t4.item_id IN (1,6) ORDER BY `t1`.`telecast_time`  ASC";
-		$schedule = DB::select ( DB::raw ( $query ) );
+		$result=array();
+		$query="select t1.ad_id,t1.telecast_time,t1.deal_id,t2.caption,t2.duration,t1.remark,t3.rate from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date='$telecast_date' and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order by t1.telecast_time";
+		$result['schedule'] = DB::select ( DB::raw ( $query ) );
+		$query="select t1.*,t2.caption,t2.duration,t3.rate from telecasttime_log t1,ad_master t2,deal_details t3 WHERE t1.tc_date='$telecast_date' and t1.schedule_status =0 and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order BY tc_time";
+		$result['telecast'] = DB::select ( DB::raw ( $query ) );
+		return Response::json ( $result );
+	}
+	public function postDealwisetelecast() {
+		$deal_id = Input::get ('deal_id' );
+		$from_date = Input::get ('from_date' );
+		$to_date = Input::get ('to_date' );
 
-		return Response::json ( $schedule );
+		$result=array();
+		$query="select t1.id,t1.schedule_date,t1.ad_id,t1.telecast_time,t1.deal_id,t2.caption,t2.duration,t1.remark,t3.rate from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order by t1.schedule_date,t1.telecast_time";
+		$result['schedule'] = DB::select ( DB::raw ( $query ) );
+  //  echo $query;
+		$query="select t1.*,t2.caption,t2.duration,t3.rate from telecasttime_log t1,ad_master t2,deal_details t3 WHERE t1.tc_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.schedule_status =0 and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order BY t1.tc_date,t1.tc_time";
+  //  echo $query;
+		$result['telecast'] = DB::select ( DB::raw ( $query ) );
+		return Response::json ( $result );
 	}
 }

@@ -1,7 +1,7 @@
 window.onload = function(){
 	$('#agency').addClass('active');
 	allAgency();
-	$('#client-div').show();
+//	$('#client-div').show();
 }
 
 

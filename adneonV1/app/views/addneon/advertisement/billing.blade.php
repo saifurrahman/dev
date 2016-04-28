@@ -45,11 +45,12 @@
 		<table class="table table-striped m-b-none table-bordered">
 		<thead>
 			<tr>
-				<th>BIll no</th>
-				<th>Deal Id</th>
+				<th>#</th>
+				<th>Deal</th>
 				<th>Agency</th>
 				<th>Client</th>
 				<th>Executive</th>
+				<th>Ro Details</th>
 				<th>Billing Period</th>
 				<th>Bill Amount</th>
 				<th>Action</th>

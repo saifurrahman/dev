@@ -142,6 +142,23 @@ class AppController extends BaseController
     		return Redirect::to ( '/' );
     	}
     }
+    public function getPrintinvoice(){
+      if (Auth::check () ) {
+    		  return  View::make ( 'addneon.advertisement.print_invoice' );
+    	}else {
+    		return Redirect::to ( '/' );
+    	}
+    }
+
+    public function getDealwisetelecast(){
+      if (Auth::check () ) {
+    		    $this->layout->content = View::make ( 'addneon.reports.dealwisetelecast' );
+    	}else {
+    		return Redirect::to ( '/' );
+    	}
+    }
+
+
     // settings
     public function getUsers ()
     {

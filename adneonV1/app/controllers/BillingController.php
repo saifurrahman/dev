@@ -77,7 +77,7 @@ class BillingController extends Controller
     }
     public function getAllbill ()
     {
-      $query="SELECT * FROM bill_master ";
+      $query="SELECT t1.*,t2.ro_number,t2.ro_amount,t3.name as client_name,t4.name as agency_name,t5.ex_name FROM bill_master t1,deal_master t2,client_master t3,agency_master t4,advetisement_executive t5 WHERE t1.deal_id=t2.id and t2.client_id=t3.id AND t2.agency_id=t4.id AND t2.executive_id=t5.id order by t1.id desc";
       $brands = DB::select ( DB::raw ( $query ) );
 
     return Response::json ( $brands );

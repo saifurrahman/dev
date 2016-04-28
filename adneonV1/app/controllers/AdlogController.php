@@ -47,7 +47,7 @@ class AdlogController extends Controller {
 		$adschedule->save ();
 		return Response::json ( $adschedule );
 	}
-	
+
 
 	public function postScheduledadvarfication() {
 		$schedule_date = Input::get ( 'schedule_date' );
@@ -56,32 +56,79 @@ class AdlogController extends Controller {
 		return Response::json ( $alladd );
 	}
 	public function postSavetelecasttime() {
-		$tc_details = Input::get ( 'tc_details' );
-		$tc_date = Input::get ( 'tc_date' );
+		$tc_details = json_decode(Input::get ('tc_details' ));
+		$tc_date = Input::get ('tc_date');
 		$data = array ();
-		$affected = DB::table ( 'telecasttime_log' )->where ( 'tc_date', '=', $tc_date )->delete ();
-
+		$affected = DB::table ('telecasttime_log')->where ( 'tc_date', '=', $tc_date )->delete ();
 		$total_spots=0;
+		$schedule_update_id=array();
 		for($i = 0; $i < count ( $tc_details ); $i ++) {
-		//	echo $tc_details [$i] [0];
-			$tc_time = $tc_details [$i] [1];
 			$ad_id = $tc_details [$i] [0];
+			$tc_time = $tc_details [$i] [1];
 			$deal_id = $tc_details [$i] [2];
-			$telecasttimelog = new Telecasttimelog ();
-			$telecasttimelog->tc_date = $tc_date;
-			$telecasttimelog->ad_id = substr ( $ad_id, 2 );
-			$telecasttimelog->tc_time =$tc_time;
-			$telecasttimelog->deal_id=$deal_id;// $this->tctimeslot(6);
-			$telecasttimelog->save ();
+			$telecasttimelog = array();
+			$telecasttimelog['tc_date'] = $tc_date;
+			$telecasttimelog['ad_id'] = substr ( $ad_id, 2 );
+			$telecasttimelog['tc_time'] =$tc_time;
+			$telecasttimelog['deal_id']=$deal_id;// $this->tctimeslot(6);
 			$total_spots=$total_spots+1;
+			array_push($data,$telecasttimelog);
+		}
+		$products;
+		$rowsPerChunk = 100;
+		$productChunks = array_chunk($data, $rowsPerChunk);
+		foreach($productChunks as $chunk) {
+		    DB::table('telecasttime_log')->insert($chunk);
 		}
 
+		$schedule_array = DB::table ('ad_schedule_master')->where ( 'schedule_date', '=', $tc_date )->get();
 
-		return Response::json ( $total_spots);
+		$telecast_array=array();
+		$tc_time='00:00:00';
+
+		$schedule_update=array();
+
+		foreach ($schedule_array as $row) {
+				$ad_id = $row->ad_id;
+				$deal_id = $row->deal_id;
+				$asm_id=$row->id;
+
+				for ($index=0; $index < count($data);$index++) {
+				//	print_r($data[$index]['ad_id']);
+					$tc_ad_id=$data[$index]['ad_id'];
+					$tc_deal_id=$data[$index]['deal_id'];
+					if($ad_id==$tc_ad_id && $deal_id==$tc_deal_id){
+							$tc_time=$data[$index]['tc_time'];
+							$update_row=array();
+							$update_row['asm_id']=$asm_id;
+							$update_row['tc_time']=$tc_time;
+							array_push($schedule_update,$update_row);
+							unset($data[$index]);
+							$data=array_values($data);
+							break;
+					}
+				}
+		}
+			foreach ($schedule_update as $row) {
+				$asm_id =$row['asm_id'];
+				$tc_time =$row['tc_time'];
+				$adschedule = Adschedule::find ( $asm_id );
+				$adschedule->telecast_time = $tc_time;
+				$adschedule->status = 1;
+				$adschedule->save ();
+			}
+			foreach ($data as $row) {
+				$tc_date =$row['tc_date'];
+				$tc_time =$row['tc_time'];
+				$ad_id =$row['ad_id'];
+				$deal_id =$row['deal_id'];
+				$query = "UPDATE  telecasttime_log SET schedule_status = 0 WHERE tc_time ='$tc_time' and tc_date='$tc_date' and ad_id='$ad_id' and deal_id='$deal_id';";
+				DB::select ( DB::raw ( $query ) );
+			}
+			return Response::json ($schedule_update);
 	}
 
-
-	public function postTelecasttime() {
+	function postTelecasttime() {
 		$ad_id = substr ( Input::get ( 'ad_id' ), 2 );
 		$tc_date = Input::get ( 'tc_date' );
 		$query = "Select tc_time from telecasttime_log where tc_date='$tc_date' and ad_id='$ad_id'";

@@ -8,8 +8,8 @@ window.onload = function() {
 }
 $("#newBill").on("click", function() {
 	//$('#generate_bill_section').show();
-	$('#search_field').show();
-	$('#all_bills').hide();
+	$('#search_field').toggle();
+	$('#all_bills').toggle();
 
 });
 var token = $("input[name=_token]").val();
@@ -107,8 +107,10 @@ function search() {
 										amount=parseFloat(rate*units).toFixed(2);
 									  row_item='<tr><td>'+deal_details[i].item+'</td><td>-</td><td>'+units+'</td><td>'+rate+'</td><td>'+amount+'</td></tr>';
 								}
+
 								$('#item_list').append(row_item);
-								total_amount=total_amount+amount;
+								total_amount=parseFloat(total_amount)+parseFloat(amount);
+								console.log(total_amount);
 							}
 							var row_tax ='<br>';
 							//<tr><td></td><td></td><td>Less Agency Commission</td><td>15%</td><td>4900</td></tr><tr><td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
@@ -120,7 +122,7 @@ function search() {
 							subtotal_amount =total_amount-agency_com_amount;
 							service_tax_amount=parseFloat(subtotal_amount*0.145).toFixed(2);
 							bill_amount=parseFloat(subtotal_amount)+parseFloat(service_tax_amount);
-							var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td></td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
+							var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td>&#8377;</td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
 							//';
 							$('#item_list').append(row_tax);
 						}
@@ -159,9 +161,27 @@ $("#savebillBtn").on("click", function() {
 		getAllbill();
 		}
 	});
-
-
 });
+
+
+
+
+$("#schecdule_table_row").on("click", ".del", function() {
+	var $del = $(this);
+	var id = $del.closest("tr").find(".asm_id").text();
+
+	alertify.confirm("Delete schedule?", function(e) {
+		if (e) {
+			deletePro($del, id);
+		}
+	});
+});
+$(document).on('click', '#print_tclog', function()
+{
+// your code
+	alert('print_tclog');
+});
+
 function getAllbill(){
 	$('#generate_bill_section').hide();
 	$('#all_bills').show();
@@ -170,10 +190,20 @@ function getAllbill(){
 		type : 'GET',
 		dataType : 'JSON',
 		success : function(data) {
-		console.log(data);
+		//console.log(data);
 		$('#all_bills_row').empty();
 			for(var i in data){
-				var row_item='<tr><td>'+pad(data[i].id,4)+'</td><td>D'+pad(data[i].deal_id,4)+'</td><td>'+data[i].client_name+'</td><td>'+data[i].agency_name+'</td><td>'+data[i].bill_start_date+'-'+data[i].bill_end_date+'</td><td>'+data[i].bill_amount+'</td></tr>';
+				var action_btns ='<div class="btn-group"><a href="/addneon/printinvoice/" target="_blank"><i class="fa fa-print"></i></a></div>';
+				var row_item='<tr><td>'+pad(data[i].id,4)
+										+'</td><td>D'+pad(data[i].deal_id,4)
+										+'</td><td>'+data[i].client_name
+										+'</td><td>'+data[i].agency_name
+										+'</td><td>'+data[i].ex_name
+										+'</td><td> INR '+data[i].ro_amount
+										+'</td><td>'+moment(data[i].bill_start_date).format('ll')
+										+'<strong> To </strong><br>'+moment(data[i].bill_end_date).format('ll')
+										+'</td><td>INR '+data[i].total_amount
+										+'</td><td>'+action_btns+'</td></tr>';
 				$('#all_bills_row').append(row_item);
 			}
 		}

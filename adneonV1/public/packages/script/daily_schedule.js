@@ -1,10 +1,8 @@
 window.onload = function() {
-	modified_tc_time=[];
+
 	$('#varification').addClass('active');
 	$('#schedule_table').hide();
 	$('#telecast_table').hide();
-	//$('#no_of_spot').hide();
-	$('#update_tc').hide();
 
 	$("#schedule_date").datepicker("setDate", currentDate);
 	var schedule_date = $('#schedule_date').val();
@@ -28,8 +26,7 @@ $('#schedule_date').on('change', function(){
 	telecastTimeByDate(schedule_date);
 	$('#schedule_table').show();
 	$('#telecast_table').hide();
-//	$('#no_of_spot').hide();
-	$('#update_tc').hide();
+
 	$('#search').show();
 
 });
@@ -38,8 +35,7 @@ $('#dailyScheduleBtn').on("click", function() {
 	$('#schedule_table').show();
 	$('#search').show();
 	$('#telecast_table').hide();
-//	$('#no_of_spot').hide();
-	$('#update_tc').hide();
+
   return false;
 });
 
@@ -47,26 +43,30 @@ $('#dailyTcBtn').on("click", function() {
 	$('#schedule_table').hide();
 	$('#search').hide();
 	$('#telecast_table').show();
-//	$('#no_of_spot').show();
-	$('#update_tc').show();
+
 	return false;
 });
-$('#update_tc').on("click", function() {
-	$('#schedule_table').hide();
-	$('#search').hide();
-	$('#telecast_table').show();
-	//$('#no_of_spot').show();
-	if(modified_tc_time.length==0){
-		alertify.alert('No telecast log uploaded!');
-	}else{
-		updatetelecast();
+
+var tc_select=[];
+function selectTC(ad_id,deal_id){
+	//$('#telecasttime').empty();
+	var	tc_select=[];
+	for(var i in tc){
+		var ad_id_tc = tc[i].ad_id;
+		var deal_id_tc = tc[i].deal_id;
+		if(ad_id_tc===ad_id && deal_id_tc===deal_id){
+			tc_select.push(tc[i].tc_time);
+		//	$('#telecasttime').append('<p class="label label-default">'+tc[i].tc_time+'</p><br>');
+
+		}
 	}
-	return false;
-});
+
+return tc_select;
+}
+
+
+var tc=[];
 function telecastTimeByDate(schedule_date){
-
-
-	modified_tc_time=[];
 	var count_schedule=0;
 	var count_missed=0;
 
@@ -83,53 +83,24 @@ function telecastTimeByDate(schedule_date){
 	          $('#telecast_table_row').empty();
 						var schedule =data['schedule'];
 						tc =data['tc'];
-						if(tc.length==0){
-									$('#telecast_table_row').append('<tr class="danger"><td colspan="7" class="text-center">No Telecast log found</td></tr>');
+						console.log('TC length=='+tc.length);
+						if(tc.length!=0){
 
-								}else{
 
 								for ( var i in schedule) {
 										var ad_id=schedule[i].ad_id;
 										var deal_id=schedule[i].deal_id;
 										var telecast_time=schedule[i].telecast_time;
 										var asm_id=schedule[i].asm_id;
-										var tc_time=0;
 
-										if(telecast_time==='00:00:00' || telecast_time=='' || telecast_time==null){
+										var row='<tr>';
+										if(telecast_time=='00:00:00'){
+												row='<tr class="text-danger">';
+												count_missed=count_missed+1;
+										}
 
-													tc_time=getTelecastTime(ad_id,deal_id,schedule[i].start_time,schedule[i].end_time);
-													//missed sopt found,showing select box
-													if(tc_time=='0' || tc_time=='' || tc_time==null){
-													  var tc_select= selectTC(ad_id,deal_id);
-														var selectTcRow='<select class="selecttc"><option value="00:00:00">00:00:00</option>';
-														 for(var j in tc_select){
-															 selectTcRow= selectTcRow+'<option value="'+tc_select[j]+'">'+tc_select[j]+'</option>';
-														 }
-														 selectTcRow=selectTcRow+'</select>';
-													//	 $('.selecttc').selectize();
 
-													//	tc_time='<button type="button" class="btn" onclick="selectTC('+ad_id+','+deal_id+');"id="searchBtn">Select</button>';
-														tc_time=selectTcRow;
-													}else{
-														var item ={
-																	 asm_id: asm_id,
-																	 tc_time: tc_time
-													 		}
-														modified_tc_time.push(item);
-													}
-													count_missed=count_missed+1;
-
-											}else{
-												tc_time=telecast_time;
-												var item ={
-															 asm_id: asm_id,
-															 tc_time: tc_time
-											 		}
-												modified_tc_time.push(item);
-											}
-										//	var editInput='<input type="text" class="tc_manual" name="tc_manual" id="tc_manual">';
-									//	console.log(schedule[i].time_slot);
-					        	var row ='<tr><td class="hidden asm_id">'+asm_id+'</td>'
+					        	row =row+'<td class="hidden asm_id">'+asm_id+'</td>'
 														+'<td>AT'
 					                  +pad(ad_id,4)
 					                  +'</td>'
@@ -146,7 +117,7 @@ function telecastTimeByDate(schedule_date){
 					                  +schedule[i].time_slot
 					                  +'</td>'
 					                  +'<td>'
-					                  +tc_time
+					                  +telecast_time
 					                  +'</td>'
 														+'<td class="tc_manual"><span class="text-danger">Edit</span></td>'
 					                  +'</tr>'
@@ -157,9 +128,12 @@ function telecastTimeByDate(schedule_date){
 					        }
 
 
-			      }
-					//	$('#no_of_spot').empty().val(count_schedule);
+			      }else{
+							$('#telecast_table_row').append('<tr class="danger"><td colspan="7" class="text-center">No Telecast log found</td></tr>');
+						}
+						$('#no_of_spot').empty().val(count_schedule);
 						$('#missed_spot').empty().val(count_missed);
+
 					}
 
 
@@ -209,6 +183,12 @@ function scheduleByDate(schedule_date) {
 
 							total_spot = total_spot + 1;
 							total_duration = total_duration + data[i].duration;
+							var tc_time;
+							if(data[i].telecast_time=='00:00:00'){
+								tc_time='<span class="bg-danger">00:00:00</span>';
+							}else{
+								tc_time=data[i].telecast_time;
+							}
 							var deal = '<tr>'
 									+ '<td class="hidden asm_id">'
 									+ data[i].id
@@ -222,9 +202,14 @@ function scheduleByDate(schedule_date) {
 									+ '<td>'
 									+ data[i].caption
 									+ '</td>'
-
+									+ '<td >'
+									+ data[i].deal_id
+									+ '</td>'
 									+ '<td>'
 									+ data[i].time_slot
+									+ '</td>'
+									+ '<td>'
+									+ tc_time
 									+ '</td>'
 									+ '<td>'
 									+ data[i].break_name
@@ -232,9 +217,7 @@ function scheduleByDate(schedule_date) {
 										+ '<td class="duration text-center">'
 									+ data[i].duration
 									+ '</td>'
-									+ '<td >'
-									+ data[i].deal_id
-									+ '</td>'
+
 									+ '<td>'
 									+ deleteBtn + '</td>' + '</tr>';
 							$('#schecdule_table_row').append(deal);
@@ -346,23 +329,34 @@ function uploadTC(tc_details){
 	var schedule_date = $('#schedule_date').val();
 //	$("#schecdule_table").hide(200);
 	$('#telecast_table').show(200);
-	//$('#telecast_table_row').html('<p style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></p>');
-	$('#telecast_table').show(200);
+	$('#telecast_table_row').html('<tr><td colspan="7" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+
+//	$('#telecast_table_row').html('<p style="text-align:center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></p>');
+	//console.log(tc_details);
+	//$('#telecast_table').show(200);
+	var tc_details_str=JSON.stringify(tc_details);
 	$
 			.ajax({
 				url : '/adlog/savetelecasttime',
 				type : 'POST',
 				dataType : 'JSON',
 				data : {
-					'tc_details' : tc_details,
+					'_token' : token,
+					'tc_details' : tc_details_str,
 					'tc_date' : schedule_date,
-					'_token' : token
+
 				},
 				success : function(data) {
 					alertify.set('notifier','position', 'top-right');
 					alertify.success('Telecast log successfully!');
 						telecastTimeByDate(schedule_date);
-					}
+					},
+					error: function(data){
+						$('#telecast_table_row').empty();
+						alertify.set('notifier','position', 'top-right');
+						alertify.error('Failed to upload!'+data['error']);
+
+  			}
 
 			});
 
@@ -467,98 +461,4 @@ function saveManualTc(){
 				//telecastTimeByDate(schedule_date);
 			}
 		});
-}
-
-$("#telecast_table_row").on("change", ".selecttc", function() {
-	var $del = $(this);
-	var id = $del.closest("tr").find(".asm_id").text();
-	var tc_time = $(this).val();
-
-
-	for(var i = 0; i < modified_tc_time.length; i++) {
-			var obj = modified_tc_time[i];
-
-			if(obj.asm_id==id) {
-					modified_tc_time.splice(i, 1);
-				}
-	}
-
-	var item ={
-	 asm_id: id,
-	 tc_time: tc_time
- }
-	modified_tc_time.push(item);
-	console.log(item);
-	//alert(id+'--'+tc_time);
-});
-
-function updatetelecast(){
-
-var schedule_date = $('#schedule_date').val();
-	$
-	  .ajax({
-	    url : '/schedule/updatetelecast',
-	    type : 'POST',
-	    datatype : 'JSON',
-	    data : {
-	      'modified_tc_time' : modified_tc_time,
-	      '_token' : token
-	    },
-	    success : function(data) {
-				console.log(data);
-				alertify.set('notifier','position', 'top-right');
-				alertify.success('Telecast Time updated successfully!');
-				telecastTimeByDate(schedule_date);
-			}
-		});
-
-}
-var tc_select=[];
-function selectTC(ad_id,deal_id){
-	//$('#telecasttime').empty();
-	var	tc_select=[];
-	for(var i in tc){
-		var ad_id_tc = tc[i].ad_id;
-		var deal_id_tc = tc[i].deal_id;
-		if(ad_id_tc===ad_id && deal_id_tc===deal_id){
-			tc_select.push(tc[i].tc_time);
-		//	$('#telecasttime').append('<p class="label label-default">'+tc[i].tc_time+'</p><br>');
-
-		}
-	}
-
-return tc_select;
-}
-function getTelecastTime(ad_id,deal_id,start_time,end_time){
-	//console.log("SCHEDULE: "+ad_id +'-'+deal_id+'-'+start_time+'-'+end_time);
-
-			for (var i in tc) {
-				var ad_id_tc = tc[i].ad_id;
-				var deal_id_tc = tc[i].deal_id;
-
-
-				if(ad_id_tc===ad_id && deal_id_tc===deal_id){
-					var tc_time =tc[i].tc_time;
-
-					var aa1=start_time.split(":");
-					var aa2=end_time.split(":");
-					var aa3=tc_time.split(":");
-
-					var startTimeObject = new Date();
- 								startTimeObject.setHours(aa1[0], aa1[1], aa1[2]);
-					var endTimeObject = new Date();
-								endTimeObject.setHours(aa2[0], aa2[1], aa2[2]);
-					var tcTimeObject = new Date();
-								tcTimeObject.setHours(aa3[0], aa3[1], aa3[2]);
-						if(tcTimeObject>startTimeObject && tcTimeObject<endTimeObject){
-							tc.splice(i, 1);
-						//	console.log(moment(startTimeObject).format("HH:mm:ss")+'--'+moment(endTimeObject).format("HH:mm:ss")+'--'+moment(tcTimeObject).format("HH:mm:ss"));
-							return moment(tcTimeObject).format("HH:mm:ss");
-						}else{
-							return 0;
-					}
-
-				}
-
-			}
 }

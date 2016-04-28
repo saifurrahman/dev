@@ -2090,7 +2090,7 @@ fieldset[disabled] .btn-dark.active {
 .bg-dark .nav > li:active > a,
 .bg-dark .nav > li.active > a {
   color: #fff;
-  background-color: #12151d;
+  background-color: #4000ff;
 }
 .bg-dark .nav > li > a {
   color: #99a3bb;

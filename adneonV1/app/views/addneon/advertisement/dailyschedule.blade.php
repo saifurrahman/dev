@@ -28,6 +28,8 @@
 
 
   </section>
+
+
   <section class="row m-b-md">
   	<div class="col-md-4">
   			<input type="search" class="form-control" id="search" placeholder="search brand using name or client name"></input>
@@ -42,11 +44,7 @@
   			id="missed_spot" readonly="readonly">
 
   	</div>
-    <div class="col-md-2">
-
-      <button type="button" class="btn btn-danger form-control" id="update_tc" >Update Telecast</button>
-
-    </div>
+    
 
   </section>
 <section class="row m-b-md" id="schedule_table">
@@ -58,10 +56,11 @@
 			<th>#</th>
       <th>Ad ID</th>
 			<th>Caption</th>
+      <th>Deal_id</th>
       <th>Time Slot</th>
+      <th>TimeSlot</th>
 			<th>Break</th>
 			<th class="text-center">Duration <small>(in secs.)</small></th>
-			<th>Deal_id</th>
 			<th>Delete</th>
 		</tr>
 	</thead>

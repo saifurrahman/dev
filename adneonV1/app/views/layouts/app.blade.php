@@ -18,6 +18,7 @@
 {{HTML::style('packages/css/addneon.css')}}
 {{HTML::style('packages/css/jquery-ui.min.css')}}
 {{HTML::style('packages/css/jquery-ui.min.css')}}
+{{HTML::style('packages/css/print.css')}}
 
 <!-- script js -->
 {{HTML::script('packages/js/jquery.min.js');}}
@@ -192,7 +193,11 @@
     										  <i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Client wise Telecast</span>
     										</a>
 										</li>
-
+										<li id="dealwisetelecast_report"class="auto">
+												<a href="{{URL::to('addneon/dealwisetelecast')}}">
+													<i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Deal wise Telecast</span>
+												</a>
+										</li>
 
 										@endif
 									</ul>

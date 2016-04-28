@@ -18,7 +18,7 @@ function searchReport(){
 
 
 	var telecast_date = $('#telecast_date').val();
-	$('#scvstc_report_table').html('<tr><td colspan="7" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
+	$('#scvstc_report_table').html('<tr><td colspan="9" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 
 	$
 	  .ajax({
@@ -29,11 +29,13 @@ function searchReport(){
 	      'telecast_date' : telecast_date,
 	      '_token' : token
 	    },
-	    success : function(schedule) {
+	    success : function(data) {
 	          $('#scvstc_report_table').empty();
-
+					var schedule =data['schedule'];
+					var telecast =data['telecast'];
 					var schedule_spot=0;
 					var missed_spot=0;
+					var status='';
 					for ( var i in schedule) {
 						schedule_spot=schedule_spot+1;
 						var ad_id=schedule[i].ad_id;
@@ -43,13 +45,12 @@ function searchReport(){
 						if(telecast_time==='00:00:00' || telecast_time=='' || telecast_time==null){
 								row='<tr class="danger">';
 								missed_spot=missed_spot+1;
-
+								status='Missed';
 						}else{
 								row ='<tr>';
-
+								status='Telecast';
 						}
-
-	        		row = row+'<td>AT'
+	        	row = row+'<td>AT'
 	                  +pad(ad_id,4)
 	                  +'</td>'
 										+'<td>'
@@ -58,27 +59,54 @@ function searchReport(){
 	                  +schedule[i].caption
 	                  +'</td>'
 										+'<td>'
-	                  +schedule[i].duration
+	                  +schedule[i].telecast_time
 	                  +'</td>'
-										+'<td>'
-	                  +schedule[i].rate
-	                  +'</td>'
-										+'<td>'
-	                  +schedule[i].time_slot
-	                  +'</td>'
-	                  +'<td>'
-	                  +telecast_time
-	                  +'</td>'
-										+'<td>'
+	                	+'<td>'
 										+schedule[i].remark
 										+'</td>'
+
+										+'<td>'
+										+schedule[i].duration
+										+'</td>'
+										+'<td>'
+										+parseFloat(schedule[i].rate).toFixed(2)
+										+'</td>'
+										+'<td>'
+										+status
+										+'</td>'
 	                  +'</tr>'
-
-
 	          $('#scvstc_report_table').append(row);
 	        }
+					var extra_spot=0;
+					for(var i in telecast){
+						extra_spot=extra_spot+1;
+						row ='<tr class="info"><td>AT'
+										+pad(telecast[i].ad_id,4)
+										+'</td>'
+										+'<td>'
+										+deal_id
+										+'<td>'
+										+telecast[i].caption
+										+'</td>'
+										+'<td>'
+										+telecast[i].tc_time
+										+'</td>'
+										+'<td>-</td>'
+										+'<td>'
+										+telecast[i].duration
+										+'</td>'
+										+'<td>'
+										+telecast[i].rate
+										+'</td>'
+										+'<td>Extra</td>'
+										+'</tr>'
+									$('#scvstc_report_table').append(row);
+					}
+
+
 					$('#schedule_spot').html("Schedule Spot: "+schedule_spot);
 					$('#missed_spot').html("Missed Spot: "+missed_spot);
+					$('#extra_spot').html("Extra Spot: "+extra_spot);
 
 
 	      }

@@ -52,6 +52,13 @@ class CommonController extends Controller
                   ->get ();
 
       $datanew ['sch_code'] = $data;
+    }elseif($gear_code==12){
+      $data = DB::table ( 'nfr_schedule_code_master' )
+                  ->select('id', 'code','periodicity_level_1','periodicity_level_2')
+                  ->whereIn('gear_type_id', array(12,14))
+                  ->get ();
+
+      $datanew ['sch_code'] = $data;
     }elseif($gear_code==3){
       $data = DB::table ( 'nfr_schedule_code_master' )
                   ->select('id', 'code','periodicity_level_1','periodicity_level_2')
