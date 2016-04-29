@@ -128,13 +128,16 @@
                     <table>
                         <tr>
                             <td>
-
+															<address id="address_to">
+																<strong>To</strong><br>
+																<strong>Rockland Media & Comm. (P) Ltd.</strong><br>
+																26/27,3rd ByeLane,Industrial Easte<br>
+																Bamunimaidam,Guwahati-21<br>
+															</address>
                             </td>
 
                             <td>
-                                Acme Corp.<br>
-                                John Doe<br>
-                                john@example.com
+
                             </td>
                         </tr>
                     </table>
@@ -212,3 +215,26 @@
     </div>
 </body>
 </html>
+
+<script>
+
+window.onload = function() {
+	var bill_id={{$bill_id}};
+	getBillDetails(bill_id);
+}
+function getBillDetails(bill_id){
+
+	$.ajax({
+		url : '/billing/printinvoice/'+bill_id,
+		type : 'GET',
+		dataType : 'JSON',
+		success : function(data) {
+		console.log(data);
+
+		}
+	});
+
+}
+
+
+</script>

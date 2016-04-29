@@ -20,11 +20,27 @@ $("#from_date,#to_date").datepicker({
 function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,schedule_units){
 	var a = moment(schedule_from_date);
 	var b = moment(schedule_to_date);
+	var x = moment(from_date);
+	var y = moment(to_date);
 	var days = b.diff(a, 'days')+1;
 	var daily_schedule =parseInt(schedule_units/days);
-	var days_billing = moment(to_date).diff(moment(from_date), 'days')+1;
-//TO DO
-	return 30;//daily_schedule*days_billing;
+		var bill_start_date;
+		var bill_end_date;
+	if(moment(x).isSameOrBefore(a)){
+		bill_start_date=a;
+	}
+	if(moment(x).isSameOrAfter(a)){
+		bill_start_date=x;
+	}
+	if(moment(y).isSameOrBefore(b)){
+		bill_end_date=y;
+	}
+	if(moment(y).isSameOrAfter(b)){
+			bill_end_date=b;
+	}
+	var days_billing = bill_end_date.diff(bill_start_date, 'days')+1;
+	var billing_units=days_billing*daily_schedule;
+	return billing_units;//daily_schedule*days_billing;
 }
 var agency_com_amount=0;
 var total_amount=0;
@@ -110,7 +126,7 @@ function search() {
 
 								$('#item_list').append(row_item);
 								total_amount=parseFloat(total_amount)+parseFloat(amount);
-								console.log(total_amount);
+							//	console.log(total_amount);
 							}
 							var row_tax ='<br>';
 							//<tr><td></td><td></td><td>Less Agency Commission</td><td>15%</td><td>4900</td></tr><tr><td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
@@ -193,7 +209,7 @@ function getAllbill(){
 		//console.log(data);
 		$('#all_bills_row').empty();
 			for(var i in data){
-				var action_btns ='<div class="btn-group"><a href="/addneon/printinvoice/" target="_blank"><i class="fa fa-print"></i></a></div>';
+				var action_btns ='<div class="btn-group"><a href="/addneon/printinvoice/1" target="_blank"><i class="fa fa-print"></i></a></div>';
 				var row_item='<tr><td>'+pad(data[i].id,4)
 										+'</td><td>D'+pad(data[i].deal_id,4)
 										+'</td><td>'+data[i].client_name

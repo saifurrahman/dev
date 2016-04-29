@@ -84,7 +84,7 @@ function searchReport(){
 										+pad(telecast[i].ad_id,4)
 										+'</td>'
 										+'<td>'
-										+deal_id
+										+telecast[i].deal_id
 										+'<td>'
 										+telecast[i].caption
 										+'</td>'

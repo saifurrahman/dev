@@ -5,6 +5,21 @@ class ReportController extends Controller {
 				'on' => 'post'
 		) );
 	}
+
+	public function getDashboardreport(){
+			$result=array();
+			$today=date("Y-n-j");
+			$query="SELECT t1.schedule_date,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=1 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
+			$result['date_wise_fct_telecast'] = DB::select ( DB::raw ( $query ) );
+
+			$query="SELECT t1.schedule_date,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=0 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
+			$result['date_wise_missed_schedule'] = DB::select ( DB::raw ( $query ) );
+
+			$query="SELECT * from deal_details t3 WHERE   t3.item_id NOT IN(1,6)";
+			$result['date_wise_non_fct'] = DB::select ( DB::raw ( $query ) );
+
+			return Response::json ( $result );
+	}
 	public function postSchedulereport() {
 		$client_id = Input::get ( 'client_id' );
 		$deal_id = Input::get ( 'deal_id' );
@@ -27,7 +42,7 @@ class ReportController extends Controller {
 		$from_date = Input::get ( 'from_date' );
 		$to_date = Input::get ( 'to_date' );
 
-		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time,t0.tc_date FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t2.id=$client_id and t0.tc_date BETWEEN '$from_date' AND '$to_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_date,t0.tc_time";
+		$query = "SELECT t1.id,t1.caption,t1.duration,t2.name as client_name,t3.brand_name,t0.tc_time,t0.tc_date FROM telecasttime_log t0,ad_master t1 ,client_master t2,brand_master t3 WHERE t0.schedule_status=0 and t2.id=$client_id and t0.tc_date BETWEEN '$from_date' AND '$to_date' and t0.ad_id=t1.id and t1.client_id=t2.id and t1.brand_id=t3.id order by t0.tc_date,t0.tc_time";
 
 		$all_log = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $all_log	 );

@@ -142,9 +142,11 @@ class AppController extends BaseController
     		return Redirect::to ( '/' );
     	}
     }
-    public function getPrintinvoice(){
+    public function getPrintinvoice($bill_id){
+    //  $bill_id = Input::get ( 'bill_id' );
+  //  echo $bill_id;
       if (Auth::check () ) {
-    		  return  View::make ( 'addneon.advertisement.print_invoice' );
+    		  return  View::make ( 'addneon.advertisement.print_invoice' )->with('bill_id',$bill_id);
     	}else {
     		return Redirect::to ( '/' );
     	}
