@@ -1,7 +1,5 @@
 window.onload = function() {
 	$('#billing').addClass('active');
-	$('#generate_bill_section').hide();
-	$('#search_field').hide();
 
 	$('#all_bills').show();
 	getAllbill();
@@ -163,7 +161,9 @@ $('#agency_com').on("change",function(){
 });
 $("#savebillBtn").on("click", function() {
 	agency_commission=$('#agency_com').val();
-	alert(agency_commission);
+//	alert(agency_commission);
+alertify.confirm("Save  Bill for agency Commission "+agency_commission+" % ?", function(e) {
+	if (e) {
 	var deal_id = $('#deal_id').val();
 	var from_date = $('#from_date').val();
 	var to_date = $('#to_date').val();
@@ -174,9 +174,12 @@ $("#savebillBtn").on("click", function() {
 		data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'discount':0,'total_amount':bill_amount},
 		success : function(data) {
 		//console.log(data);
+		$('#generate_bill_section').hide();
 		getAllbill();
 		}
 	});
+}
+});
 });
 
 
@@ -199,8 +202,11 @@ $(document).on('click', '#print_tclog', function()
 });
 
 function getAllbill(){
+	$("#search_field").hide();
+
 	$('#generate_bill_section').hide();
 	$('#all_bills').show();
+	$('#all_bills_row').html('<tr><td colspan="9" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 	$.ajax({
 		url : '/billing/allbill',
 		type : 'GET',
@@ -209,7 +215,8 @@ function getAllbill(){
 		//console.log(data);
 		$('#all_bills_row').empty();
 			for(var i in data){
-				var action_btns ='<div class="btn-group"><a href="/addneon/printinvoice/1" target="_blank"><i class="fa fa-print"></i></a></div>';
+				var url ="/addneon/printinvoice/"+data[i].id;
+				var action_btns ='<div class="btn-group"><a href="'+url+'"+ target="_blank"><i class="fa fa-print"></i></a></div>';
 				var row_item='<tr><td>'+pad(data[i].id,4)
 										+'</td><td>D'+pad(data[i].deal_id,4)
 										+'</td><td>'+data[i].client_name

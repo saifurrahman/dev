@@ -2,7 +2,7 @@
 #pform-div{
 	display: none;
 }
-#upBtn,.hidden,#rBtn,#client-div,#deal-div,#deal-panel,#schedule-div,#billBtn,#bill-row,#com-div,#xlf{
+#upBtn,.hidden,#rBtn,#client-div,#deal-div,#deal-panel,#schedule-div,#billBtn,#bill-row,#com-div,#xlf,#generate_bill_section,#search_field{
 	 display: none;
 }
 .bg-black .text-muted {
@@ -12,4 +12,3 @@
 	text-align: justify;
 	color:#222;
 }
-

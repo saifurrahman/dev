@@ -42,7 +42,7 @@
 								placeholder="mobile">
 						</div>
 					</div>
-					
+
 				</div>
 
 				<div class="col-md-6">
@@ -100,7 +100,7 @@
 							<th>Name</th>
 							<th>Email</th>
 							<th>Mobile</th>
-							<th>Region</th>
+							<th>Address</th>
 							<th>Action</th>
 						</tr>
 					</thead>

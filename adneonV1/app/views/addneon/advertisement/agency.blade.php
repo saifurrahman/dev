@@ -106,7 +106,7 @@
 							<th>Name</th>
 							<th>Email</th>
 							<th>Mobile</th>
-							<th>Region</th>
+							<th>Address</th>
 							<th>Comm. <small>(in %)</small></th>
 							<th>Action</th>
 						</tr>

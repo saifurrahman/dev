@@ -43,7 +43,7 @@ class BillingController extends Controller
 
         foreach ($schedule_details as $key => $value) {
           $ad_id= $value->ad_id;
-          $query="SELECT t1.ad_id,COUNT(t1.id) as telecast_spots,SUM(t2.duration) as telecast_duration from ad_schedule_master t1,ad_master t2 WHERE schedule_date BETWEEN '$from_date' and '$to_date' and telecast_time!='00:00:00' and t1.ad_id=t2.id and t1.ad_id =$ad_id and t1.deal_id=$deal_id GROUP BY ad_id";
+          $query="SELECT t1.ad_id,COUNT(t1.id) as telecast_spots,SUM(t2.duration) as telecast_duration from ad_schedule_master t1,ad_master t2 WHERE schedule_date BETWEEN '$from_date' and '$to_date' and status=1 and t1.ad_id=t2.id and t1.ad_id =$ad_id and t1.deal_id=$deal_id GROUP BY ad_id";
           $telecast_details =DB::select ( DB::raw ($query) );
           if(count($telecast_details)!=0){
           $schedule_details[$key]->telecast_spots =$telecast_details[0]->telecast_spots;
@@ -86,8 +86,22 @@ class BillingController extends Controller
     public function getPrintinvoice($bill_id)
     {
       $result=array();
-      $query="SELECT t1.*,t2.ro_number,t2.ro_amount,t3.name as client_name,t4.name as agency_name,t5.ex_name FROM bill_master t1,deal_master t2,client_master t3,agency_master t4,advetisement_executive t5 WHERE t1.id=$bill_id and t1.deal_id=t2.id and t2.client_id=t3.id AND t2.agency_id=t4.id AND t2.executive_id=t5.id order by t1.id desc";
+      $query="SELECT t1.*,t2.ro_date,t2.payment_peference,t2.ro_number,t2.ro_amount,t3.name as client_name,t3.email,t3.mobile,t3.city,t3.address1,t3.address2,t4.id as agency_id,t4.name as agency_name,t4.email as agency_email,t3.mobile as agency_mobile,t4.city as agency_city,t4.address1 as agency_a1,t4.address2 as agency_a2,t5.ex_name FROM bill_master t1,deal_master t2,client_master t3,agency_master t4,advetisement_executive t5 WHERE t1.id=$bill_id and t1.deal_id=t2.id and t2.client_id=t3.id AND t2.agency_id=t4.id AND t2.executive_id=t5.id order by t1.id desc";
       $result['bill_details'] = DB::select ( DB::raw ( $query ) );
+      $deal_id = $result['bill_details'][0]->deal_id;
+      $from_date = $result['bill_details'][0]->bill_start_date;
+      $to_date = $result['bill_details'][0]->bill_end_date;
+      $deal_details =  DB::table ( 'deal_details' )
+                ->join ( 'item_master', 'deal_details.item_id', '=', 'item_master.id' )
+                ->where('deal_details.deal_id', $deal_id)
+                ->select('item_master.name as item','deal_details.*')
+                ->get();
+      $result['deal_details'] = $deal_details;
+
+
+      $query="SELECT t1.ad_id,COUNT(t1.id) as telecast_spots,SUM(t2.duration) as telecast_duration,t3.brand_name from ad_schedule_master t1,ad_master t2,brand_master t3 WHERE t1.schedule_date BETWEEN '$from_date' and '$to_date' and t1.status=1 and t1.ad_id=t2.id  and t1.deal_id=$deal_id and t2.brand_id=t3.id GROUP BY t1.ad_id";
+      $telecast_details =DB::select ( DB::raw ($query) );
+      $result['tc_details'] = $telecast_details;
 
       return Response::json ( $result );
     }

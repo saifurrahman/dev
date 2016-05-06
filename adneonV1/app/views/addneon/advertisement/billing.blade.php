@@ -37,34 +37,9 @@
 
 </div>
 </section>
-<section class="" id="all_bills" >
-<div class="row">
-	<div class="col-md-12">
 
-		<h5>Generated Bills</h5>
-		<table class="table table-striped m-b-none table-bordered">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Deal</th>
-				<th>Agency</th>
-				<th>Client</th>
-				<th>Executive</th>
-				<th>Ro Details</th>
-				<th>Billing Period</th>
-				<th>Bill Amount</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody id="all_bills_row">
-
-		</tbody>
-	</table>
-	</div>
-</div>
-</section>
 <br>
-	<section class="" id="generate_bill_section" >
+<section class="" id="generate_bill_section" >
 
 		<div class="row">
 			<div class="col-md-4" id="client_details">
@@ -143,31 +118,32 @@
 					<select id="agency_com" class="form-control"><option value="0">0%</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option></select>
 			</div>
 		</div>
-		<br>
-		<br>
+</section>
+<section class="" id="all_bills" >
+<div class="row">
+	<div class="col-md-12">
 
-		<div class="row">
-			<div class="col-md-12">
+		<h4 class="text-success">Generated Bills</h4>
+		<table class="table table-striped m-b-none table-bordered">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Deal</th>
+				<th>Agency</th>
+				<th>Client</th>
+				<th>Executive</th>
+				<th>Ro Details</th>
+				<th>Billing Period</th>
+				<th>Bill Amount</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="all_bills_row">
 
-
-
-
-
-
-
-		Payments to be made in Favour of <strong>"Rockland Media and Communication Pvt Ltd".</strong><br>
-		# State Bank of India, New Guwahati Branch<br>
-		# A/c No. <strong>34514432516</strong> & IFS Code: <strong>SBIN0000221</strong><br>
-		# PAN: <strong>AADCR5052M</strong><br>
-		# Service Tax: <strong>AADCR5052MSD002</strong>
-
-
-			</div>
-
-		</div>
-
-
-
-	</section>
+		</tbody>
+	</table>
+	</div>
+</div>
+</section>
 
 {{HTML::script('packages/script/billing.js');}} @stop

@@ -7,7 +7,9 @@ class ClientController extends Controller {
 	}
 	// client
 	public function getAll() {
-		$client = Client::all ();
+		$client = $users = DB::table('client_master')
+                    ->orderBy('id', 'desc')
+										->get();
 		return Response::json ( $client );
 	}
 	public function postSaveclient() {
@@ -36,7 +38,9 @@ class ClientController extends Controller {
 
 	// agency
 	public function getAllagency() {
-		$agency = Agency::all ();
+		$agency = $users = DB::table('agency_master')
+										->orderBy('id', 'desc')
+										->get();
 		return Response::json ( $agency );
 	}
 	public function postSaveagency() {
