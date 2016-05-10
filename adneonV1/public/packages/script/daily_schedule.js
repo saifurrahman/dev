@@ -275,7 +275,6 @@ fileInput.addEventListener('change', function(e) {
 
 
 				var obj=[];
-        if (file.type.match(textType)) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
@@ -284,11 +283,7 @@ fileInput.addEventListener('change', function(e) {
             }
 
             reader.readAsText(file);
-        } else {
-          //  fileDisplayArea.innerText = "File not supported!"
-					alertify.alert('File not supported');
-        }
-
+      
 
     });
 

@@ -45,7 +45,7 @@ function saveClient(){
 function allclient(){
 	$('#client-list').html('<tr><td colspan="8" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
 	$.ajax({
-		url : '/client/all',
+		url : '/client/allclient',
 		type : 'GET',
 		datatype : 'JSON',
 		success : function(data) {
@@ -54,7 +54,9 @@ function allclient(){
 			var c_status;
 			for(var i in data){
 				count = count+1;
+			//	console.log(data[i].address1);
 				var client = '<tr>'
+								//console.log(data[i].address1);
 								//+'<td class="hidden">'+data[i].id+'</td>'
 								+'<td class="count">'+count+'</td>'
 								+'<td class="id hidden">'+data[i].id+'</td>'

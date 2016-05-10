@@ -20,7 +20,7 @@ function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,sc
 	var b = moment(schedule_to_date);
 	var x = moment(from_date);
 	var y = moment(to_date);
-	var days = b.diff(a, 'days')+1;
+	var days = b.diff(a, 'days');
 	var daily_schedule =parseInt(schedule_units/days);
 		var bill_start_date;
 		var bill_end_date;
@@ -37,6 +37,8 @@ function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,sc
 			bill_end_date=b;
 	}
 	var days_billing = bill_end_date.diff(bill_start_date, 'days')+1;
+	console.log("bill_start_date="+bill_start_date+"  daily_schedule="+schedule_units+" Diff="+days);
+
 	var billing_units=days_billing*daily_schedule;
 	return billing_units;//daily_schedule*days_billing;
 }
@@ -75,15 +77,13 @@ function search() {
 							if(deal_master.length==0){
 									alertify.error('No deal found!');
 									$('#generate_bill_section').hide();
-							}else if (schedule_details.length==0) {
-									alertify.error('No Schedule found!');
 							}else{
 									$('#generate_bill_section').show();
 
 							var agency_name=deal_master[0].agency_name;
-							var client_details ='<address><strong>'+deal_master[0].client_name+'</strong><br>1355 Market Street, Suite 900<br>San Francisco, CA 94103<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>';
+							var client_details ='<address><strong>'+deal_master[0].client_name+'</strong></address>';
 							$('#client_details').empty().append(client_details);
-							$('#agency_details').empty().append('<address><strong>'+agency_name+'</strong><br>1355 Market Street, Suite 900<br>San Francisco, CA 94103<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>');
+							$('#agency_details').empty().append('<address><strong>'+agency_name+'</strong</address>');
 
 
 							var row_deal_details='<tr><td>'+deal_master[0].ro_number+'</td><td>'+deal_master[0].ro_date+'</td><td>'+deal_master[0].ro_amount+'</td><td>'+from_date+' To '+to_date+'</td><td>'+deal_master[0].payment_peference+'</td></tr>';
@@ -113,6 +113,7 @@ function search() {
 							for(var i in deal_details){
 								var row_item='';
 								rate=deal_details[i].rate;
+								console.log(deal_details[i].item_id);
 								if(deal_details[i].item_id==1 || deal_details[i].item_id==6){
 										amount=parseFloat(rate*units).toFixed(2);
 										row_item='<tr><td>'+deal_details[i].item+'</td><td>'+total_telecast_duration+' Sec</td><td>'+units+'</td><td>'+rate+'</td><td>'+amount+'</td></tr>';

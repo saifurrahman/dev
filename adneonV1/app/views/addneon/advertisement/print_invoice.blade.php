@@ -230,7 +230,7 @@ function getBillDetails(bill_id){
 
 			var invoice_date=moment(bill_details.created_at).format("ll");
 			var due_date=moment(bill_details.created_at).add(90, 'days').format("ll");
-			$('#inv_details').empty().append('<strong>Invoice Date : '+invoice_date+'<br>Credit Period : '+due_date+'</strong>');
+			$('#inv_details').empty().append('<strong>Invoice Date : '+invoice_date+'</strong>');
 		}
 	});
 
@@ -308,7 +308,7 @@ function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,sc
 	var b = moment(schedule_to_date);
 	var x = moment(from_date);
 	var y = moment(to_date);
-	var days = b.diff(a, 'days')+1;
+	var days = b.diff(a, 'days');
 	var daily_schedule =parseInt(schedule_units/days);
 		var bill_start_date;
 		var bill_end_date;

@@ -6,7 +6,7 @@ class ClientController extends Controller {
 		) );
 	}
 	// client
-	public function getAll() {
+	public function getAllclient() {
 		$client = $users = DB::table('client_master')
                     ->orderBy('id', 'desc')
 										->get();

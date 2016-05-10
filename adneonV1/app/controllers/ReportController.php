@@ -9,14 +9,17 @@ class ReportController extends Controller {
 	public function getDashboardreport(){
 			$result=array();
 			$today=date("Y-n-j");
-			$query="SELECT t1.schedule_date,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=1 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
-			$result['date_wise_fct_telecast'] = DB::select ( DB::raw ( $query ) );
+			$query="SELECT DATE_FORMAT(t1.schedule_date,'%b-%y') as months,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=1 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
+			$result['month_wise_fct_telecast'] = DB::select ( DB::raw ( $query ) );
 
-			$query="SELECT t1.schedule_date,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=0 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
-			$result['date_wise_missed_schedule'] = DB::select ( DB::raw ( $query ) );
+			$query="SELECT DATE_FORMAT(t1.schedule_date,'%b-%y') as months,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id  and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
+			$result['month_wise_fct_schedule'] = DB::select ( DB::raw ( $query ) );
 
-			$query="SELECT * from deal_details t3 WHERE   t3.item_id NOT IN(1,6)";
-			$result['date_wise_non_fct'] = DB::select ( DB::raw ( $query ) );
+			$query="SELECT DATE_FORMAT(t1.schedule_date,'%b-%y') as months,SUM(t2.duration)  as total_duration,SUM((t2.duration*t3.rate)/10) as total_amount from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date  BETWEEN '2016-04-01' AND '$today' and t1.ad_id=t2.id and t1.status=0 and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) GROUP by MONTH(t1.schedule_date)";
+			$result['month_wise_missed_schedule'] = DB::select ( DB::raw ( $query ) );
+
+			$query="SELECT * from deal_details  WHERE item_id NOT IN(1,6) and to_date >='2016-04-01' and from_date<='2016-04-31'";
+			$result['non_fct'] = DB::select ( DB::raw ( $query ) );
 
 			return Response::json ( $result );
 	}

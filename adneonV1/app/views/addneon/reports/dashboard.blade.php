@@ -7,6 +7,11 @@
 </section>
 <section class="row m-b-md">
 	<div class="col-md-12">
+		<canvas id="tcvssch" width="400" height="100%"></canvas>
+	</div>
+</section>
+<section class="row m-b-md">
+	<div class="col-md-12">
 		<canvas id="myChart" width="400" height="100%"></canvas>
 	</div>
 </section>
