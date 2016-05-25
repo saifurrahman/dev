@@ -14,6 +14,7 @@ class PaymentController extends \BaseController {
 			$payments->client_id = Input::get ( 'client_id' );
 			$payments->bill_id = Input::get ( 'bill_id' );
 			$payments->amount = Input::get ( 'amount' );
+				$payments->tds = Input::get ( 'tds' );
 			$payments->payment_date = Input::get ( 'payment_date' );
 			$payments->payment_mode = Input::get ( 'payment_mode' );
 			$payments->instrument_number = Input::get ( 'instrument_number' );

@@ -17,7 +17,7 @@ Route::get('/', function()
 });
 //before login
 Route::controller('users', 'UserController');
-
+Route::controller('mobile', 'MobileController');
 //after login
 Route::controller('dsmg', 'AppController');
 Route::controller('schedule', 'ScheduleController');

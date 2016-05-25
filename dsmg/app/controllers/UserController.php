@@ -46,7 +46,6 @@ class UserController extends BaseController {
 		return $permissions;
 	}
 
-
 	public function anyLogout() {
 		Auth::logout ();
 		Session::flush ();

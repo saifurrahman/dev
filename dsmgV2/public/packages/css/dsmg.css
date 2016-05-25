@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+#pform-div{
+	display: none;
+}
+#upBtn,.hidden,#rBtn,#client-div,#deal-div,#deal-panel,#schedule-div,#billBtn,#bill-row,#com-div,#xlf{
+	 display: none;
+}
+.bg-black .text-muted {
+  color: #DFDFDF!important;
+}
+.text-justify{
+	text-align: justify;
+	color:#222;
+}

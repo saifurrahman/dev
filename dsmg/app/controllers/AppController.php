@@ -35,6 +35,22 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
+    public function getCablemeggering ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.cablemeggering');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getPaneltesting ()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.paneltesting');
+        } else {
+            return Redirect::to('/');
+        }
+    }
 
     //user
     public function getProfile() {
@@ -134,6 +150,31 @@ class AppController extends BaseController
     {
         if (Auth::check()) {
             $this->layout->content = View::make('app.master.news_update');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+
+    public function getFootplateinspection()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.foot_plate_inspection');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getSupervisorinspection()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.report.supervisor_inspection');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getJointwork()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.report.joint_work');
         } else {
             return Redirect::to('/');
         }

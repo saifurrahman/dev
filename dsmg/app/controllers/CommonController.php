@@ -206,4 +206,16 @@ class CommonController extends Controller
     $profile->save();
     return $user_id;
   }
+
+  public function getPaneltestingstnlcgate(){
+    $query="SELECT * from nfr_paneltesting_stnlcgate";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+  public function getCablemeggeringstnlcgate(){
+    $query="SELECT * from nfr_cablemeggering_stnlcgate";
+    $data = DB::select(DB::raw($query));
+    return Response::json($data);
+  }
+
 }

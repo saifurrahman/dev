@@ -50,16 +50,22 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="control-label col-sm-4">TDS</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control" name="tds"
+								id="tds" placeholder="tds" required="required">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
 						<label class="control-label col-sm-4">Payment Date</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" name="payment_date"
 								id="payment_date" placeholder="payment_date" readonly="readonly" required="required">
 						</div>
 					</div>
-				</div>
-
-				<div class="col-md-6">
-
 					<div class="form-group">
 						<label class="control-label col-sm-4">Payment Mode</label>
 						<div class="col-sm-8">
@@ -118,6 +124,7 @@
 							<th>Payments Details</th>
 							<th>Transaction Details</th>
 							<th>Amount</th>
+							<th>TDS</th>
 							<th>Remarks</th>
 						</tr>
 					</thead>

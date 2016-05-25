@@ -100,6 +100,22 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint & X-ing</span>
     										</a>
 										</li>
+										<li id="jp_crossing">
+    										<a href="{{URL::to('dsmg/cablemeggering')}}">
+    										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Cable Meggering</span>
+    										</a>
+										</li>
+										<li id="jp_crossing">
+    										<a href="{{URL::to('dsmg/paneltesting')}}">
+    										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Panel Testing</span>
+    										</a>
+										</li>
+										<li id="foot_plate_inspection">
+												<a href="{{URL::to('dsmg/footplateinspection')}}">
+													<i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Foot Plate Inspection</span>
+												</a>
+										</li>
+
 										<?php }?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
@@ -107,6 +123,12 @@
 												<a href="{{URL::to('dsmg/overduereport')}}">
 													<i class="fa fa-stack-overflow text-danger-dk"> </i> <span class="font-bold">Overdue Gear  </span><span class="badge text-danger" id="overdue_gears_count">0</span>
 												</a>
+										</li>
+										<li id="overdue_jp_report">
+												<a href="{{URL::to('dsmg/overduejp')}}">
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing  </span><span class="badge text-danger" id="overdue_jpxing_count">0</span>
+												</a>
+
 										</li>
 										<li id="stn_report">
 												<a href="{{URL::to('dsmg/staionwisereport')}}">
@@ -126,9 +148,16 @@
 												</a>
 
 										</li>
-										<li id="overdue_jp_report">
-												<a href="{{URL::to('dsmg/overduejp')}}">
-													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Overdue JP & X-ing  </span><span class="badge text-danger" id="overdue_jpxing_count">0</span>
+
+										<li id="supervisor_inspection">
+												<a href="{{URL::to('dsmg/supervisorinspection')}}">
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Supervisor's Inspection  </span>
+												</a>
+
+										</li>
+										<li id="joint_work">
+												<a href="{{URL::to('dsmg/joint_work')}}">
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Joint Work  </span>
 												</a>
 
 										</li>

@@ -101,6 +101,7 @@ function alltransaction() {
 							+ data[i].instrument_date
 
 				+ '<td >'+ data[i].amount + '</td>'
+				+ '<td >'+ data[i].tds + '</td>'
 				+ '<td>' + data[i].remarks + '</td>'
 				+ '</td>' + '</tr>';
 				$('#transcation-list').append(row);
