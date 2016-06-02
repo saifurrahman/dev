@@ -22,7 +22,7 @@
 
 </div>
 {{ Form::close()}}
-<div class="row">
+<div class="row" id="overdue_table">
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="table-responsive">
@@ -33,12 +33,9 @@
                     <th>Gear Code</th>
                     <th>Gear No</th>
                     <th>Schedule Code/Role</th>
-										<th>Last Maintenance Date</th>
-                    <th>Due Date</th>
-                    <th>Disc. applied</th>
-                    <th>Maintenance By</th>
-										  <th>Remarks</th>
-                  </tr>
+										<th>Due Date</th>
+                    <th>Maintenance History</th>
+        				</tr>
                 </thead>
                 <tbody id="data-list"></tbody>
               </table>
@@ -46,4 +43,32 @@
           </div>
         </div>
 </div>
+
+				<div class="row" id="history_table">
+				        <div class="col-md-12">
+									<h4 class="modal-title" id="model_title">Gear maintenance history</h4>
+									<button type="button" class="btn-info text-right" id="back_btn" >Back</button>
+				          <div class="box box-primary">
+				            <div class="table-responsive">
+				              <table class="table table-bordered table-hover">
+				                <thead>
+				                  <tr>
+				                    <th>Schedule Code</th>
+				                    <th>Role</th>
+				                    <th>Maintenance periodicity</th>
+				                    <th>Maintenance date</th>
+														<th>Due maintenance date</th>
+				                    <th>Maintenance by/designation</th>
+				                    <th>Discontinuation Status</th>
+														<th>Remarks</th>
+				        				</tr>
+				                </thead>
+				                <tbody id="history_list"></tbody>
+				              </table>
+				            </div>
+				          	</div>
+				    </div>
+</div>
+
+
 {{HTML::script('packages/script/reports/overdue_gear_report.js');}} @stop

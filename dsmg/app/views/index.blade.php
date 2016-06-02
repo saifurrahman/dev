@@ -28,7 +28,7 @@
 	<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
 		<div class="container aside-xxl">
 			<div class="col-xs-12 col-md-6 col-md-offset-3  col-sm-offset-3">
-					<img id="logo" alt="" class="img-responsive" src="packages/images/logo.png">
+					<img id="logo" alt="" class="img-responsive" src="/packages/images/logo.png">
 			</div>
 			<br/>
 			<div class="row">

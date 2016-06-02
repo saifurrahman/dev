@@ -39,7 +39,7 @@ class ScheduleController extends Controller
       $overdue_on = Input::get("overdue_on");
       $today= date('Y-m-d');
       $overdurOn_date = date('Y-m-d', strtotime( $today. " + $overdue_on days"));
-      $query ="SELECT * from nfr_jp_crossing_inspection_ledger t1,nfr_station_master t2 WHERE t1.due_date_of_inspection<='$overdurOn_date' and t1.station_id=t2.id and t1.date_of_inspection=(SELECT max(t3.date_of_inspection) from nfr_jp_crossing_inspection_ledger t3 WHERE t1.station_id=t3.station_id)";
+      $query ="SELECT t1.station_id, t1.role,t1.maintenance_by,t1.designation,t1.date_of_inspection, t2.code, MAX( t1.due_date_of_inspection ) FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 WHERE t1.station_id = t2.id GROUP BY t1.station_id, t1.role HAVING MAX( t1.due_date_of_inspection ) <=  '$overdurOn_date'";
       $data = DB::select(DB::raw($query));
       return Response::json($data);
     }
@@ -105,7 +105,7 @@ class ScheduleController extends Controller
      $date = $date->format('Y-m-d');
      return $date;
    }
-
+//CABLE MEGGERING
    public function postSavecablemeggering(){
      $user_id = Session::get("user_id");
      $inspection_date=$this->convert_to_mysqlDateFormate(Input::get('inspection_date'));
@@ -123,15 +123,57 @@ class ScheduleController extends Controller
 
    }
    public function getAllcablemeggeringledger(){
-     $query="SELECT t1.*,t2.stn_lc_gate as code FROM `nfr_cablemeggering_stnlcgate_ledger` t1, nfr_cablemeggering_stnlcgate t2 where t1.stn_lc_gate_id=t2.id group by t2.id,t1.type order by t1.created_at desc";
+      $today=date('Y-m-d');
+     $query="SELECT t1.*,t2.stn_lc_gate as code,DATEDIFF(t1.next_meggering_date,'$today') as days_to_overdue FROM `nfr_cablemeggering_stnlcgate_ledger` t1, nfr_cablemeggering_stnlcgate t2 where t1.stn_lc_gate_id=t2.id  order by t1.created_at desc";
      $data = DB::select(DB::raw($query));
      return Response::json($data);
    }
 
+   public function getCablemeggeringreport(){
+     $today=date('Y-m-d');
+     $query ="select t1.*,t3.stn_lc_gate as code,DATEDIFF(t1.next_meggering_date,'$today') as days_to_overdue from nfr_cablemeggering_stnlcgate_ledger t1,nfr_cablemeggering_stnlcgate t3 WHERE t1.stn_lc_gate_id=t3.id AND t1.meggering_date = (SELECT MAX(t2.meggering_date) FROM nfr_cablemeggering_stnlcgate_ledger t2 WHERE t2.type=t1.type and t2.stn_lc_gate_id=t1.stn_lc_gate_id)";
+     $data = DB::select(DB::raw($query));
+     return Response::json($data);
+   }
    public function getDeletecablemeggeringledger($id){
      //$id = Input::get('id');
      $data= DB::table('nfr_cablemeggering_stnlcgate_ledger')->where('id', '=', $id)->delete();
      return Response::json(1);
    }
+   //PANEL TESTING
+      public function postSavepaneltesting(){
+        $user_id = Session::get("user_id");
+        $testing_date=$this->convert_to_mysqlDateFormate(Input::get('testing_date'));
+        $next_testing_date = date('Y-m-d', strtotime($testing_date."+ 3 month"));
 
+        $ledger = new PanelTestingLedger();
+        $ledger->stn_lc_gate_id = Input::get('station_id');
+        $ledger->role = Input::get('role');
+        $ledger->testing_date = $testing_date;
+        $ledger->next_testing_date = $next_testing_date;
+        $ledger->maintenance_by = Input::get('maintenance_by');
+        $ledger->designation = Input::get('designation');
+        $ledger->user_id = $user_id;
+        $ledger->save();
+        return Response::json($ledger);
+
+      }
+      public function getAllpaneltestingledger(){
+         $today=date('Y-m-d');
+        $query="SELECT t1.*,t2.stn_lc_gate as code,DATEDIFF(t1.next_testing_date,'$today') as days_to_overdue FROM `nfr_paneltesting_stnlcgate_ledger` t1, nfr_paneltesting_stnlcgate t2 where t1.stn_lc_gate_id=t2.id  order by t1.created_at desc";
+        $data = DB::select(DB::raw($query));
+        return Response::json($data);
+      }
+
+      public function getPaneltestingreport(){
+        $today=date('Y-m-d');
+        $query ="select t1.*,t3.stn_lc_gate as code,DATEDIFF(t1.next_meggering_date,'$today') as days_to_overdue from nfr_paneltesting_stnlcgate_ledger t1,nfr_paneltesting_stnlcgate t3 WHERE t1.stn_lc_gate_id=t3.id AND t1.meggering_date = (SELECT MAX(t2.meggering_date) FROM nfr_cablemeggering_stnlcgate_ledger t2 WHERE t2.type=t1.type and t2.stn_lc_gate_id=t1.stn_lc_gate_id)";
+        $data = DB::select(DB::raw($query));
+        return Response::json($data);
+      }
+      public function getDeletepaneltestingledger($id){
+        //$id = Input::get('id');
+        $data= DB::table('nfr_paneltesting_stnlcgate_ledger')->where('id', '=', $id)->delete();
+        return Response::json(1);
+      }
 }

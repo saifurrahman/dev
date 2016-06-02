@@ -208,7 +208,7 @@ class CommonController extends Controller
   }
 
   public function getPaneltestingstnlcgate(){
-    $query="SELECT * from nfr_paneltesting_stnlcgate";
+      $query="SELECT * from nfr_paneltesting_stnlcgate";
     $data = DB::select(DB::raw($query));
     return Response::json($data);
   }

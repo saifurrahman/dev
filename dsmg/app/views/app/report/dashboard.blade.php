@@ -6,9 +6,20 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4 ">
-		<h3>Maintenece Overdue</h3>
-			<span class="badge badge-danger">4</span>
+	<div class="col-md-4">
+		
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover" id="maintenance_reports" border="1" cellpadding="5" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Station Code</th>
+						<th>Total Overdue</th>
+
+					</tr>
+				</thead>
+				<tbody id="data_list"></tbody>
+			</table>
+		</div>
 	</div>
 	<div class="col-md-4">
 
@@ -17,4 +28,4 @@
 
 	</div>
 </div>
-{{HTML::script('packages/script/reports/dsahboard.js');}} @stop
+{{HTML::script('packages/script/reports/dashboard.js');}} @stop

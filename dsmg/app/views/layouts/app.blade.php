@@ -87,6 +87,11 @@
 								</div>
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav nav-main">
+										<li id="schedule_entry">
+												<a href="{{URL::to('dsmg/dashboard')}}">
+													<i class="fa fa-gears text-info-dk"> </i> <span class="font-bold">Dashboard</span>
+												</a>
+										</li>
 										<?php if(Session::get("role")!='report'){ ?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintenance</div>
 
@@ -100,7 +105,7 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">JointPoint & X-ing</span>
     										</a>
 										</li>
-										<li id="jp_crossing">
+										<li id="cablemeggering">
     										<a href="{{URL::to('dsmg/cablemeggering')}}">
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Cable Meggering</span>
     										</a>
@@ -110,12 +115,12 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Panel Testing</span>
     										</a>
 										</li>
-										<li id="foot_plate_inspection">
+								<!--		<li id="foot_plate_inspection">
 												<a href="{{URL::to('dsmg/footplateinspection')}}">
 													<i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Foot Plate Inspection</span>
 												</a>
 										</li>
-
+										-->
 										<?php }?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 

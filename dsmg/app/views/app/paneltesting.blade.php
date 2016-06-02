@@ -6,8 +6,8 @@
 						</h3>
 			</div>
 </div>
-{{Form::open(array('url' => ' ','id'=>'crossing-form','class'=>'form-horizontal' , 'method' => 'post'))}}
-<div class="row" id="crossing-form">
+{{Form::open(array('url' => ' ','id'=>'paneltesting-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+<div class="row" id="paneltesting-form">
 				<div class="col-md-2">
 					<label class="small">Station/LC Gate</label>
 						<div class="form-group">
@@ -16,11 +16,11 @@
 			</div>
 
 				<div class="col-md-2">
-					<label class="small">Type</label>
+					<label class="small">Role</label>
 								<select class="form-control" id="role"
-									name="role">
-										<option value="TC">Tail cable</option>
-										<option value="MC">Main Cable</option>
+									name="role" onchange="choosingRole()">
+										<option value="Officer">Officer</option>
+										<option value="Supervisor">Supervisor</option>
 								</select>
 				</div>
 				<div class="col-md-2">
@@ -33,8 +33,8 @@
 				<select class="form-control" id="maintenance_by" name="maintenance_by"></select>
 				</div>
 					<div class="col-md-2">
-						<label class="small">Inspection Date</label>
-						<input type="text" class="form-control" name="inspection_date" id="inspection_date">
+						<label class="small">Panel testing date</label>
+						<input type="text" class="form-control" name="testing_date" id="testing_date">
 					</div>
 					<div class="col-md-2">
 						<label></label>
@@ -45,13 +45,13 @@
 {{ Form::close()}}
 <div class="row">
 			<div class="col-md-12">
-				<label id="table_level">Inspection ledger</label>
+				<label id="table_level">Panel testing ledger</label>
 				<div class="table-responsive">
 					<table id="jp_xing_table" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
 						<thead id="table_header">
 
 						</thead>
-						<tbody id="data-list"></tbody>
+						<tbody id="data_list"></tbody>
 					</table>
 				</div>
 			</div>

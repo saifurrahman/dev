@@ -1,6 +1,8 @@
 window.onload = function() {
   $('#overdue_report').addClass('active');
 //  get_maintenance_reports();
+$('#overdue_table').hide();
+$('#history_table').hide();
   get_all_stations();
 //  get_maintenance_reports();
 };
@@ -24,6 +26,8 @@ function get_all_stations(){
     });
 }
 function get_maintenance_reports(){
+  $('#overdue_table').show();
+  $('#history_table').hide();
   var formData = $('form#overdue-form').serializeArray();
   var stations=$('#select_station_id').val();
   if(stations!=null){
@@ -32,7 +36,7 @@ function get_maintenance_reports(){
   	$('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
     $('#data-list').html('<tr><td colspan="9"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>');
 
-    
+
   $.ajax({
     url: '/report/overduegearbystation',
     type: 'POST',
@@ -48,23 +52,13 @@ function get_maintenance_reports(){
         for(var i in data){
 
           count = count+1;
-        //  <th>Station Code</th>
-        //  <th>Gear Code</th>
-        //  <th>Gear No</th>
-          //  <th>Schedule Code/Role</th>
-          //  <th>Last Maintenance Date</th>
-          //  <th>Discontinuation Applied</th>
-          //  <th>Maintenance By</th>
-          var row = '<tr>'
+      var row = '<tr>'
     					+'<td>'+data[i].station+'</td>'
     					+'<td>'+data[i].type+'</td>'
     					+'<td>'+data[i].gear_no+'</td>'
     					+'<td>'+data[i].schedule_code+'/'+data[i].role+'</td>'
-              +'<td>'+moment(data[i].maintenance_date).format('DD/MM/YY')+'</td>'
-            	+'<td class="text text-danger">'+moment(data[i].next_maintenance_date).format('DD/MM/YY')+'</td>'
-    					+'<td>'+data[i].discontinuation_status+'</td>'
-    					+'<td>'+data[i].maintenance_by+'/'+data[i].designation+'</td>'
-              +'<td>'+data[i].remarks+'</td>'
+              +'<td class="text text-danger">'+moment(data[i].due_date).format('DD/MM/YY')+'</td>'
+              +'<td><button class="btn btn-info btn-sm" onClick="getGearHistory('+data[i].station_gear_id+')">View history</button></td>'
     					+'</tr>';
     			$('#data-list').append(row);
 
@@ -79,6 +73,49 @@ function get_maintenance_reports(){
 
   alertify.error('Please select Station(s)');
 }
+}
+var token =  $("input[name=_token]").val();
+$("#back_btn").on("click", function () {
+  $('#overdue_table').show();
+  $('#history_table').hide();
+
+
+});
+function getGearHistory(station_gear_id){
+  $('#overdue_table').hide();
+  $('#history_table').show();
+
+  $.ajax({
+    url: '/report/gearhistory',
+    type: 'POST',
+    data:{'station_gear_id':station_gear_id,'_token':token},
+    dataType: 'JSON',
+    success: function(data){
+      $('#history_list').empty();
+      for(var i in data){
+        var periodicity_level;
+        if(data[i].role_id==1){
+          periodicity_level=data[i].periodicity_level_1;
+        }else{
+          periodicity_level=data[i].periodicity_level_2;
+        }
+        var row ="<tr>"
+                  +"<td>"+data[i].code+"</td>"
+                  +"<td>"+data[i].role+"</td>"
+                  +"<td>"+periodicity_level+" days</td>"
+                  +"<td>"+moment(data[i].maintenance_date).format('DD/MM/YY')+"</td>"
+                  +"<td>"+moment(data[i].next_maintenance_date).format('DD/MM/YY')+"</td>"
+                  +"<td>"+data[i].maintenance_by+"//"+data[i].designation+"</td>"
+                  +"<td>"+data[i].discontinuation_status+"</td>"
+                  +"<td>"+data[i].remarks+"</td>"
+                  +"</tr>";
+        $('#history_list').append(row);
+      }
+      $("#model_title").empty().append("Maintenance history ");
+      $('#history_model').modal('show')
+    }
+  });
+
 }
 $("#print_report").on("click", function () {
  printDiv();
