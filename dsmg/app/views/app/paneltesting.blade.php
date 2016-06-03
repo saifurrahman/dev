@@ -56,5 +56,40 @@
 				</div>
 			</div>
 </div>
+<div  id="report_table">
+		<div class="row">
+			<div class="col-md-10">
+			</div>
+			<div class="col-md-2">
+				<div class="btn-group">
+			   <button type="button" class="btn btn-danger" id="print_report"><i class="fa fa-print"></i></button>
+			   <button type="button" class="btn btn-warning" id="excel_report"><i class="fa fa-download"></i></button>
+			 </div>
+			</div>
+		</div>
+<div class="row">
+			<div class="col-md-12">
+				<label id="table_label">Cable Meggering Report</label>
+				<div class="table-responsive">
+					<table id="cable_meggering_report" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
+						<thead id="table_header">
+							<tr>
+								<th rowspan="2">Station/LC Gate</th>
+								<th rowspan="2">Last testing date</th>
+								<th colspan="2">Panel testing done by</th>
+								<th rowspan="2">Next panel testing date</th>
+								<th rowspan="2">Days remaining</th>
+							</tr>
+							<tr>
+								<th>Officer</th>
+								<th>Supervisor</th>
 
+							</tr>
+						</thead>
+						<tbody id="data_report"></tbody>
+					</table>
+				</div>
+			</div>
+			</row>
+</div>
 {{HTML::script('packages/script/paneltesting.js');}} @stop

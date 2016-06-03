@@ -81,11 +81,20 @@
 					<table id="cable_meggering_report" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
 						<thead id="table_header">
 							<tr>
-								<th>Station/LC Gate</th>
-								<th>Type</th>
-								<th>Last meggering date</th>
-								<th>Next meggering date due</th>
-								<th>Days remaining</th>
+								<th rowspan="2">Station/LC Gate</th>
+								<th colspan="2">Last Date of Cable Meggering</th>
+								<th colspan="2">Due Date of Cable Meggering	e</th>
+								<th colspan="2">Days remaining</th>
+							</tr>
+							<tr>
+								<th>Tail cable</th>
+								<th>Main cable</th>
+								<th>Tail cable</th>
+								<th>Main cable</th>
+								<th>Tail cable</th>
+								<th>Main cable</th>
+								
+							</tr>
 						</thead>
 						<tbody id="data_report"></tbody>
 					</table>

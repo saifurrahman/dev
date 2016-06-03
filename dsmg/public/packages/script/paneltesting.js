@@ -1,5 +1,6 @@
 window.onload = function(){
 	$('#paneltesting').addClass('active');
+	$('#report_table').hide();
 	$('#testing_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#testing_date").datepicker("setDate", new Date());
 allPaneltestingstnlcgaten();
@@ -143,7 +144,46 @@ function loadPanelTestingLedger(){
 	});
 
 }
+function showReport(){
+	$('#crossing-form').toggle();
+	$('#ledger_table').toggle();
+	$('#report_table').toggle();
+	$('#data_report').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
+	//$('#reportBtn').attr('disabled',true).html('<i class="fa fa-spinner fa-spin"></i>');
+	$.ajax({
+		url: '/schedule/cablemeggeringreport',
+		type: 'GET',
+		datatype: 'JSON',
+		success: function(data){
+			$('#reportBtn').attr('disabled',false).html('Report');
+			//$('#station_id').append('<option value="0">--station code--</option>');
+			$('#data_report').empty();
+			 for (var i in data){
+				var today=moment(new Date()).format('DD/MM/YY');
+				var meggering_date=moment(data[i].meggering_date).format('DD/MM/YY');
+				var next_meggering_date=moment(data[i].next_meggering_date).format('DD/MM/YY');
+				var today= moment(new Date()).format('DD/MM/YY');
+				var days_to_overdue=data[i].days_to_overdue;
 
+				var row_color='<tr>';
+				if(days_to_overdue<=0){
+					row_color = '<tr class="text text-danger">'
+				}
+				var row = row_color+
+						+'<td class="hidden id">'+data[i].id+'</td>'
+						+'<td>'+data[i].code+'</td>'
+						+'<td>'+data[i].type+'</td>'
+						+'<td>'+meggering_date+'</td>'
+						+'<td>'+next_meggering_date+'</td>'
+						+'<td>'+data[i].days_to_overdue+'</td>'
+						+'</tr>';
+
+				$('#data_report').append(row);
+			}
+		}
+	});
+
+}
 //delete data
 $("#data_list").on("click", ".del", function(){
 	$deleting = $(this);

@@ -5,6 +5,7 @@ window.onload = function(){
 	$("#inspection_date").datepicker("setDate", new Date());
 	allCablemeggeringstnlcgate();
 	loadCablemeggeringledger();
+
 }
 var token =  $("input[name=_token]").val();
 function allCablemeggeringstnlcgate(){
@@ -35,28 +36,64 @@ function showReport(){
 			$('#reportBtn').attr('disabled',false).html('Report');
 			//$('#station_id').append('<option value="0">--station code--</option>');
 			$('#data_report').empty();
-			 for (var i in data){
-				var today=moment(new Date()).format('DD/MM/YY');
-				var meggering_date=moment(data[i].meggering_date).format('DD/MM/YY');
-				var next_meggering_date=moment(data[i].next_meggering_date).format('DD/MM/YY');
-				var today= moment(new Date()).format('DD/MM/YY');
-				var days_to_overdue=data[i].days_to_overdue;
 
-				var row_color='<tr>';
-				if(days_to_overdue<=0){
-					row_color = '<tr class="text text-danger">'
-				}
-				var row = row_color+
-						+'<td class="hidden id">'+data[i].id+'</td>'
-						+'<td>'+data[i].code+'</td>'
-						+'<td>'+data[i].type+'</td>'
-						+'<td>'+meggering_date+'</td>'
-						+'<td>'+next_meggering_date+'</td>'
-						+'<td>'+data[i].days_to_overdue+'</td>'
-						+'</tr>';
+				var result =	_.groupBy(data,'stn_lc_gate');
+					console.log(result);
+					for (var i in result) {
+						var objTc;
+						var objMc;
 
-				$('#data_report').append(row);
-			}
+						if(result[i][0].type=='TC'){
+							objTc = result[i][0];
+
+							if(result[i][1]!=undefined){
+								objMc = result[i][1];
+							}
+						}else{
+							objMc = result[i][0];
+							if(result[i][1]!=undefined){
+								objTc = result[i][1];
+							}
+						}
+						var row;
+						if(objTc!=undefined && objMc!=undefined){
+						row ='<tr>'
+											+'<td>'+objTc.stn_lc_gate+'</td>'
+											+'<td>'+objTc.last_meggering_date+'</td>'
+											+'<td>'+objMc.last_meggering_date+'</td>'
+											+'<td>'+objTc.next_meggering_date+'</td>'
+											+'<td>'+objMc.next_meggering_date+'</td>'
+											+'<td>'+objTc.days_to_overdue+'</td>'
+											+'<td>'+objMc.days_to_overdue+'</td>'
+											+'</tr>';
+							}
+							if(objTc==undefined){
+							row ='<tr>'
+												+'<td>'+objMc.stn_lc_gate+'</td>'
+												+'<td>-</td>'
+												+'<td>'+objMc.last_meggering_date+'</td>'
+												+'<td>-</td>'
+												+'<td>'+objMc.next_meggering_date+'</td>'
+												+'<td>-</td>'
+												+'<td>-</td>'
+												+'</tr>';
+								}
+								if(objMc==undefined){
+								row ='<tr>'
+													+'<td>'+objTc.stn_lc_gate+'</td>'
+													+'<td>'+objTc.last_meggering_date+'</td>'
+													+'<td>-</td>'
+													+'<td>'+objTc.next_meggering_date+'</td>'
+													+'<td>-</td>'
+													+'<td>'+objTc.days_to_overdue+'</td>'
+													+'<td>-</td>'
+													+'</tr>';
+									}
+						$('#data_report').append(row);
+
+
+					}
+
 		}
 	});
 
@@ -93,21 +130,13 @@ function loadCablemeggeringledger(){
 			$('#data-list').empty();
 			 for (var i in data){
 
-				 var today=moment(new Date()).format('DD/MM/YYYY');
-				var meggering_date=moment(data[i].meggering_date).format('DD/MM/YYYY');
-				var next_meggering_date=moment(data[i].next_meggering_date).format('DD/MM/YYYY');
 
-
-				console.log(today+"-"+next_meggering_date);
-			//	var days_to_overdue=daydiff(parseDate(today), parseDate(next_meggering_date));
-				var days_to_overdue=moment(next_meggering_date).diff(today, 'days')+1
-				console.log("="+days_to_overdue);
-				var row = '<tr>'
+				 var row = '<tr>'
 						+'<td class="hidden id">'+data[i].id+'</td>'
 						+'<td>'+data[i].code+'</td>'
 						+'<td>'+data[i].type+'</td>'
-						+'<td>'+meggering_date+'</td>'
-						+'<td>'+next_meggering_date+'</td>'
+						+'<td>'+data[i].meggering_date+'</td>'
+						+'<td>'+data[i].next_meggering_date+'</td>'
 						+'<td>'+data[i].days_to_overdue+'</td>'
 						+'<td>'+data[i].remarks+'</td>'
 						+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
@@ -158,12 +187,3 @@ $("#excel_report").click(function() {
     filename: "cablemeggeringreport"
 	});
 });
-
-function parseDate(str) {
-    var mdy = str.split('/');
-    return new Date(mdy[2], mdy[0]-1, mdy[1]);
-}
-
-function daydiff(first, second) {
-    return Math.round((second-first)/(1000*60*60*24));
-}
