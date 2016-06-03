@@ -1,9 +1,13 @@
 @extends('layouts.app') @section('content')
 
 <div class="row">
-			<div class="page-header">
+			<div class="col-md-2">
 				<h3>Panel Testing
 						</h3>
+			</div>
+			<div class="col-md-2 pull-right">
+				<label></label>
+				<button type="button" onclick="showReport();" id="reportBtn" class="btn btn-info btn-block">Report</button>
 			</div>
 </div>
 {{Form::open(array('url' => ' ','id'=>'paneltesting-form','class'=>'form-horizontal' , 'method' => 'post'))}}
@@ -43,7 +47,7 @@
 
 </div>
 {{ Form::close()}}
-<div class="row">
+<div class="row" id="ledger_table">
 			<div class="col-md-12">
 				<label id="table_level">Panel testing ledger</label>
 				<div class="table-responsive">
@@ -69,7 +73,7 @@
 		</div>
 <div class="row">
 			<div class="col-md-12">
-				<label id="table_label">Cable Meggering Report</label>
+				<label id="table_label">Panel Testing Report</label>
 				<div class="table-responsive">
 					<table id="cable_meggering_report" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
 						<thead id="table_header">

@@ -131,7 +131,7 @@ class ScheduleController extends Controller
 
    public function getCablemeggeringreport(){
      $today=date('Y-m-d');
-     $query ="SELECT t1.stn_lc_gate_id,t2.stn_lc_gate,t1.type,MAX(t1.meggering_date) as last_meggering_date,MAX(t1.next_meggering_date) as next_meggering_date,DATEDIFF(MAX(t1.next_meggering_date),'2016-06-02') as days_to_overdue FROM nfr_cablemeggering_stnlcgate_ledger t1,nfr_cablemeggering_stnlcgate t2 where t1.stn_lc_gate_id=t2.id GROUP BY stn_lc_gate_id,type";
+     $query ="SELECT t1.stn_lc_gate_id,t2.stn_lc_gate,t1.type,MAX(t1.meggering_date) as last_meggering_date,MAX(t1.next_meggering_date) as next_meggering_date,DATEDIFF(MAX(t1.next_meggering_date),'2016-06-02') as days_to_overdue FROM nfr_cablemeggering_stnlcgate_ledger t1,nfr_cablemeggering_stnlcgate t2 where t1.stn_lc_gate_id=t2.id GROUP BY t1.stn_lc_gate_id,t1.type ORDER by t1.stn_lc_gate_id";
      $data = DB::select(DB::raw($query));
      return Response::json($data);
    }
@@ -167,7 +167,7 @@ class ScheduleController extends Controller
 
       public function getPaneltestingreport(){
         $today=date('Y-m-d');
-        $query ="select t1.*,t3.stn_lc_gate as code,DATEDIFF(t1.next_meggering_date,'$today') as days_to_overdue from nfr_paneltesting_stnlcgate_ledger t1,nfr_paneltesting_stnlcgate t3 WHERE t1.stn_lc_gate_id=t3.id AND t1.meggering_date = (SELECT MAX(t2.meggering_date) FROM nfr_cablemeggering_stnlcgate_ledger t2 WHERE t2.type=t1.type and t2.stn_lc_gate_id=t1.stn_lc_gate_id)";
+        $query ="SELECT t1.*,t2.stn_lc_gate,MAX(t1.next_testing_date) as next_testing_date,DATEDIFF(MAX(t1.next_testing_date),'$today') as days_to_overdue FROM nfr_paneltesting_stnlcgate_ledger t1,nfr_paneltesting_stnlcgate t2 WHERE t1.stn_lc_gate_id=t2.id GROUP BY t1.stn_lc_gate_id ORDER BY t1.stn_lc_gate_id,t1.role";
         $data = DB::select(DB::raw($query));
         return Response::json($data);
       }

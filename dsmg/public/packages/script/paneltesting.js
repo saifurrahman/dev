@@ -1,6 +1,7 @@
 window.onload = function(){
 	$('#paneltesting').addClass('active');
 	$('#report_table').hide();
+
 	$('#testing_date').datepicker({dateFormat: 'dd-mm-yy', maxDate: "+0D"});
 	$("#testing_date").datepicker("setDate", new Date());
 allPaneltestingstnlcgaten();
@@ -30,7 +31,6 @@ function saveData(){
 			dataTtype: 'JSON',
 			data: formData,
 			success: function(data){
-				console.log(data)
 				$('#saveBtn').attr('disabled',false).html('save');
 				if(data!=0){
 					alertify.success('data saved successfully');
@@ -113,7 +113,6 @@ function allsupervisorsdesig(){
  });
 }
 function loadPanelTestingLedger(){
-	$('#overdueBtn').attr('onclick','overdueStation()').attr('class','btn btn-danger btn-block').html('overdue station');
 
 	$('#table_level').empty().html('<h5><span class="label label-success">Panel Testing Ledger</span></h5>');
 	$('#table_header').empty().html('<tr><th>Station/LC Gate</th><th>Role</th><th>Designation</th><th>Maintenance by</th><th>Last testing date</th><th>Next testing date</th><th>Delete</th></tr>');
@@ -145,41 +144,45 @@ function loadPanelTestingLedger(){
 
 }
 function showReport(){
-	$('#crossing-form').toggle();
+	$('#paneltesting-form').toggle();
 	$('#ledger_table').toggle();
 	$('#report_table').toggle();
 	$('#data_report').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 	//$('#reportBtn').attr('disabled',true).html('<i class="fa fa-spinner fa-spin"></i>');
 	$.ajax({
-		url: '/schedule/cablemeggeringreport',
+		url: '/schedule/paneltestingreport',
 		type: 'GET',
 		datatype: 'JSON',
 		success: function(data){
 			$('#reportBtn').attr('disabled',false).html('Report');
 			//$('#station_id').append('<option value="0">--station code--</option>');
 			$('#data_report').empty();
-			 for (var i in data){
-				var today=moment(new Date()).format('DD/MM/YY');
-				var meggering_date=moment(data[i].meggering_date).format('DD/MM/YY');
-				var next_meggering_date=moment(data[i].next_meggering_date).format('DD/MM/YY');
-				var today= moment(new Date()).format('DD/MM/YY');
-				var days_to_overdue=data[i].days_to_overdue;
-
-				var row_color='<tr>';
-				if(days_to_overdue<=0){
-					row_color = '<tr class="text text-danger">'
-				}
-				var row = row_color+
-						+'<td class="hidden id">'+data[i].id+'</td>'
-						+'<td>'+data[i].code+'</td>'
-						+'<td>'+data[i].type+'</td>'
-						+'<td>'+meggering_date+'</td>'
-						+'<td>'+next_meggering_date+'</td>'
-						+'<td>'+data[i].days_to_overdue+'</td>'
-						+'</tr>';
-
-				$('#data_report').append(row);
-			}
+			// var result =_.groupBy(data,'stn_lc_gate');
+			 //console.log(result);
+			 for(var i in data){
+				 var role =data[i].role;
+				 var row;
+				 if(role=='Officer'){
+					 row = '<tr>'
+							 +'<td>'+data[i].stn_lc_gate+'</td>'
+							 +'<td>'+moment(data[i].testing_date).format('DD/MM/YY')+'</td>'
+							 +'<td>'+data[i].designation+'</td>'
+							 +'<td>-</td>'
+							 +'<td>'+moment(data[i].next_testing_date).format('DD/MM/YY')+'</td>'
+							 	+'<td>'+data[i].days_to_overdue+' days</td>'
+							 +'</tr>';
+				 }else{
+					 row = '<tr>'
+					 		+'<td>'+data[i].stn_lc_gate+'</td>'
+					 		+'<td>'+data[i].testing_date+'</td>'
+					 		+'<td>-</td>'
+					 		+'<td>'+data[i].maintenance_by+'//'+data[i].designation+'</td>'
+					 		+'<td>'+moment(data[i].testing_date).format('DD/MM/YY')+'</td>'
+					 		+'<td>'+data[i].days_to_overdue+' days</td>'
+							+'</tr>';
+				 }
+				 $("#data_report").append(row);
+			 }
 		}
 	});
 

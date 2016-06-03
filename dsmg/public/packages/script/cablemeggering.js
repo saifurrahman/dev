@@ -59,33 +59,33 @@ function showReport(){
 						if(objTc!=undefined && objMc!=undefined){
 						row ='<tr>'
 											+'<td>'+objTc.stn_lc_gate+'</td>'
-											+'<td>'+objTc.last_meggering_date+'</td>'
-											+'<td>'+objMc.last_meggering_date+'</td>'
-											+'<td>'+objTc.next_meggering_date+'</td>'
-											+'<td>'+objMc.next_meggering_date+'</td>'
-											+'<td>'+objTc.days_to_overdue+'</td>'
-											+'<td>'+objMc.days_to_overdue+'</td>'
+											+'<td>'+moment(objTc.last_meggering_date).format('DD/MM/YY')+'</td>'
+											+'<td>'+moment(objMc.last_meggering_date).format('DD/MM/YY')+'</td>'
+											+'<td>'+moment(objTc.next_meggering_date).format('DD/MM/YY')+'</td>'
+											+'<td>'+moment(objMc.next_meggering_date).format('DD/MM/YY')+'</td>'
+											+'<td>'+objTc.days_to_overdue+' days</td>'
+											+'<td>'+objMc.days_to_overdue+' days</td>'
 											+'</tr>';
 							}
 							if(objTc==undefined){
 							row ='<tr>'
 												+'<td>'+objMc.stn_lc_gate+'</td>'
 												+'<td>-</td>'
-												+'<td>'+objMc.last_meggering_date+'</td>'
+												+'<td>'+moment(objMc.last_meggering_date).format('DD/MM/YY')+'</td>'
 												+'<td>-</td>'
-												+'<td>'+objMc.next_meggering_date+'</td>'
+												+'<td>'+moment(objMc.next_meggering_date).format('DD/MM/YY')+'</td>'
 												+'<td>-</td>'
-												+'<td>-</td>'
+												+'<td>'+objMc.days_to_overdue+' days</td>'
 												+'</tr>';
 								}
 								if(objMc==undefined){
 								row ='<tr>'
 													+'<td>'+objTc.stn_lc_gate+'</td>'
-													+'<td>'+objTc.last_meggering_date+'</td>'
+													+'<td>'+moment(objTc.last_meggering_date).format('DD/MM/YY')+'</td>'
 													+'<td>-</td>'
-													+'<td>'+objTc.next_meggering_date+'</td>'
+													+'<td>'+moment(objTc.next_meggering_date).format('DD/MM/YY')+'</td>'
 													+'<td>-</td>'
-													+'<td>'+objTc.days_to_overdue+'</td>'
+													+'<td>'+objTc.days_to_overdue+' days</td>'
 													+'<td>-</td>'
 													+'</tr>';
 									}
@@ -135,8 +135,8 @@ function loadCablemeggeringledger(){
 						+'<td class="hidden id">'+data[i].id+'</td>'
 						+'<td>'+data[i].code+'</td>'
 						+'<td>'+data[i].type+'</td>'
-						+'<td>'+data[i].meggering_date+'</td>'
-						+'<td>'+data[i].next_meggering_date+'</td>'
+						+'<td>'+moment(data[i].meggering_date).format('DD/MM/YY')+'</td>'
+						+'<td>'+moment(data[i].next_meggering_date).format('DD/MM/YY')+'</td>'
 						+'<td>'+data[i].days_to_overdue+'</td>'
 						+'<td>'+data[i].remarks+'</td>'
 						+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
