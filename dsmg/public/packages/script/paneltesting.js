@@ -162,9 +162,15 @@ function showReport(){
 			 for(var i in data){
 				 var role =data[i].role;
 				 var row;
-				 if(role=='Officer'){
+
+				 if(data[i].days_to_overdue<0){
+					 row = '<tr class="text-danger">'
+				 }else{
 					 row = '<tr>'
-							 +'<td>'+data[i].stn_lc_gate+'</td>'
+				 }
+				 if(role=='Officer'){
+					 row = row
+								+'<td>'+data[i].stn_lc_gate+'</td>'
 							 +'<td>'+moment(data[i].testing_date).format('DD/MM/YY')+'</td>'
 							 +'<td>'+data[i].designation+'</td>'
 							 +'<td>-</td>'
@@ -172,7 +178,7 @@ function showReport(){
 							 	+'<td>'+data[i].days_to_overdue+' days</td>'
 							 +'</tr>';
 				 }else{
-					 row = '<tr>'
+					 row = row
 					 		+'<td>'+data[i].stn_lc_gate+'</td>'
 					 		+'<td>'+data[i].testing_date+'</td>'
 					 		+'<td>-</td>'
@@ -181,6 +187,7 @@ function showReport(){
 					 		+'<td>'+data[i].days_to_overdue+' days</td>'
 							+'</tr>';
 				 }
+
 				 $("#data_report").append(row);
 			 }
 		}
