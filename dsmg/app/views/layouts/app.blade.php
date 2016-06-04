@@ -87,11 +87,7 @@
 								</div>
 								<nav class="nav-primary hidden-xs">
 									<ul class="nav nav-main">
-										<li id="schedule_entry">
-												<a href="{{URL::to('dsmg/dashboard')}}">
-													<i class="fa fa-gears text-info-dk"> </i> <span class="font-bold">Dashboard</span>
-												</a>
-										</li>
+
 										<?php if(Session::get("role")!='report'){ ?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Maintenance</div>
 
@@ -110,7 +106,7 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Cable Meggering</span>
     										</a>
 										</li>
-										<li id="jp_crossing">
+										<li id="paneltesting">
     										<a href="{{URL::to('dsmg/paneltesting')}}">
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Panel Testing</span>
     										</a>

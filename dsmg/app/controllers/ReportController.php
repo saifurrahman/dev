@@ -27,6 +27,11 @@ class ReportController extends Controller
         return Response::json($data);
 
     }
+    public function getOverduecrossinginspection(){
+      $query ="SELECT a.id, a.station_id, a.role, a.due_date_of_inspection,a.date_of_inspection,a.maintenance_by,a.designation,c.code FROM nfr_jp_crossing_inspection_ledger a INNER JOIN (SELECT station_id, MAX(due_date_of_inspection) due_date_of_inspection FROM nfr_jp_crossing_inspection_ledger GROUP BY station_id) b ON a.station_id = b.station_id AND a.due_date_of_inspection = b.due_date_of_inspection ,nfr_station_master c WHERE a.station_id=c.id ORDER BY a.due_date_of_inspection,a.station_id";
+      $data = DB::select(DB::raw($query));
+      return Response::json($data);
+    }
     public function postMaintenancereports(){
       $from_date= $this->convert_to_mysqlDateFormate(Input::get('from_date'));
       $to_date= $this->convert_to_mysqlDateFormate(Input::get('to_date'));

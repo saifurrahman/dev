@@ -13,34 +13,37 @@ function overdueStation(){
 	//$('#overdueBtn').attr('onclick','loadCrossingPointInspectionLedger()').attr('class','btn btn-success btn-block').html('Ledger');
 	//$('#table_level').empty().html('<h5><span class="label label-danger">Joint Point & Crossing Inspection Overdue Station</span></h5>');
 
-	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Designation</th><th>Maintenance by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th></tr>');
+	$('#table_header').empty().html('<tr><th>Station Code</th><th>Role</th><th>Last Inspection by</th><th>Last Inspection Date</th><th>Next Inspection Date Due</th></tr>');
 
 	$('#data-list').html('<tr><td colspan="6"><center><i class="fa fa-spinner fa-spin fa-3x"></i></center></td></tr>')
 
 	$.ajax({
-		url: '/schedule/overduecrossinginspection',
-		type: 'POST',
-		data: {'overdue_on':overdueOn,'_token':token},
+		url: '/report/overduecrossinginspection',
+		type: 'GET',
 		dataTtype: 'JSON',
 		success: function(data){
 			$('#data-list').empty();
 			var count=0;
 			 for (var i in data){
-				 count=count+1;
-				 var next_date_row=moment(data[i].due_date_of_inspection).format('DD/MM/YY');
+				 var next_date_row;
+				 if(moment(data[i].due_date_of_inspection).isAfter(new Date().getTime())){
+						 next_date_row='<td >'+moment(data[i].due_date_of_inspection).format('DD/MM/YY');
+					}else{
+						next_date_row='<td class="text text-danger">'+moment(data[i].due_date_of_inspection).format('DD/MM/YY');
+						count=count+1;
+					}
 
 				 if(data[i].role=='SS'){
-				 	next_date_row=next_date_row+'  for IC';
+				 	next_date_row=next_date_row+'  for IC</td>';
 				 }else{
-					 next_date_row=next_date_row+'  for SS';
+					 next_date_row=next_date_row+'  for SS</td>';
 				 }
 				var row = '<tr>'
 						+'<td>'+data[i].code+'</td>'
 						+'<td>'+data[i].role+'</td>'
-						+'<td>'+data[i].designation+'</td>'
-						+'<td>'+data[i].maintenance_by+'</td>'
+						+'<td>'+data[i].maintenance_by+'//'+data[i].designation+'</td>'
 						+'<td>'+moment(data[i].date_of_inspection).format('DD/MM/YY')+'</td>'
-						+'<td class="text text-danger">'+next_date_row+'</td>'
+						+next_date_row
 						+'</tr>';
 
 				$('#data-list').append(row);

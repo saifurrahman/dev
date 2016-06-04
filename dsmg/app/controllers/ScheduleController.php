@@ -35,14 +35,7 @@ class ScheduleController extends Controller
       $data= DB::table('nfr_jp_crossing_inspection_ledger')->where('id', '=', $id)->delete();
       return Response::json(1);
     }
-    public function postOverduecrossinginspection(){
-      $overdue_on = Input::get("overdue_on");
-      $today= date('Y-m-d');
-      $overdurOn_date = date('Y-m-d', strtotime( $today. " + $overdue_on days"));
-      $query ="SELECT t1.station_id, t1.role,t1.maintenance_by,t1.designation,t1.date_of_inspection, t2.code, MAX( t1.due_date_of_inspection ) FROM nfr_jp_crossing_inspection_ledger t1, nfr_station_master t2 WHERE t1.station_id = t2.id GROUP BY t1.station_id, t1.role HAVING MAX( t1.due_date_of_inspection ) <=  '$overdurOn_date'";
-      $data = DB::select(DB::raw($query));
-      return Response::json($data);
-    }
+    
 
     public function postSavedata(){
         $user_id = Session::get("user_id");

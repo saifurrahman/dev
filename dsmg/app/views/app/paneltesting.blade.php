@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 
 <div class="row">
-			<div class="col-md-2">
+			<div class="col-md-10">
 				<h3>Panel Testing
 						</h3>
 			</div>
@@ -73,9 +73,9 @@
 		</div>
 <div class="row">
 			<div class="col-md-12">
-				<label id="table_label">Panel Testing Report</label>
+				<h5><span class="label label-danger">Panel Testing report</span></h5>
 				<div class="table-responsive">
-					<table id="cable_meggering_report" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
+					<table id="panel_testing_report" class="table table-hover table-bordered" border="1" cellpadding="5" cellspacing="0">
 						<thead id="table_header">
 							<tr>
 								<th rowspan="2">Station/LC Gate</th>
