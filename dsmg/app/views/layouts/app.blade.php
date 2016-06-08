@@ -111,12 +111,17 @@
     										  <i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Panel Testing</span>
     										</a>
 										</li>
-								<!--		<li id="foot_plate_inspection">
+										<li id="foot_plate_inspection">
 												<a href="{{URL::to('dsmg/footplateinspection')}}">
 													<i class="fa fa-futbol-o text-info-dk"> </i> <span class="font-bold">Foot Plate Inspection</span>
 												</a>
 										</li>
-										-->
+										<li id="joint_work">
+												<a href="{{URL::to('dsmg/jointwork')}}">
+													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Joint Work  </span>
+												</a>
+
+										</li>
 										<?php }?>
 										<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Reports</div>
 
@@ -146,19 +151,6 @@
 										<li id="inspection_jp_report">
 												<a href="{{URL::to('dsmg/jpinspection')}}">
 													<i class="fa fa-futbol-o"> </i> <span class="font-bold">JP & X-ing Inspection</span>
-												</a>
-
-										</li>
-
-										<li id="supervisor_inspection">
-												<a href="{{URL::to('dsmg/supervisorinspection')}}">
-													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Supervisor's Inspection  </span>
-												</a>
-
-										</li>
-										<li id="joint_work">
-												<a href="{{URL::to('dsmg/joint_work')}}">
-													<i class="fa fa-futbol-o text-danger-dk"> </i> <span class="font-bold">Joint Work  </span>
 												</a>
 
 										</li>

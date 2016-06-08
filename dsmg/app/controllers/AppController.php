@@ -30,7 +30,7 @@ class AppController extends BaseController
     public function getCrossing ()
     {
         if (Auth::check()) {
-            $this->layout->content = View::make('app.joint');
+            $this->layout->content = View::make('app.jointpoint');
         } else {
             return Redirect::to('/');
         }
@@ -51,7 +51,22 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
-
+    public function getFootplateinspection()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.foot_plate_inspection');
+        } else {
+            return Redirect::to('/');
+        }
+    }
+    public function getJointwork()
+    {
+        if (Auth::check()) {
+            $this->layout->content = View::make('app.joint_work');
+        } else {
+            return Redirect::to('/');
+        }
+    }
     //user
     public function getProfile() {
     	if (Auth::check ()) {
@@ -155,14 +170,7 @@ class AppController extends BaseController
         }
     }
 
-    public function getFootplateinspection()
-    {
-        if (Auth::check()) {
-            $this->layout->content = View::make('app.foot_plate_inspection');
-        } else {
-            return Redirect::to('/');
-        }
-    }
+
     public function getSupervisorinspection()
     {
         if (Auth::check()) {
@@ -171,14 +179,7 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
-    public function getJointwork()
-    {
-        if (Auth::check()) {
-            $this->layout->content = View::make('app.report.joint_work');
-        } else {
-            return Redirect::to('/');
-        }
-    }
+    
     public function getUsers ()
     {
         if (Auth::check()) {

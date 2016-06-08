@@ -125,7 +125,7 @@ function loadPanelTestingLedger(){
 		success: function(data){
 			$('#data_list').empty();
 			 for (var i in data){
-				 var next_date_row='<td>'+moment(data[i].testing_date).format('DD/MM/YY')+'</td>';
+				 var next_date_row='<td>'+moment(data[i].next_testing_date).format('DD/MM/YY')+'</td>';
 
 				var row = '<tr>'
 						+'<td class="hidden id">'+data[i].id+'</td>'
