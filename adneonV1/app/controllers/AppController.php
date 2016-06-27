@@ -124,6 +124,13 @@ class AppController extends BaseController
     		return Redirect::to ( '/' );
     	}
     }
+    public function getMonthlydeals(){
+      if (Auth::check ()) {
+        $this->layout->content = View::make ( 'addneon.reports.monthlydeals' );
+      } else {
+        return Redirect::to ( '/' );
+      }
+    }
 
     public function getDashboard(){
       $role = Auth::user ()->role;

@@ -80,4 +80,38 @@ class ReportController extends Controller {
 		$result['telecast'] = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $result );
 	}
+
+
+	public function postMonthlydeals() {
+		$item_id = Input::get ('item_id' );
+		$executive_id = Input::get ('executive_id' );
+		$month = Input::get ('month' );
+		$year = Input::get ('year' );
+
+		$result=array();
+		if($item_id==0 && $executive_id==0){
+			$query="SELECT t5.name as property,t6.ex_name as executive,t3.name as client,t4.name as agency,t1.* FROM deal_details t1,deal_master t2,client_master t3, agency_master t4 ,item_master t5,advetisement_executive t6 WHERE month(t1.from_date) <=$month AND month(t1.to_date)>=$month and YEAR(t1.from_date)=$year AND t1.deal_id=t2.id AND t2.client_id=t3.id and t2.agency_id=t4.id and t1.item_id=t5.id and t2.executive_id=t6.id";
+			$result = DB::select ( DB::raw ( $query ) );
+		}
+
+		if($item_id==0 && $executive_id!=0){
+			$query="SELECT t5.name as property,t6.ex_name as executive,t3.name as client,t4.name as agency,t1.* FROM deal_details t1,deal_master t2,client_master t3, agency_master t4 ,item_master t5,advetisement_executive t6 WHERE month(t1.from_date) <=$month AND month(t1.to_date)>=$month and YEAR(t1.from_date)=$year AND t1.deal_id=t2.id AND t2.client_id=t3.id and t2.agency_id=t4.id and t1.item_id=t5.id and t2.executive_id=t6.id and t6.id=$executive_id";
+			$result = DB::select ( DB::raw ( $query ) );
+		}
+
+		if($item_id!=0 && $executive_id==0){
+			$query="SELECT t5.name as property,t6.ex_name as executive,t3.name as client,t4.name as agency,t1.* FROM deal_details t1,deal_master t2,client_master t3, agency_master t4 ,item_master t5,advetisement_executive t6 WHERE month(t1.from_date) <=$month AND month(t1.to_date)>=$month and YEAR(t1.from_date)=$year AND t1.deal_id=t2.id AND t2.client_id=t3.id and t2.agency_id=t4.id and t1.item_id=t5.id and t2.executive_id=t6.id and t5.id=$item_id";
+			$result = DB::select ( DB::raw ( $query ) );
+		}
+		if($item_id!=0 && $executive_id!=0){
+			$query="SELECT t5.name as property,t6.ex_name as executive,t3.name as client,t4.name as agency,t1.* FROM deal_details t1,deal_master t2,client_master t3, agency_master t4 ,item_master t5,advetisement_executive t6 WHERE month(t1.from_date) <=$month AND month(t1.to_date)>=$month and YEAR(t1.from_date)=$year AND t1.deal_id=t2.id AND t2.client_id=t3.id and t2.agency_id=t4.id and t1.item_id=t5.id and t2.executive_id=t6.id and t6.id=$executive_id and t5.id=$item_id";
+			$result = DB::select ( DB::raw ( $query ) );
+		}
+  //  echo $query;
+		//$query="select t1.*,t2.caption,t2.duration,t3.rate from telecasttime_log t1,ad_master t2,deal_details t3 WHERE t1.tc_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.schedule_status =0 and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order BY t1.tc_date,t1.tc_time";
+  //  echo $query;
+		//$result['telecast'] = DB::select ( DB::raw ( $query ) );
+		return Response::json ( $result );
+	}
+
 }

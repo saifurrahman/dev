@@ -54,7 +54,7 @@ function loadjointworkledger(){
 				 var row = '<tr>'
 						+'<td class="hidden id">'+data[i].id+'</td>'
 						+'<td>'+data[i].code+'</td>'
-						+'<td>'+data[i].date_of_jointwork+'</td>'
+						+'<td>'+moment(data[i].date_of_jointwork).format('DD/MM/YY')+'</td>'
 						+'<td>'+data[i].remarks+'</td>'
 						+'<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
 						+'</tr>';

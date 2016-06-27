@@ -17,7 +17,7 @@
 		<section class="panel panel-default">
 			<header class="panel-heading font-bold">Payments</header>
 			<div class="panel-body">
-				{{Form::open(array('url' => ' ','id'=>'schedule-form','class'=>'form-horizontal' , 'method' => 'post'))}}
+				{{Form::open(array('url' => ' ','id'=>'payment-form','class'=>'form-horizontal' , 'method' => 'post'))}}
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="control-label col-sm-4">Agency</label>

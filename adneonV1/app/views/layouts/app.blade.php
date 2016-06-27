@@ -198,6 +198,11 @@
 													<i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Deal wise Telecast</span>
 												</a>
 										</li>
+										<li id="dealwisetelecast_report"class="auto">
+												<a href="{{URL::to('addneon/monthlydeals')}}">
+													<i class="i i-stats text-danger-dk"> </i> <span class="font-bold">Monthly Deals</span>
+												</a>
+										</li>
 
 										@endif
 									</ul>

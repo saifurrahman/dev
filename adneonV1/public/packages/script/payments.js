@@ -55,8 +55,8 @@ $("#payment_date,#instrument_date").datepicker({
 var token = $("input[name=_token]").val();
 
 function savePayments() {
-	var formData = $('form#client-form').serializeArray();
-	// $('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
+	var formData = $('form#payment-form').serializeArray();
+	 $('#saveBtn').attr('disabled', true).html('PLEASE WAIT..');
 	$.ajax({
 		url : '/payment/savepayments',
 		type : 'POST',
@@ -66,7 +66,7 @@ function savePayments() {
 			$('#saveBtn').attr('disabled', false).html('submit');
 			var c_status
 			if (data!= 0) {
-				$('form#client-form').each(function() {
+				$('form#payment-form').each(function() {
 					this.reset();
 					alltransaction();
 				});
