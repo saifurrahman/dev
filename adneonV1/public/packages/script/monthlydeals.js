@@ -55,24 +55,31 @@ function searchReport(){
       var total_amount=0;
       var count=0;
         var row;
+        var year =$('#year').val();
+        var month =$('#month').val();
+        var monthx = moment([year, month - 1]);
+        var monthy = moment(monthx).endOf('month');
+
+
       for(var i in data){
         count=count+1;
 
-        var amount=data[i].amount;
+        var monthly_units =calculateUnits(data[i].from_date,data[i].to_date,data[i].units,monthx,monthy);
+        var amount=parseFloat(monthly_units*data[i].rate).toFixed(2);
           row ='<tr>'
               +'<td>'+count+'</td>'
               +'<td>'+data[i].client+'</td>'
               +'<td>'+data[i].agency+'</td>'
               +'<td>'+data[i].executive+'</td>'
               +'<td>'+data[i].property+'<br><span class="text-info">'+data[i].from_date+' to '+data[i].to_date+'</span></td>'
-              +'<td>'+data[i].units+'</td>'
+              +'<td>'+monthly_units+'</td>'
               +'<td>'+data[i].rate+'</td>'
-              +'<td>'+amount+'</td>'
+              +'<td>'+parseFloat(data[i].amount).toFixed(2)+'/'+amount+'</td>'
               +'</tr>'
 
 
         $("#monthlydeals_report").append(row);
-        total_amount=total_amount+amount;
+        total_amount=parseFloat(total_amount)+parseFloat(amount);
       }
       row ='<tr>'
           +'<td class="text-success">Total</td>'
@@ -82,9 +89,36 @@ function searchReport(){
           +'<td></td>'
           +'<td></td>'
           +'<td></td>'
-          +'<td>'+total_amount+'</td>'
+          +'<td>'+parseFloat(total_amount).toFixed(2)+'</td>'
           +'</tr>'
       $("#monthlydeals_report").append(row);
     }
   });
+}
+
+function calculateUnits(schedule_from_date,schedule_to_date,schedule_units,monthx,monthy){
+	var a = moment(schedule_from_date);
+	var b = moment(schedule_to_date);
+	var x = moment(monthx);
+	var y = moment(monthy);
+	var days = b.diff(a, 'days')+1;
+	var daily_schedule =parseInt(schedule_units/days);
+		var bill_start_date;
+		var bill_end_date;
+	if(moment(x).isSameOrBefore(a)){
+		bill_start_date=a;
+	}
+	if(moment(x).isSameOrAfter(a)){
+		bill_start_date=x;
+	}
+	if(moment(y).isSameOrBefore(b)){
+		bill_end_date=y;
+	}
+	if(moment(y).isSameOrAfter(b)){
+		bill_end_date=b;
+	}
+  console.log('---'+y);
+	var days_billing = bill_end_date.diff(bill_start_date, 'days')+1;
+	var billing_units=days_billing*daily_schedule;
+	return billing_units;//daily_schedule*days_billing;
 }
