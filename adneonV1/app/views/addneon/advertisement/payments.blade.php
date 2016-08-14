@@ -36,10 +36,10 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-4">Bill No</label>
+						<label class="control-label col-sm-4">Invoice No</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" name="bill_id"
-								id="bill_id" placeholder="bill_id" >
+								id="bill_id" placeholder="Invoice no" >
 						</div>
 					</div>
 					<div class="form-group">

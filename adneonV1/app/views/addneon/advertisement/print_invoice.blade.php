@@ -155,7 +155,7 @@
 <script>
 window.onload = function() {
 	var bill_id={{$bill_id}};
-	$('#invoice_id').empty().append('<h4>INVOICE NO #&nbsp;&nbsp;'+pad(bill_id,4)+'</h4>');
+
 	getBillDetails(bill_id);
 }
 function getBillDetails(bill_id){
@@ -185,7 +185,7 @@ function getBillDetails(bill_id){
 					$('#address_to').empty().append('<strong>To</strong><br><strong>'+bill_details.agency_name+'</strong><br>'+bill_details.agency_a1+'<br>'+bill_details.agency_a2+','+bill_details.agency_city+'<br>');
 					$('#address_for').empty().append('<br><br><strong>Client:</strong>'+bill_details.client_name+'<br><strong>Brand:</strong>'+brand);
 			}
-
+			$('#invoice_id').empty().append('<h4>INVOICE NO #&nbsp;&nbsp;'+pad(bill_details.invoice_no,4)+'</h4>');
 
 
 			$('#ro_details').empty().append('<tr><td>'+bill_details.ro_number+'</td><td>'+bill_details.ro_date+'</td><td> &#8377;'+bill_details.ro_amount+'</td><td>'+bill_details.bill_start_date+'<strong> to</strong> '+bill_details.bill_end_date+'</td><td>'+bill_details.payment_peference+'</td></tr>');
@@ -198,7 +198,7 @@ function getBillDetails(bill_id){
 			var total_amount=0;
 			for ( var i in deal_details) {
 				var row_item='';
-				rate=deal_details[i].rate;
+				rate=parseFloat(deal_details[i].rate).toFixed(2);
 				if(deal_details[i].item_id==1 || deal_details[i].item_id==6){
 						amount=parseFloat(rate*units).toFixed(2);
 						row_item='<tr><td>'+deal_details[i].item+'</td><td>'+total_telecast_duration+' Sec</td><td style="text-align:right;">'+units+'</td><td style="text-align:right;">'+rate+'</td><td style="text-align:right;">'+amount+'</td></tr>';
@@ -226,10 +226,10 @@ function getBillDetails(bill_id){
 			khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
 			tax_amount=parseFloat(parseFloat(service_tax_amount)+parseFloat(swach_bhart_cess)+parseFloat(khrishi_kalyan_cess)).toFixed(2);
 			bill_amount=parseFloat(parseFloat(subtotal_amount)+parseFloat(tax_amount)).toFixed(2);
-			var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14%</td><td>&#8377;</td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td>Swach Bharat Cess @ 0.50%</td><td>&#8377;</td><td id="swach_bhart_cess">'+swach_bhart_cess+'</td></tr>><tr><td></td><td></td><td>Krishi Kalyan Cess @ 0.50%</td><td>&#8377;</td><td id="khrishi_kalyan_cess">'+khrishi_kalyan_cess+'</td></tr>><tr><td></td><td></td><td>Tax</td><td>&#8377;</td><td id="tax_amount">'+parseFloat(tax_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
+			var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id" style="text-align:right;">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14%</td><td>&#8377;</td><td id="service_tax_amount_td" style="text-align:right;">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td>Swach Bharat Cess @ 0.50%</td><td>&#8377;</td><td id="swach_bhart_cess" style="text-align:right;">'+swach_bhart_cess+'</td></tr>><tr><td></td><td></td><td>Krishi Kalyan Cess @ 0.50%</td><td>&#8377;</td><td id="khrishi_kalyan_cess" style="text-align:right;">'+khrishi_kalyan_cess+'</td></tr>><tr><td></td><td></td><td>Tax</td><td>&#8377;</td><td id="tax_amount" style="text-align:right;">'+parseFloat(tax_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id" style="text-align:right;"><strong>'+bill_amount+'</strong></td></tr>';
 			//';
 			$('#item_details').append(row_tax);
-			$('#inwords').empty().append('amount in words : <strong>'+convert_number(bill_amount)+'</strong>');
+			$('#inwords').empty().append('amount in words (rounded) : <strong>'+convert_number(bill_amount)+'</strong>');
 
 			var invoice_date=moment(bill_details.created_at).format("ll");
 			var due_date=moment(bill_details.created_at).add(90, 'days').format("ll");
@@ -327,8 +327,12 @@ function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,sc
 	if(moment(y).isSameOrAfter(b)){
 			bill_end_date=b;
 	}
-	var days_billing = bill_end_date.diff(bill_start_date, 'days')+1;
-	var billing_units=days_billing*daily_schedule;
+	var duration = moment.duration(bill_end_date.diff(bill_start_date));
+	var hours = duration.asHours();
+	var days_billing = hours/24;
+	console.log("bill_start_date="+moment(bill_start_date).format('ll')+"bill_start_date="+moment(bill_end_date).format('ll')+"  schedule_units="+schedule_units+" Diff="+days_billing);
+
+	var billing_units=schedule_units/days_billing;
 	return billing_units;//daily_schedule*days_billing;
 }
 </script>

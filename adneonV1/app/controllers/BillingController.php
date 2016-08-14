@@ -64,6 +64,7 @@ class BillingController extends Controller
       //data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'discount':0,'total_amount':bill_amount},
       $bill = new Bill();
       $bill->deal_id = Input::get('deal_id');
+      $bill->invoice_no = Input::get('invoice_no');
       $bill->bill_start_date = Input::get('bill_start_date');
       $bill->bill_end_date = Input::get('bill_end_date');
       $bill->agency_commission = Input::get('agency_commission');
@@ -74,7 +75,12 @@ class BillingController extends Controller
       $bill->discount = Input::get('discount');
       $bill->total_amount = Input::get('total_amount');
       $bill->user_id =Session::get ( 'user_id' );
-      $bill->save();
+      try {
+        $bill->save();
+      }
+      catch (Exception $e) {
+        return 0;
+      }
       return Response::json($bill);
     }
     public function getAllbill ()
@@ -107,5 +113,10 @@ class BillingController extends Controller
 
       return Response::json ( $result );
     }
-
+    public function postDelete(){
+      $id = Input::get ( 'id' );
+      $delsch = Bill::find ( $id );
+      $delsch->delete ();
+      return 1;
+    }
 }

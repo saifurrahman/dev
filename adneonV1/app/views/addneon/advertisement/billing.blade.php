@@ -5,7 +5,7 @@
 	</div>
 	<div class="col-sm-2">
 
-		<h3><button type="button" class="btn btn-info" id="newBill">New Bill</button></h3>
+		<h3><button type="button" class="btn btn-danger" id="newBill">New Bill</button></h3>
 	</div>
 </section>
 
@@ -15,20 +15,23 @@
 					<input class="form-control"
 							id="deal_id" name="deal_id" placeholder="Deal id"></input>
 				</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<input class="form-control"
 								id="from_date" name="from_date" placeholder="from date"></input>
 
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<input class="form-control"
 							id="to_date" name="to_date" placeholder="to date"></input>
 					</div>
 				<div class="col-md-2">
 					<button type="search" class="btn btn-success" id="sBtn"
-						onclick="search();">search</button>
+						onclick="search();">Search</button>
 				</div>
-
+				<div class="col-md-2">
+					<input class="form-control"
+							id="invoice_id" name="invoice_id" placeholder="invoice id"></input>
+				</div>
 				<div class="col-md-2">
 
 						<button  class="btn btn-danger pull-right" id="savebillBtn">Save Bill</button>

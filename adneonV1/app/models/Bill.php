@@ -5,6 +5,7 @@ class Bill extends Eloquent{
 
 	public static $rules = array(
 			'deal_id' => 'required',
+			'invoice_no' => 'required',
 	);
 
 }

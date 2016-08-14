@@ -6,8 +6,9 @@ window.onload = function() {
 }
 $("#newBill").on("click", function() {
 	//$('#generate_bill_section').show();
-	$('#search_field').toggle();
-	$('#all_bills').toggle();
+	$('#search_field').show();
+	$('#all_bills').hide();
+	$('#newBill').hide();
 
 });
 var token = $("input[name=_token]").val();
@@ -36,10 +37,12 @@ function calculateUnits(from_date,to_date,schedule_from_date,schedule_to_date,sc
 	if(moment(y).isSameOrAfter(b)){
 			bill_end_date=b;
 	}
-	var days_billing = bill_end_date.diff(bill_start_date, 'days')+1;
-	console.log("bill_start_date="+bill_start_date+"  daily_schedule="+schedule_units+" Diff="+days);
+	var duration = moment.duration(bill_end_date.diff(bill_start_date));
+	var hours = duration.asHours();
+	var days_billing = hours/24;
+	console.log("bill_start_date="+moment(bill_start_date).format('ll')+"bill_start_date="+moment(bill_end_date).format('ll')+"  schedule_units="+schedule_units+" Diff="+days_billing);
 
-	var billing_units=days_billing*daily_schedule;
+	var billing_units=schedule_units/days_billing;
 	return billing_units;//daily_schedule*days_billing;
 }
 var agency_com_amount=0;
@@ -98,8 +101,6 @@ function search() {
 
 							var row_deal_details='<tr><td>'+deal_master[0].ro_number+'</td><td>'+deal_master[0].ro_date+'</td><td>'+deal_master[0].ro_amount+'</td><td>'+from_date+' To '+to_date+'</td><td>'+deal_master[0].payment_peference+'</td></tr>';
 							$('#deal_details').empty().append(row_deal_details);
-
-
 							$('#schedule_details').empty();
 							var total_telecast_duration=0;
 							var total_telecast_spots=0;
@@ -144,7 +145,7 @@ function search() {
 								var row_tax ='<tr><td></td><td></td><td>Less Agency Commission</td><td id="agency_com_per">0%</td><td id="agency_com_amount">'+agency_com_amount+'</td></tr><tr>';
 							//<td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
 							$('#item_list').append(row_tax);
-							subtotal_amount =parseFloat(total_amount-agency_com_amount).toFixed(2);
+							subtotal_amount =parseFloat(parseFloat(total_amount)-parseFloat(agency_com_amount)).toFixed(2);
 							service_tax_amount=parseFloat(subtotal_amount*0.14).toFixed(2);
 							swach_bhart_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
 							khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
@@ -163,7 +164,7 @@ var agency_commission=0;
 $('#agency_com').on("change",function(){
 	agency_commission=$('#agency_com').val();
 	var agency_commission_amount=total_amount*agency_commission/100;
-	subtotal_amount =parseFloat(total_amount-agency_commission).toFixed(2);
+	subtotal_amount =parseFloat(parseFloat(total_amount)-parseFloat(agency_commission_amount)).toFixed(2);
 	service_tax_amount=parseFloat(subtotal_amount*0.14).toFixed(2);
 	swach_bhart_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
 	khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
@@ -182,22 +183,28 @@ $('#agency_com').on("change",function(){
 });
 $("#savebillBtn").on("click", function() {
 	agency_commission=$('#agency_com').val();
-//	alert(agency_commission);
-alertify.confirm("Save  Bill for agency Commission "+agency_commission+" % ?", function(e) {
+	var invoice_no=$('#invoice_id').val();
+
+	alertify.confirm("Save  Bill for Invoice no "+invoice_no+" ?", function(e) {
 	if (e) {
 	var deal_id = $('#deal_id').val();
 	var from_date = $('#from_date').val();
 	var to_date = $('#to_date').val();
+	var invoice_id=$('#invoice_id').val();
 	$.ajax({
 		url : '/billing/savebill',
 		type : 'POST',
 		dataType : 'JSON',
-		data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'swach_bhart_cess':swach_bhart_cess,'khrishi_kalyan_cess':khrishi_kalyan_cess,'discount':0,'total_amount':bill_amount},
+		data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'swach_bhart_cess':swach_bhart_cess,'khrishi_kalyan_cess':khrishi_kalyan_cess,'discount':0,'total_amount':bill_amount,'invoice_no':invoice_no},
 		success : function(data) {
 		//console.log(data);
+		if(data!=0){
 		$('#generate_bill_section').hide();
 		getAllbill();
-		}
+	}else{
+		alertify.error('Error in saving bill.Please check duplicate invoice_no');
+	}
+	}
 	});
 }
 });
@@ -206,16 +213,36 @@ alertify.confirm("Save  Bill for agency Commission "+agency_commission+" % ?", f
 
 
 
-$("#schecdule_table_row").on("click", ".del", function() {
-	var $del = $(this);
-	var id = $del.closest("tr").find(".asm_id").text();
 
-	alertify.confirm("Delete schedule?", function(e) {
+$("#all_bills_row").on("click", ".del", function() {
+	var $del = $(this);
+	var id = $del.closest("tr").find(".bill_id").text();
+
+	alertify.confirm("Delete bill?", function(e) {
 		if (e) {
 			deletePro($del, id);
 		}
 	});
 });
+function deletePro($del, id) {
+	$.ajax({
+		url : '/billing/delete',
+		type : 'POST',
+		dataType : 'JSON',
+		data : {
+			'id' : id,
+			'_token' : token
+		},
+		success : function(data) {
+			if(data!=1){
+				alertify.error("Transaction coudn't removed.Contact Admin.");
+			}else{
+			$del.closest("tr").remove();
+			alertify.success("Bill removed");
+		}
+		}
+	});
+}
 $(document).on('click', '#print_tclog', function()
 {
 // your code
@@ -224,7 +251,7 @@ $(document).on('click', '#print_tclog', function()
 
 function getAllbill(){
 	$("#search_field").hide();
-
+$('#newBill').show();
 	$('#generate_bill_section').hide();
 	$('#all_bills').show();
 	$('#all_bills_row').html('<tr><td colspan="9" style="text-align: center;margin-top: 20px;"><i class="fa fa-spinner fa-spin fa-4x"></i></td></tr>');
@@ -237,8 +264,9 @@ function getAllbill(){
 		$('#all_bills_row').empty();
 			for(var i in data){
 				var url ="/addneon/printinvoice/"+data[i].id;
-				var action_btns ='<div class="btn-group"><a href="'+url+'"+ target="_blank"><i class="fa fa-print"></i></a></div>';
-				var row_item='<tr><td>'+pad(data[i].id,4)
+				var action_btns ='<button class="del btn btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button><div class="btn-group"><a href="'+url+'"+ target="_blank"><i class="btn btn-sm btn-icon fa fa-print"></i></a></div>';
+				var row_item='<tr><td class="hidden bill_id">'+data[i].id
+										+'</td><td>'+pad(data[i].invoice_no,4)
 										+'</td><td>D'+pad(data[i].deal_id,4)
 										+'</td><td>'+data[i].client_name
 										+'</td><td>'+data[i].agency_name
