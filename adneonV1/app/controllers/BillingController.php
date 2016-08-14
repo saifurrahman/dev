@@ -69,6 +69,8 @@ class BillingController extends Controller
       $bill->agency_commission = Input::get('agency_commission');
       $bill->subtotal = Input::get('subtotal');
       $bill->service_tax = Input::get('service_tax');
+      $bill->swach_bhart_cess = Input::get('swach_bhart_cess');
+      $bill->khrishi_kalyan_cess = Input::get('khrishi_kalyan_cess');
       $bill->discount = Input::get('discount');
       $bill->total_amount = Input::get('total_amount');
       $bill->user_id =Session::get ( 'user_id' );

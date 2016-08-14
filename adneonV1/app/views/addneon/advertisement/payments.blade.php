@@ -117,15 +117,18 @@
 			<header class="panel-heading bg-light"> </header>
 
 			<div class="panel-body">
-				<table class="table table-striped m-b-none">
+				<table class="table table-striped m-b-none" id="payment_table">
 					<thead>
 						<tr>
-							<th>Payment Date</th>
-							<th>Payments Details</th>
-							<th>Transaction Details</th>
+							<th>Date</th>
+							<th>Agency</th>
+							<th>Client</th>
+							<th>Payment Mode</th>
 							<th>Amount</th>
 							<th>TDS</th>
+							<th>Details</th>
 							<th>Remarks</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody id="transcation-list"></tbody>

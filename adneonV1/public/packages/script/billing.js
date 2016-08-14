@@ -47,7 +47,17 @@ var total_amount=0;
 var subtotal_amount =0;
 var service_tax_amount=0;
 var bill_amount=0;
+var swach_bhart_cess=0;
+var swach_bhart_cess=0;
+var tax_amount=0;
 function search() {
+			agency_com_amount=0;
+			total_amount=0;
+			subtotal_amount =0;
+			service_tax_amount=0;
+			bill_amount=0;
+			swach_bhart_cess=0;
+			tax_amount=0;
 			var deal_id = $('#deal_id').val();
 			var from_date = $('#from_date').val();
 			var to_date = $('#to_date').val();
@@ -131,14 +141,17 @@ function search() {
 							//<tr><td></td><td></td><td>Less Agency Commission</td><td>15%</td><td>4900</td></tr><tr><td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
 							$('#item_list').append(row_tax);
 
-								var row_tax ='<tr><td></td><td></td><td>Less Agency Commission</td><td id="agency_com_per"></td><td id="agency_com_amount">'+agency_com_amount+'</td></tr><tr>';
+								var row_tax ='<tr><td></td><td></td><td>Less Agency Commission</td><td id="agency_com_per">0%</td><td id="agency_com_amount">'+agency_com_amount+'</td></tr><tr>';
 							//<td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
 							$('#item_list').append(row_tax);
-							subtotal_amount =total_amount-agency_com_amount;
-							service_tax_amount=parseFloat(subtotal_amount*0.145).toFixed(2);
-							bill_amount=parseFloat(subtotal_amount)+parseFloat(service_tax_amount);
-							var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td>&#8377;</td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
-							//';
+							subtotal_amount =parseFloat(total_amount-agency_com_amount).toFixed(2);
+							service_tax_amount=parseFloat(subtotal_amount*0.14).toFixed(2);
+							swach_bhart_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+							khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+							tax_amount=parseFloat(parseFloat(service_tax_amount)+parseFloat(swach_bhart_cess)+parseFloat(khrishi_kalyan_cess)).toFixed(2);
+							bill_amount=parseFloat(parseFloat(subtotal_amount)+parseFloat(tax_amount)).toFixed(2);
+							var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14%</td><td>&#8377;</td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td>Swach Bharat Cess @ 0.50%</td><td>&#8377;</td><td id="swach_bhart_cess">'+swach_bhart_cess+'</td></tr>><tr><td></td><td></td><td>Krishi Kalyan Cess @ 0.50%</td><td>&#8377;</td><td id="khrishi_kalyan_cess">'+khrishi_kalyan_cess+'</td></tr>><tr><td></td><td></td><td>Tax</td><td>&#8377;</td><td id="tax_amount">'+parseFloat(tax_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
+
 							$('#item_list').append(row_tax);
 						}
 				}
@@ -149,13 +162,20 @@ function search() {
 var agency_commission=0;
 $('#agency_com').on("change",function(){
 	agency_commission=$('#agency_com').val();
-	agency_com_amount=parseFloat(total_amount*agency_commission/100).toFixed(2);
-	subtotal_amount =parseFloat(total_amount-agency_com_amount).toFixed(2);
-	service_tax_amount=parseFloat(subtotal_amount*0.145).toFixed(2);
-	bill_amount=parseFloat(subtotal_amount)+parseFloat(service_tax_amount);
-	$('#agency_com_amount').empty().append(agency_com_amount);
+	var agency_commission_amount=total_amount*agency_commission/100;
+	subtotal_amount =parseFloat(total_amount-agency_commission).toFixed(2);
+	service_tax_amount=parseFloat(subtotal_amount*0.14).toFixed(2);
+	swach_bhart_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+	khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+	tax_amount=parseFloat(parseFloat(service_tax_amount)+parseFloat(swach_bhart_cess)+parseFloat(khrishi_kalyan_cess)).toFixed(2);
+	bill_amount=parseFloat(parseFloat(subtotal_amount)+parseFloat(tax_amount)).toFixed(2);
+	$('#agency_com_per').empty().append(agency_commission+' %');
+	$('#agency_com_amount').empty().append(parseFloat(agency_commission_amount).toFixed(2));
 	$('#subtotal_amount_id').empty().append(subtotal_amount);
 	$('#service_tax_amount_td').empty().append(service_tax_amount);
+	$('#swach_bhart_cess').empty().append(swach_bhart_cess);
+	$('#khrishi_kalyan_cess').empty().append(khrishi_kalyan_cess);
+	$('#tax_amount').empty().append(tax_amount);
 	$('#bill_amount_id').empty().append('<strong>'+parseFloat(bill_amount).toFixed(2)+'</strong>');
 	//alert(agency_com_amount);
 
@@ -172,7 +192,7 @@ alertify.confirm("Save  Bill for agency Commission "+agency_commission+" % ?", f
 		url : '/billing/savebill',
 		type : 'POST',
 		dataType : 'JSON',
-		data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'discount':0,'total_amount':bill_amount},
+		data : {'_token':token,'deal_id':deal_id,'bill_start_date':from_date,'bill_end_date':to_date,'agency_commission':agency_commission,'subtotal':subtotal_amount,'service_tax':service_tax_amount,'swach_bhart_cess':swach_bhart_cess,'khrishi_kalyan_cess':khrishi_kalyan_cess,'discount':0,'total_amount':bill_amount},
 		success : function(data) {
 		//console.log(data);
 		$('#generate_bill_section').hide();

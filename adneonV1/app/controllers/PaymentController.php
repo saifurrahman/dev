@@ -28,8 +28,14 @@ class PaymentController extends \BaseController {
 		return Response::json ( $payments );
 	}
 	public function getAlltransaction() {
-		$query="SELECT t1.*,t2.name as client,t3.name as agency FROM payments_master t1,client_master t2,agency_master t3 where t1.client_id=t2.id and t1.agency_id=t3.id order by t1.payment_date desc limit 0,30";
+		$query="SELECT t1.*,t2.name as client,t3.name as agency FROM payments_master t1,client_master t2,agency_master t3 where t1.client_id=t2.id and t1.agency_id=t3.id order by t1.payment_date desc";
 		$transcation = DB::select ( DB::raw ( $query ) );
 		return Response::json ( $transcation );
+	}
+	public function postDelete(){
+		$id = Input::get ( 'id' );
+		$delsch = Payments::find ( $id );
+		$delsch->delete ();
+		return 1;
 	}
 }

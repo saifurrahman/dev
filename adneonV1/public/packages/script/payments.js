@@ -93,21 +93,52 @@ function alltransaction() {
 			var total_amount=0;
 			for ( var i in data) {
 				var row = '<tr>'
-					// +'<td class="hidden">'+data[i].id+'</td>'
-					+ '<td>' + data[i].payment_date + '</td>'
-					+ '<td ><b> Client:</b> '+ data[i].client + '<b>Agency:</b> '+data[i].agency+'</td>'
-					+ '<td>' + data[i].payment_mode + '_'
-							+ data[i].instrument_number + '_'
-							+ data[i].instrument_date
-
-				+ '<td >'+ data[i].amount + '</td>'
-				+ '<td >'+ data[i].tds + '</td>'
-				+ '<td>' + data[i].remarks + '</td>'
-				+ '</td>' + '</tr>';
+					 +'<td class="hidden transaction_id">'+data[i].id+'</td>'
+					+ '<td>' +moment(data[i].payment_date).format("ll") + '</td>'
+					+ '<td >'+ data[i].agency + '</td>'
+					+'<td>'+data[i].client+'</td>'
+					+'<td>'+data[i].payment_mode+'</td>'
+					+ '<td >'+ data[i].amount + '</td>'
+					+ '<td >'+ data[i].tds + '</td>'
+					+ '<td>'+ data[i].instrument_date + '_'+ data[i].instrument_number+'</td>'
+					+ '<td>' + data[i].remarks + '</td>'
+					+ '<td><button class="del btn btn-rounded btn-sm btn-icon btn-danger"><i class="fa fa-trash"></i></button></td>'
+					+ '</tr>';
 				$('#transcation-list').append(row);
 				total_amount=total_amount+data[i].amount;
 			}
 			$('#total_payments').empty().append('INR '+total_amount.toFixed(2));
+		}
+	});
+}
+
+
+$("#payment_table").on("click", ".del", function() {
+	var $del = $(this);
+	var id = $del.closest("tr").find(".transaction_id").text();
+
+	alertify.confirm("Delete payment?", function(e) {
+		if (e) {
+			deletePro($del, id);
+		}
+	});
+});
+function deletePro($del, id) {
+	$.ajax({
+		url : '/payment/delete',
+		type : 'POST',
+		dataType : 'JSON',
+		data : {
+			'id' : id,
+			'_token' : token
+		},
+		success : function(data) {
+			if(data!=1){
+				alertify.error("Transaction coudn't removed.Contact Admin.");
+			}else{
+			$del.closest("tr").remove();
+			alertify.success("Transaction removed");
+		}
 		}
 	});
 }

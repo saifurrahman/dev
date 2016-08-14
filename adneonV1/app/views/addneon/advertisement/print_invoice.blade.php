@@ -221,9 +221,12 @@ function getBillDetails(bill_id){
 			//<td></td><td></td><td>SUBTOTAL</td><td>28050</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td></td><td>4067</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td></td><td><strong>32117</strong></td></tr>';
 			$('#item_details').append(row_tax);
 			subtotal_amount =total_amount-agency_com_amount;
-			service_tax_amount=parseFloat(subtotal_amount*0.145).toFixed(2);
-			bill_amount=parseFloat(subtotal_amount)+parseFloat(service_tax_amount);
-			var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id" style="text-align:right;">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14.5%</td><td>&#8377;</td><td id="service_tax_amount_td" style="text-align:right;">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id" style="text-align:right;"><strong>'+parseInt(bill_amount)+'</strong></td></tr>';
+			service_tax_amount=parseFloat(subtotal_amount*0.14).toFixed(2);
+			swach_bhart_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+			khrishi_kalyan_cess=parseFloat(subtotal_amount*0.005).toFixed(2);
+			tax_amount=parseFloat(parseFloat(service_tax_amount)+parseFloat(swach_bhart_cess)+parseFloat(khrishi_kalyan_cess)).toFixed(2);
+			bill_amount=parseFloat(parseFloat(subtotal_amount)+parseFloat(tax_amount)).toFixed(2);
+			var row_tax ='<tr><td></td><td></td><td>SUBTOTAL</td><td>&#8377;</td><td id="subtotal_amount_id">'+parseFloat(subtotal_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td>Service Tax @14%</td><td>&#8377;</td><td id="service_tax_amount_td">'+service_tax_amount+'</td></tr><tr><td></td><td></td><td>Swach Bharat Cess @ 0.50%</td><td>&#8377;</td><td id="swach_bhart_cess">'+swach_bhart_cess+'</td></tr>><tr><td></td><td></td><td>Krishi Kalyan Cess @ 0.50%</td><td>&#8377;</td><td id="khrishi_kalyan_cess">'+khrishi_kalyan_cess+'</td></tr>><tr><td></td><td></td><td>Tax</td><td>&#8377;</td><td id="tax_amount">'+parseFloat(tax_amount).toFixed(2)+'</td></tr><tr><td></td><td></td><td><strong>Total amount</strong></td><td>&#8377;</td><td id="bill_amount_id"><strong>'+bill_amount+'</strong></td></tr>';
 			//';
 			$('#item_details').append(row_tax);
 			$('#inwords').empty().append('amount in words : <strong>'+convert_number(bill_amount)+'</strong>');
