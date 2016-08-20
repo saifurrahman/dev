@@ -1,6 +1,6 @@
 <?php
 
-  Artisan::add(new HappyBirthday);
+  Artisan::add(new CronCommands);
 /*
 |--------------------------------------------------------------------------
 | Register The Artisan Commands

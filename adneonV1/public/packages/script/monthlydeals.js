@@ -92,10 +92,16 @@ function searchReport(){
           +'<td>'+parseFloat(total_amount).toFixed(2)+'</td>'
           +'</tr>'
       $("#monthlydeals_report").append(row);
+			$('#total_payments').empty().append('INR '+total_amount.toFixed(2));
     }
   });
 }
-
+$("#excel").click(function() {
+	$("#monthlydeals_report").table2excel({
+		exclude : ".noExl",
+		name : "Coommercial Schedule"
+	});
+});
 function calculateUnits(schedule_from_date,schedule_to_date,schedule_units,monthx,monthy){
 	var a = moment(schedule_from_date);
 	var b = moment(schedule_to_date);

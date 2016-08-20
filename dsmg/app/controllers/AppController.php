@@ -179,7 +179,7 @@ class AppController extends BaseController
             return Redirect::to('/');
         }
     }
-    
+
     public function getUsers ()
     {
         if (Auth::check()) {

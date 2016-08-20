@@ -1,8 +1,8 @@
 @extends('layouts.app') @section('content')
 <section class="row m-b-md">
 
-	<div class="col-md-12">
-		<h3 class="m-b-xs text-black">Monthly Deals</h3>
+	<div class="col-sm-12">
+		<h3 class="m-b-xs text-black">Monthly Deals <span class="m-b-xs text-danger pull-right" id="total_payments"></span></h3>
 	</div>
 
 </section>

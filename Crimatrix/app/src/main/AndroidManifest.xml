@@ -39,6 +39,9 @@
         <activity
             android:name=".GoogleSignInActivity"
             android:label="@string/label_google_sign_in" />
+        <activity
+            android:name=".CustomAuthActivity"
+            android:label="@string/label_google_sign_in" />
 
     </application>
 

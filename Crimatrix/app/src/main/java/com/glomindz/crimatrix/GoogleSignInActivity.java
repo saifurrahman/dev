@@ -143,6 +143,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
+                Log.d(TAG,account.toString());
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
@@ -162,6 +163,8 @@ public class GoogleSignInActivity extends BaseActivity implements
         // [END_EXCLUDE]
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        Log.d(TAG, "credential---->"+ credential.toString());
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

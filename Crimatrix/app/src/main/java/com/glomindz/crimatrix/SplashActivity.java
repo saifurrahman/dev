@@ -55,12 +55,12 @@ public class SplashActivity extends AppCompatActivity {
                         Intent user_details_intent = new Intent(
                                 getApplicationContext(), MainActivity.class);
                         startActivity(user_details_intent);
-                        // finish();
+                         finish();
                     } else {
                         Intent login_intent = new Intent(
-                                getApplicationContext(), GoogleSignInActivity.class);
+                                getApplicationContext(), CustomAuthActivity.class);
                         startActivity(login_intent);
-                        // finish();
+                        finish();
                     }
                 }
             }

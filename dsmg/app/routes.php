@@ -15,6 +15,14 @@ Route::get('/', function()
 {
 	return View::make('index');
 });
+Route::get('/pdf', function()
+{
+  $html = '<html><body>'
+    . '<p>Hello, Welcome to TechZoo.</p>'
+    . '</body></html>';
+    return PDF::load($html, 'A4', 'portrait')->download('my_pdf');
+});
+
 //before login
 Route::controller('users', 'UserController');
 Route::controller('mobile', 'MobileController');

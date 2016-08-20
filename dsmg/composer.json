@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-dompdf": "0.4.*",
-		"guzzlehttp/guzzle": "~4.0"
+		"guzzlehttp/guzzle": "~4.0",
+		"thujohn/pdf": "^1.0"
 	},
 	"autoload": {
 		"classmap": [

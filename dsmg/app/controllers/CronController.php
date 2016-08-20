@@ -2,6 +2,8 @@
 
 class CronController extends BaseController
 {
+
+
   public function getTest(){
     $data = array(
       'test' => 'Testing'

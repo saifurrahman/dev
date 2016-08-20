@@ -37,7 +37,7 @@ class HappyBirthday extends Command {
 	 */
 	public function fire()
 	{
-		//echo "Happy b'day!";
+		echo "Happy b'day!";
 	}
 
 	/**

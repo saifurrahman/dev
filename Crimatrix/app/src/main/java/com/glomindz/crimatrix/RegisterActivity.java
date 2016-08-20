@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void registerNewUser(View view) {
         Log.d("----","reg");
-        String email="saifur1.x@gmail.com";
+        String email="saifur.x@gmail.com";
         String password="1234567";
 
         mAuth.createUserWithEmailAndPassword(email, password)
