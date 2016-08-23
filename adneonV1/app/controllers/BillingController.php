@@ -119,4 +119,19 @@ class BillingController extends Controller
       $delsch->delete ();
       return 1;
     }
+
+    public function postDealwisetelecast() {
+      $deal_id = Input::get ('deal_id' );
+      $from_date = Input::get ('from_date' );
+      $to_date = Input::get ('to_date' );
+
+      $result=array();
+      $query="select t1.id,t1.schedule_date,t1.ad_id,t1.telecast_time,t1.deal_id,t2.caption,t2.duration,t1.remark,t3.rate from ad_schedule_master t1,ad_master t2,deal_details t3 WHERE t1.schedule_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order by t1.schedule_date,t1.telecast_time";
+      $result['schedule'] = DB::select ( DB::raw ( $query ) );
+    //  echo $query;
+      $query="select t1.*,t2.caption,t2.duration,t3.rate from telecasttime_log t1,ad_master t2,deal_details t3 WHERE t1.tc_date BETWEEN '$from_date' and '$to_date' and t1.deal_id=$deal_id and t1.schedule_status =0 and t1.ad_id=t2.id and t1.deal_id=t3.deal_id and t3.item_id IN(1,6) order BY t1.tc_date,t1.tc_time";
+    //  echo $query;
+      $result['telecast'] = DB::select ( DB::raw ( $query ) );
+      return Response::json ( $result );
+    }
 }

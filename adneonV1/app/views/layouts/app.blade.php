@@ -167,6 +167,13 @@
     										</a>
 										</li>
 										@endif
+										@if (Session::get('Billing') != 0)
+										<li id="tc_correction">
+												<a href="{{URL::to('addneon/telecastcorrection')}}">
+													<i class="fa fa-file-text text-warning-dk"> </i> <span class="font-bold">TC Correction</span>
+												</a>
+										</li>
+										@endif
 										@if (Session::get('Payments') != 0)
 										<li id="payment">
     										<a href="{{URL::to('addneon/payments')}}">

@@ -100,7 +100,13 @@ class AppController extends BaseController
     		return Redirect::to ( '/' );
     	}
     }
-
+    public function getTelecastcorrection(){
+      if (Auth::check () ) {
+            $this->layout->content = View::make ( 'addneon.advertisement.telecast_correction' );
+      }else {
+        return Redirect::to ( '/' );
+      }
+    }
     //eports
 
     public function getScvstcreport(){
