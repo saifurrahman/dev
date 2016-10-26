@@ -3,8 +3,8 @@
     <div class="row">
       	<h3>DSMG Schedule Code</h3>
     </div>
-    {{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
-	{{ Form::close()}}
+
+
     <div class="row">
 
     		<div class="col-md-8 col-xs-12">
@@ -103,6 +103,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
+          {{Form::open(array('','id'=>'overdue-form','class'=>'form-horizontal' , 'method' => 'post'))}}
         	<form action="" id="edit_gear_form">
 	        	<div class="col-md-12">
 	        		<input type="hidden" name="id" id="edit_id">
@@ -136,6 +137,7 @@
 		        	<textarea rows="5" class="form-control" name="remarks" id="edit_remarks"></textarea>
 	        	</div>
         	</form>
+          {{ Form::close()}}
         </div>
 		<div class="modal-footer">
         	<button class="btn btn-primary btn-block" id="updateGearDetailsBtn" onclick="updateGearDetails();">Update</button>

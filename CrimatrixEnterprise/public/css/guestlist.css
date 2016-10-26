@@ -1,0 +1,14 @@
+#guestlist_date_group{
+	
+}
+#guestlist_date{
+	font-size: 1.4em;
+}
+#loader{
+	position: absolute;
+	margin: 5% 40%;
+	display: none;
+}
+.blur{
+	opacity: 0.5;
+}

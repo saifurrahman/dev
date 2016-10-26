@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                          finish();
                     } else {
                         Intent login_intent = new Intent(
-                                getApplicationContext(), CustomAuthActivity.class);
+                                getApplicationContext(), GoogleSignInActivity.class);
                         startActivity(login_intent);
                         finish();
                     }

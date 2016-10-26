@@ -1,0 +1,128 @@
+@font-face{
+	font-family: Michroma;
+	src: url(../fonts/Michroma.ttf);
+}
+@font-face{
+	font-family: Source Sans Pro;
+	src: url(../fonts/SourceSansPro-Regular.ttf);
+}
+body{
+	font-family: Source Sans Pro;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family: Michroma;
+}
+.michroma{
+	font-family: Michroma;	
+}
+.SourceSansPro{
+	font-family: Source Sans Pro;
+}
+.text-crimatrix{
+	color: #cc0000 !important;	
+}
+.bs-callout {
+	padding: 20px;
+	margin: 20px 0;
+	border: 1px solid #eee;
+	border-left-width: 5px;
+	border-radius: 3px;
+}
+.bs-callout-warning {
+	border-left-color: #f0ad4e;
+}
+.bs-callout-danger {
+	border-left-color: #d9534f;
+}
+.bs-callout-info {
+	border-left-color: #5bc0de;
+}
+.bs-callout-glomindz {
+	border-left-color: #99cc33;
+}
+.glomindz_text_color{
+	color: #99cc33;
+}
+/* footer */
+#footer{	
+	position: absolute;
+	width: 100%;
+}
+#footer p{
+	margin-top: 10px;
+	font-size: 13px;
+	color: #fff;
+}
+.btn-disable{
+	background-color: #A7A7A7;
+	color: #fff;
+}
+.btn-disable:hover{
+	background-color: #919191;
+	color: #fff;
+}
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+	body {
+		margin-top: 100px; /* adjust this if the height of the menu bar changes */
+	}
+	#logo_image{
+		width: 80%;
+	}	
+	#footer{
+		margin-top: 20px;
+	}
+	.home_header{
+		font-family: Michroma;
+		font-size: 1.6em;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	body {
+		margin-top: 100px; /* adjust this if the height of the menu bar changes */
+	}
+	#logo_image{
+		width: 100%;
+	}
+	.navbar-fixed-top .nav {
+		padding: 15px 0;
+	}	
+	#footer{
+		margin-top: 20px;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	body {
+		margin-top: 100px; /* adjust this if the height of the menu bar changes */
+	}
+	#logo_image{
+		width: 100%;
+	}
+	.navbar-fixed-top .nav {
+		padding: 15px 0;
+	}
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	body {
+		margin-top: 100px; /* adjust this if the height of the menu bar changes */
+	}
+	#logo_image{
+		width: 100%;
+	}
+	.navbar-fixed-top .nav {
+		padding: 15px 0;
+	}
+}
+/*table*/
+.table{
+	font-size: 13px;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+	padding: 4px;
+}

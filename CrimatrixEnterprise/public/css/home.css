@@ -1,0 +1,69 @@
+
+.mission_detail{
+	font-size: 1.3em;
+	font-weight: normal;
+	text-align: justify;
+	font-family: Source Sans Pro;
+}
+.dm_order{
+	font-size: 1em;
+	font-weight: normal;
+	text-align: justify;
+	font-family: Source Sans Pro;
+	font-style: italic;
+}
+#login_fail{
+	display: none;
+	color: #fff;
+	background-color: #FF4141;
+}
+.mbefore{
+	margin-top:20px;
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+	body {
+		margin-top: 50px; /* adjust this if the height of the menu bar changes */
+	}
+	#forms{
+		margin-top: 20px;
+	}
+	.home_header{
+		font-family: Michroma;
+		font-size: 1.6em;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	body {
+		margin-top: 120px; /* adjust this if the height of the menu bar changes */
+	}	
+	.home_header{
+		font-family: Michroma;
+		font-size: 1.6em;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	body {
+		margin-top: 120px; /* adjust this if the height of the menu bar changes */
+	}	
+	.home_header{
+		font-family: Michroma;
+		font-size: 1.8em;
+	}	
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	body {
+		margin-top: 140px; /* adjust this if the height of the menu bar changes */
+	}	
+	.home_header{
+		font-family: Michroma;
+		font-size: 1.8em;
+	}	
+}
