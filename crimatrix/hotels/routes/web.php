@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function()
+{
+	return Redirect::to('hotel');
 });
+
+Route::get('hotel', 'HomeController@homePage')->name('hotel');
+
+Route::get('hotel/about', 'HomeController@aboutPage')->name('about');
