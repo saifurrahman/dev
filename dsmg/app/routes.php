@@ -24,7 +24,7 @@ Route::get('/pdf', function()
 });
 
 //before login
-Route::controller('users', 'UserController');
+Route::controller('user', 'UserController');
 Route::controller('mobile', 'MobileController');
 //after login
 Route::controller('dsmg', 'AppController');
